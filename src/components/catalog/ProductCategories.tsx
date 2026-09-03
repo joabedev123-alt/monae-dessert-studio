@@ -32,9 +32,22 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
               onClick={() => onSelectCategory(cat.id)}
             >
               <div className="relative w-full aspect-square bg-cream rounded-[1.5rem] overflow-hidden mb-6">
-                <div className="absolute inset-0 flex items-center justify-center text-primary/20 text-4xl font-serif">
-                  {cat.name[lang as 'en' | 'pt']}
-                </div>
+                {cat.image ? (
+                  <>
+                    <Image 
+                      src={cat.image} 
+                      alt={cat.name[lang as 'en' | 'pt']} 
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-primary/30 text-4xl font-serif text-center p-4">
+                    {cat.name[lang as 'en' | 'pt']}
+                  </div>
+                )}
               </div>
               
               <div className="px-2 flex flex-col items-center flex-grow w-full">
@@ -67,9 +80,22 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
               onClick={() => onSelectCategory(cat.id)}
             >
               <div className="relative w-full aspect-[4/3] bg-cream rounded-2xl overflow-hidden mb-4">
-                <div className="absolute inset-0 flex items-center justify-center text-primary/20 text-2xl font-serif text-center p-2 leading-tight">
-                  {cat.name[lang as 'en' | 'pt']}
-                </div>
+                {cat.image ? (
+                  <>
+                    <Image 
+                      src={cat.image} 
+                      alt={cat.name[lang as 'en' | 'pt']} 
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-primary/30 text-xl md:text-2xl font-serif text-center p-2 leading-tight">
+                    {cat.name[lang as 'en' | 'pt']}
+                  </div>
+                )}
               </div>
               
               <div className="px-1 flex flex-col items-center flex-grow w-full">
