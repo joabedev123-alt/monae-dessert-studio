@@ -12,7 +12,7 @@ export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
           <p className="text-primary font-sans text-xs tracking-widest font-semibold uppercase mb-6">
             {dict.home.hero.eyebrow}
           </p>
-          <h1 className="text-5xl lg:text-6xl font-serif text-text-dark leading-tight mb-8 whitespace-pre-line">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-text-dark leading-tight mb-8 whitespace-pre-line">
             {dict.home.hero.headline}
           </h1>
           <p className="text-soft-text font-sans text-lg mb-10 max-w-lg leading-relaxed">
@@ -57,7 +57,7 @@ export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
 export function ValuesSection({ dict }: { dict: any }) {
   return (
     <section className="w-full bg-white py-12 border-b border-brand-border/30">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4 text-center md:text-left">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-wrap justify-center md:justify-between items-center gap-4 md:gap-4 text-center md:text-left">
         {Object.values(dict.home.values).map((value: any, idx: number) => (
           <div key={idx} className="flex items-center justify-center space-x-3 text-text-dark">
             <div className="w-1.5 h-1.5 bg-primary rounded-full" />
@@ -73,7 +73,7 @@ export function PositioningSection({ dict }: { dict: any }) {
   return (
     <section className="w-full bg-cream py-24 lg:py-32">
       <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-        <h2 className="text-4xl md:text-5xl font-serif text-text-dark leading-tight mb-8 whitespace-pre-line">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-text-dark leading-tight mb-8 whitespace-pre-line">
           {dict.home.moreThanACake.title}
         </h2>
         <p className="text-lg md:text-xl font-sans text-soft-text leading-relaxed max-w-2xl mx-auto">
@@ -133,9 +133,9 @@ export function CategoriesSection({ lang, dict }: { lang: string; dict: any }) {
 export function WhyMonaeSection({ dict }: { dict: any }) {
   return (
     <section className="w-full bg-off-white py-24 border-b border-brand-border/30">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-12 lg:gap-16">
         <div className="lg:w-1/3">
-          <h2 className="text-4xl md:text-5xl font-serif text-text-dark leading-tight sticky top-32">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-text-dark leading-tight sticky top-32">
             {dict.home.whyMonae.title}
           </h2>
         </div>
@@ -157,9 +157,9 @@ export function WhyMonaeSection({ dict }: { dict: any }) {
 
 export function HowItWorksSection({ lang, dict }: { lang: string; dict: any }) {
   return (
-    <section className="w-full bg-white py-24">
+    <section className="w-full bg-white py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <h2 className="text-4xl font-serif text-text-dark text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-serif text-text-dark text-center mb-16">
           {dict.home.howItWorks.title}
         </h2>
         
@@ -199,7 +199,7 @@ export function FinalCTASection({ lang, dict }: { lang: string; dict: any }) {
       <div className="absolute -left-20 -top-20 w-96 h-96 bg-black/10 rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-4xl mx-auto px-6 md:px-12 text-center relative z-10">
-        <h2 className="text-4xl md:text-5xl font-serif mb-8">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-8">
           {dict.home.finalCta.title}
         </h2>
         <p className="text-lg md:text-xl font-sans text-white/90 mb-12 max-w-2xl mx-auto">
