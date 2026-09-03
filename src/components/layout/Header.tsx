@@ -9,9 +9,10 @@ import Image from "next/image";
 
 type HeaderProps = {
   lang: string;
+  dict?: any;
 };
 
-export function Header({ lang }: HeaderProps) {
+export function Header({ lang, dict }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
@@ -121,7 +122,7 @@ export function Header({ lang }: HeaderProps) {
               <div key={idx} className="w-full text-center mb-6">
                 <Link
                   href={link.href}
-                  className="text-xl font-serif text-text-dark hover:text-primary"
+                  className="inline-block py-3 px-6 text-2xl font-serif text-text-dark hover:text-primary transition-colors duration-200"
                   onClick={(e) => {
                     setMobileMenuOpen(false);
                     if (link.href === `/${lang}` && window.location.pathname === `/${lang}`) {
@@ -138,7 +139,7 @@ export function Header({ lang }: HeaderProps) {
 
             <Link
               href={`/${lang}#menu`}
-              className="bg-primary text-white text-center text-sm font-medium px-8 py-4 rounded-full hover:bg-deep-cherry transition-colors duration-300 w-11/12 max-w-sm uppercase tracking-wider"
+              className="mt-4 bg-primary text-white text-center text-base font-medium px-8 py-4 rounded-full hover:bg-deep-cherry transition-colors duration-300 w-11/12 max-w-sm uppercase tracking-wider shadow-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               {isEn ? "Order Now" : "Encomendar"}
