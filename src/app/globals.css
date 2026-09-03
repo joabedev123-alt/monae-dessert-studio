@@ -11,9 +11,11 @@
   --color-text-dark: #282323;
   --color-soft-text: #665C5C;
   --color-brand-border: rgba(161, 40, 82, 0.15);
+  --color-footer-bg: #F3DEE3; /* Using blush for footer now instead of brown */
 
   --font-serif: var(--font-cormorant);
   --font-sans: var(--font-inter);
+  --font-script: var(--font-great-vibes);
 }
 
 :root {

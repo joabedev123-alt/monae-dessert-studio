@@ -31,13 +31,13 @@ export default async function FaqPage({
   return (
     <div className="flex flex-col w-full bg-cream min-h-screen pt-24 pb-24">
       <div className="max-w-3xl mx-auto px-6 w-full">
-        <h1 className="text-5xl font-serif text-text-dark mb-16 text-center">{title}</h1>
+        <h1 className="text-6xl font-script text-primary mb-16 text-center">{title}</h1>
         
         <div className="space-y-6">
           {faqs.map((faq, i) => (
-            <div key={i} className="bg-white p-6 rounded-xl shadow-sm border border-brand-border/30">
+            <div key={i} className="bg-soft-blush p-6 rounded-[2rem] shadow-sm border border-brand-border/20">
               <h2 className="text-xl font-serif text-primary mb-3">{faq.q}</h2>
-              <p className="text-soft-text font-sans leading-relaxed">{faq.a}</p>
+              <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">{faq.a}</p>
             </div>
           ))}
         </div>

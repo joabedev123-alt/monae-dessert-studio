@@ -1,11 +1,10 @@
 import { getDictionary, Locale } from "@/content";
+import { CatalogFlow } from "@/components/catalog/CatalogFlow";
 import {
   HeroSection,
-  ValuesSection,
-  PositioningSection,
-  CategoriesSection,
-  WhyMonaeSection,
   HowItWorksSection,
+  TestimonialSection,
+  PoliciesSection,
   FinalCTASection,
 } from "@/components/sections/HomeSections";
 
@@ -20,12 +19,27 @@ export default async function Home({
   return (
     <div className="flex flex-col w-full">
       <HeroSection lang={lang} dict={dict} />
-      <ValuesSection dict={dict} />
-      <PositioningSection dict={dict} />
-      <CategoriesSection lang={lang} dict={dict} />
-      <WhyMonaeSection dict={dict} />
-      <HowItWorksSection lang={lang} dict={dict} />
-      <FinalCTASection lang={lang} dict={dict} />
+      
+      {/* Maintain essential informational sections */}
+      <div id="how-to-order">
+        <HowItWorksSection lang={lang} dict={dict} />
+      </div>
+
+      {/* 
+        The core flow: 
+        1. Date Selection 
+        2. Available Products 
+        3. Order Builder 
+      */}
+      <CatalogFlow lang={lang} />
+      
+      <TestimonialSection />
+      
+      <PoliciesSection />
+      
+      <div id="contact">
+        <FinalCTASection lang={lang} dict={dict} />
+      </div>
     </div>
   );
 }
