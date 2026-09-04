@@ -25,13 +25,13 @@ export const CATEGORIES: ProductInfo[] = [
     id: "custom_cakes",
     name: { en: "Custom Cakes", pt: "Bolos Personalizados" },
     description: { en: "Tailored to your celebration", pt: "Feito sob medida para sua celebração" },
-    image: "/Imagens/bolo17.jpeg",
+    image: "/Imagens/custon kaque/WhatsApp Image 2026-09-04 at 06.35.09 (2).jpeg",
   },
   {
     id: "mini_cakes",
     name: { en: "Mini Cakes", pt: "Mini Cakes" },
     description: { en: "Perfect for intimate moments", pt: "Perfeito para momentos íntimos" },
-    image: "/Imagens/bolo 05.jpeg",
+    image: "/Imagens/bolos morango/WhatsApp Image 2026-09-04 at 06.32.55 (1).jpeg",
   },
   {
     id: "brigadeiros",
@@ -43,25 +43,25 @@ export const CATEGORIES: ProductInfo[] = [
     id: "mini_desserts",
     name: { en: "Mini Desserts", pt: "Mini Sobremesas / Tacinhas" },
     description: { en: "Delightful cups of joy", pt: "Deliciosas tacinhas de alegria" },
-    image: "",
+    image: "/Imagens/DOCES%20DE%20TACINHA.jpeg",
   },
   {
     id: "brazilian_sweets",
     name: { en: "Brazilian Celebration Sweets", pt: "Bem-casados" },
     description: { en: "Classic party favors", pt: "Clássicos para festas" },
-    image: "",
+    image: "/Imagens/BEM%20CASADO.jpeg",
   },
   {
     id: "desserts",
     name: { en: "Desserts", pt: "Sobremesas" },
     description: { en: "To share with the family", pt: "Para compartilhar com a família" },
-    image: "",
+    image: "/Imagens/PUDIM.jpeg",
   },
   {
     id: "party_packages",
     name: { en: "Party Packages", pt: "Kits para Festa" },
     description: { en: "Curated sets for events", pt: "Kits selecionados para eventos" },
-    image: "",
+    image: "/Imagens/KIT%20FESTA.jpeg",
   },
 ];
 
@@ -144,6 +144,18 @@ export const BRIGADEIRO_TIERS = {
     { qty: 100, price: 110 },
   ]
 };
+
+export const BRIGADEIRO_DOCINHOS = [
+  { id: "strawberry", name: "STRAWBERRY DELIGHT", desc: "Ninho milk cream, homemade strawberry compote and whipped cream.", price: 1.50 },
+  { id: "passion", name: "PASSION FRUIT CHOCOLATE", desc: "Passion fruit mousse, creamy chocolate brigadeiro and passion fruit jam.", price: 1.90 },
+  { id: "choc_strawberry", name: "CHOCOLATE & STRAWBERRY", desc: "White and milk chocolate brigadeiro with fresh strawberries.", price: 1.50 },
+  { id: "brigadeiro", name: "BRIGADEIRO", desc: "Creamy Brazilian chocolate fudge.", price: 1.20 },
+  { id: "banoffee", name: "BANOFFEE", desc: "Cookie crumble, dulce de leche, fresh banana and cinnamon whipped cream.", price: 1.90 },
+  { id: "lemon", name: "LEMON CREAM", desc: "Cookie crumble, lemon mousse, whipped cream and fresh lemon zest.", price: 1.90 },
+  { id: "brownie", name: "BROWNIE DELIGHT", desc: "Fudgy brownie with creamy white and dark chocolate brigadeiro.", price: 1.90 },
+  { id: "cookies", name: "COOKIES CREAM", desc: "Vanilla cream, Oreo® cookies and whipped cream.", price: 1.90 },
+  { id: "kitkat", name: "KITKAT", desc: "Nutella, white brigadeiro and KITKAT® pieces.", price: 1.90 },
+];
 
 // --- MINI DESSERTS DATA ---
 export const MINI_DESSERTS = [

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Check, CalendarDays, CakeSlice, Palette, PlusCircle, Send } from "lucide-react";
 import { TornEdge } from "@/components/ui/TornEdge";
+import { TestimonialCarousel } from "./TestimonialCarousel";
 
 export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
   return (
@@ -99,8 +100,8 @@ export function CategoriesSection({ lang, dict }: { lang: string; dict: any }) {
                     cat.key === "customCakes" ? "/Imagens/bolo%2011.jpeg" :
                     cat.key === "brigadeiros" ? "/Imagens/docinhos.jpeg" :
                     cat.key === "miniDesserts" ? "/Imagens/bolo%2002.jpeg" :
-                    cat.key === "brazilianDesserts" ? "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=1000&auto=format&fit=crop" :
-                    "https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=1000&auto=format&fit=crop"
+                    cat.key === "brazilianDesserts" ? "/Imagens/BEM%20CASADO.jpeg" :
+                    "/Imagens/KIT%20FESTA.jpeg"
                   } 
                   alt={dict.home.categories[cat.key].title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
@@ -226,21 +227,8 @@ export function FinalCTASection({ lang, dict }: { lang: string; dict: any }) {
   );
 }
 
-export function TestimonialSection() {
-  return (
-    <section className="w-full bg-cream py-16 md:py-24 relative">
-      <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-        <div className="text-6xl text-primary font-serif mb-4 opacity-50">"</div>
-        <p className="text-2xl md:text-4xl font-serif text-text-dark leading-relaxed italic mb-8">
-          OMG!! It is PERFECT you’re so so talent, I love it. Thank you SO much
-        </p>
-        <div className="w-16 h-px bg-primary/30 mx-auto mb-4"></div>
-        <p className="font-sans text-sm tracking-widest text-soft-text uppercase">
-          Happy Client
-        </p>
-      </div>
-    </section>
-  );
+export function TestimonialSection({ lang, dict }: { lang?: string; dict?: any }) {
+  return <TestimonialCarousel dict={dict} />;
 }
 
 export function PoliciesSection() {

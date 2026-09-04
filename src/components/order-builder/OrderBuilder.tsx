@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Check } from "lucide-react";
+import { X, Check, MessageCircle, MessageSquare } from "lucide-react";
 import { 
   ProductCategory, 
   CATEGORIES, 
@@ -12,11 +12,18 @@ import {
   CAKE_ADDONS,
   BRIGADEIRO_FLAVORS,
   BRIGADEIRO_TIERS,
+  BRIGADEIRO_DOCINHOS,
   MINI_DESSERTS,
   BRAZILIAN_SWEETS_DATA,
   DESSERTS_DATA,
   PARTY_PACKAGES_DATA
 } from "@/data/catalog";
+
+const WhatsAppIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
 
 interface OrderBuilderProps {
   lang: string;
@@ -30,12 +37,24 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
   const [orderData, setOrderData] = useState<any>({});
   
-  const updateOrder = (key: string, value: any) => {
+  const updateOrder = (key: string, value: any, nextStepId?: string) => {
     setOrderData((prev: any) => ({ ...prev, [key]: value }));
+    if (nextStepId) {
+      setTimeout(() => {
+        const el = document.getElementById(nextStepId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }
   };
 
-  const updateOrderMulti = (updates: any) => {
+  const updateOrderMulti = (updates: any, nextStepId?: string) => {
     setOrderData((prev: any) => ({ ...prev, ...updates }));
+    if (nextStepId) {
+      setTimeout(() => {
+        const el = document.getElementById(nextStepId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }
   };
 
   const toggleAddon = (addonLabel: string) => {
@@ -62,7 +81,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
     } else if (category === "mini_cakes") {
       total = 30;
     } else if (category === "brigadeiros") {
-      if (orderData.brigType && orderData.brigQty) {
+      if (orderData.brigType === "Docinhos") {
+        if (orderData.flavor && orderData.brigQty) {
+          const docinho = BRIGADEIRO_DOCINHOS.find(d => d.name === orderData.flavor);
+          if (docinho) total = docinho.price * orderData.brigQty;
+        }
+      } else if (orderData.brigType && orderData.brigQty) {
         const tiers = orderData.brigType === "Tradicional" ? BRIGADEIRO_TIERS.tradicionais : BRIGADEIRO_TIERS.especiais;
         const selectedTier = tiers.find(t => t.qty === orderData.brigQty);
         if (selectedTier) total = selectedTier.price;
@@ -116,7 +140,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       msg += `Sabor: ${orderData.flavor || "-"}\n`;
       msg += `Quantidade: ${orderData.brigQty || "-"}\n`;
       msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${total}\n`;
+      msg += `*Valor Estimado:* $${orderData.brigType === "Docinhos" ? total.toFixed(2) : total}\n`;
     } else if (category === "mini_desserts") {
       msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
       msg += `Produto: Mini Sobremesas (Tacinhas)\n`;
@@ -154,17 +178,22 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
     return encodeURIComponent(msg);
   };
 
-  const submitOrder = () => {
+  const openWhatsApp = () => {
     if (!orderData.orderDate) {
       alert(isEn ? "Please inform the order date." : "Por favor, informe a data da encomenda.");
       return;
     }
     const msg = generateWhatsAppMessage();
-    if (isEn) {
-      window.open(`sms:+15715258279?&body=${msg}`, "_blank");
-    } else {
-      window.open(`https://wa.me/15715258279?text=${msg}`, "_blank");
+    window.open(`https://wa.me/15715258279?text=${msg}`, "_blank");
+  };
+
+  const openSMS = () => {
+    if (!orderData.orderDate) {
+      alert(isEn ? "Please inform the order date." : "Por favor, informe a data da encomenda.");
+      return;
     }
+    const msg = generateWhatsAppMessage();
+    window.open(`sms:+15715258279?&body=${msg}`, "_blank");
   };
 
   const isFlowComplete = () => {
@@ -182,6 +211,9 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
     } else if (category === "party_packages") {
       return !!orderData.kitType && orderData.kitDetails && orderData.kitDetails.length > 3;
     } else if (category === "brigadeiros") {
+      if (orderData.brigType === "Docinhos") {
+        return !!orderData.flavor && orderData.brigQty >= 25;
+      }
       return !!orderData.flavor;
     } else {
       return !!orderData.details;
@@ -219,7 +251,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   {CAKE_SIZES.map(s => (
                     <div 
                       key={s.id}
-                      onClick={() => updateOrder("size", s.label)}
+                      onClick={() => updateOrder("size", s.label, "section-custom-flavor")}
                       className={`p-6 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
                         orderData.size === s.label ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
@@ -245,7 +277,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
               {/* 2. Sabor */}
               {orderData.size && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+                <div id="section-custom-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h2 className="text-3xl font-serif mb-8 text-center text-primary uppercase">Escolha o Sabor</h2>
                   
                   <h3 className="text-2xl font-serif text-text-dark mb-6 text-center border-b border-brand-border pb-4">Tradicionais</h3>
@@ -256,7 +288,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         {group.items.map(f => (
                           <div 
                             key={f.name}
-                            onClick={() => updateOrder("flavor", `${f.name} (Tradicional - ${group.category})`)}
+                            onClick={() => updateOrder("flavor", `${f.name} (Tradicional - ${group.category})`, "section-custom-design")}
                             className={`p-5 rounded-xl border cursor-pointer transition-all ${
                               orderData.flavor === `${f.name} (Tradicional - ${group.category})` ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                             }`}
@@ -277,7 +309,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         {group.items.map(f => (
                           <div 
                             key={f.name}
-                            onClick={() => updateOrder("flavor", `${f.name} (Especial - ${group.category})`)}
+                            onClick={() => updateOrder("flavor", `${f.name} (Especial - ${group.category})`, "section-custom-design")}
                             className={`p-5 rounded-xl border cursor-pointer transition-all ${
                               orderData.flavor === `${f.name} (Especial - ${group.category})` ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                             }`}
@@ -299,13 +331,13 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
               {/* 3. Decoração */}
               {orderData.size && orderData.flavor && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+                <div id="section-custom-design" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h2 className="text-3xl font-serif mb-8 text-center text-primary uppercase">Escolha a Decoração</h2>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {CAKE_DESIGNS.map(d => (
                       <div 
                         key={d.id}
-                        onClick={() => updateOrder("design", d.label)}
+                        onClick={() => updateOrder("design", d.label, "section-custom-addons")}
                         className={`rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
                           orderData.design === d.label ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
@@ -326,7 +358,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
               {/* 4. Adicionais */}
               {orderData.size && orderData.flavor && orderData.design && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+                <div id="section-custom-addons" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Escolha os Adicionais</h2>
                   <p className="text-center text-text-dark font-medium mb-8 uppercase">Decorativos (Opcional)</p>
                   
@@ -382,7 +414,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   {CAKE_FLAVORS_TRADICIONAIS.flatMap(g => g.items).map(f => (
                     <div 
                       key={f.name}
-                      onClick={() => updateOrder("flavor", f.name)}
+                      onClick={() => updateOrder("flavor", f.name, "section-notes")}
                       className={`p-4 rounded-xl border-2 cursor-pointer transition-all text-center ${
                         orderData.flavor === f.name ? "border-primary bg-blush/30 text-primary" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                       }`}
@@ -414,9 +446,9 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 {/* 1. Escolha a Linha */}
                 <div>
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">1. Escolha a Linha</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div 
-                      onClick={() => updateOrderMulti({ brigType: "Tradicional", brigQty: null, flavor: null })}
+                      onClick={() => updateOrderMulti({ brigType: "Tradicional", brigQty: null, flavor: null }, "section-brig-qty")}
                       className={`p-6 rounded-xl border-2 cursor-pointer text-center transition-all ${
                         orderData.brigType === "Tradicional" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
@@ -424,26 +456,34 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                       <div className={`text-2xl font-serif ${orderData.brigType === "Tradicional" ? "text-primary" : "text-text-dark"}`}>Tradicionais</div>
                     </div>
                     <div 
-                      onClick={() => updateOrderMulti({ brigType: "Especial", brigQty: null, flavor: null })}
+                      onClick={() => updateOrderMulti({ brigType: "Especial", brigQty: null, flavor: null }, "section-brig-qty")}
                       className={`p-6 rounded-xl border-2 cursor-pointer text-center transition-all ${
                         orderData.brigType === "Especial" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
                       <div className={`text-2xl font-serif ${orderData.brigType === "Especial" ? "text-primary" : "text-text-dark"}`}>Especiais</div>
                     </div>
+                    <div 
+                      onClick={() => updateOrderMulti({ brigType: "Docinhos", brigQty: null, flavor: null }, "section-brig-flavor-doc")}
+                      className={`p-6 rounded-xl border-2 cursor-pointer text-center transition-all ${
+                        orderData.brigType === "Docinhos" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                      }`}
+                    >
+                      <div className={`text-2xl font-serif ${orderData.brigType === "Docinhos" ? "text-primary" : "text-text-dark"}`}>Docinhos</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* 2. Escolha a Quantidade */}
-              {orderData.brigType && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+              {/* 2. Escolha a Quantidade (Tradicionais/Especiais) */}
+              {orderData.brigType && orderData.brigType !== "Docinhos" && (
+                <div id="section-brig-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Escolha a Quantidade</h3>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {(orderData.brigType === "Tradicional" ? BRIGADEIRO_TIERS.tradicionais : BRIGADEIRO_TIERS.especiais).map(tier => (
                       <div 
                         key={tier.qty}
-                        onClick={() => updateOrderMulti({ brigQty: tier.qty, flavor: null })}
+                        onClick={() => updateOrderMulti({ brigQty: tier.qty, flavor: null }, "section-brig-flavor")}
                         className={`p-4 rounded-xl border-2 cursor-pointer text-center transition-all ${
                           orderData.brigQty === tier.qty ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
@@ -456,15 +496,15 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               )}
 
-              {/* 3. Escolha o Sabor */}
-              {orderData.brigType && orderData.brigQty && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+              {/* 3. Escolha o Sabor (Tradicionais/Especiais) */}
+              {orderData.brigType && orderData.brigType !== "Docinhos" && orderData.brigQty && (
+                <div id="section-brig-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. Escolha o Sabor</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {(orderData.brigType === "Tradicional" ? BRIGADEIRO_FLAVORS.tradicionais : BRIGADEIRO_FLAVORS.especiais).map(f => (
                       <div 
                         key={f}
-                        onClick={() => updateOrder("flavor", f)}
+                        onClick={() => updateOrder("flavor", f, "section-notes")}
                         className={`p-4 rounded-xl border-2 cursor-pointer text-center transition-all ${
                           orderData.flavor === f ? "border-primary bg-primary text-white" : "border-brand-border bg-white hover:bg-blush hover:border-primary/50 text-text-dark"
                         }`}
@@ -477,6 +517,60 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               )}
             </>
           )}
+
+          
+              {/* 2. Escolha o Sabor (Docinhos) */}
+              {orderData.brigType === "Docinhos" && (
+                <div id="section-brig-flavor-doc" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Escolha o Sabor</h3>
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {BRIGADEIRO_DOCINHOS.map(d => (
+                      <div 
+                        key={d.id}
+                        onClick={() => updateOrderMulti({ flavor: d.name, brigQty: orderData.brigQty || 25 }, "section-brig-qty-doc")}
+                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
+                          orderData.flavor === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                        }`}
+                      >
+                        <div className="font-bold text-text-dark mb-2">{d.name}</div>
+                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc}</div>
+                        <div className="text-primary font-bold mt-auto pt-2 border-t border-brand-border">$ {d.price.toFixed(2)} un</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Defina a Quantidade (Docinhos) */}
+              {orderData.brigType === "Docinhos" && orderData.flavor && (
+                <div id="section-brig-qty-doc" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. Defina a Quantidade</h3>
+                  <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
+                    <label className="block text-soft-text text-sm mb-4">Mínimo 25 unidades</label>
+                    <div className="flex items-center justify-center gap-4">
+                      <button 
+                        onClick={() => orderData.brigQty > 25 && updateOrder("brigQty", orderData.brigQty - 1)}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center border ${orderData.brigQty > 25 ? 'border-primary text-primary hover:bg-blush' : 'border-gray-300 text-gray-300'}`}
+                      >
+                        -
+                      </button>
+                      <input 
+                        type="number" 
+                        min="25"
+                        value={orderData.brigQty}
+                        onChange={(e) => updateOrder("brigQty", Math.max(25, parseInt(e.target.value) || 25))}
+                        className="w-20 text-center text-2xl font-bold text-text-dark focus:outline-none"
+                      />
+                      <button 
+                        onClick={() => updateOrder("brigQty", (orderData.brigQty || 25) + 1)}
+                        className="w-10 h-10 rounded-full flex items-center justify-center border border-primary text-primary hover:bg-blush"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
           {/* =======================
               MINI DESSERTS FLOW
@@ -499,7 +593,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                     {MINI_DESSERTS.map(d => (
                       <div 
                         key={d.id}
-                        onClick={() => updateOrderMulti({ flavor: d.name, qty: orderData.qty || 25 })}
+                        onClick={() => updateOrderMulti({ flavor: d.name, qty: orderData.qty || 25 }, "section-mini-qty")}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
                           orderData.flavor === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
@@ -515,7 +609,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
               {/* 2. Escolha a Quantidade */}
               {orderData.flavor && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+                <div id="section-mini-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Defina a Quantidade</h3>
                   <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
                     <label className="block text-soft-text text-sm mb-4">Mínimo 25 unidades</label>
@@ -573,7 +667,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                     {BRAZILIAN_SWEETS_DATA.types.map(type => (
                       <div 
                         key={type}
-                        onClick={() => updateOrderMulti({ sweetsType: type, flavor: null, qty: orderData.qty || BRAZILIAN_SWEETS_DATA.minQty })}
+                        onClick={() => updateOrderMulti({ sweetsType: type, flavor: null, qty: orderData.qty || BRAZILIAN_SWEETS_DATA.minQty }, "section-brazilian-flavor")}
                         className={`p-4 rounded-xl border-2 cursor-pointer transition-all text-center ${
                           orderData.sweetsType === type ? "border-primary bg-primary text-white" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
@@ -587,14 +681,14 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
               {/* 2. Escolha o Sabor */}
               {orderData.sweetsType && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+                <div id="section-brazilian-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. Escolha o Sabor</h3>
                   
                   <div className="grid gap-3 sm:grid-cols-3">
                     {BRAZILIAN_SWEETS_DATA.flavors.map(f => (
                       <div 
                         key={f}
-                        onClick={() => updateOrder("flavor", f)}
+                        onClick={() => updateOrder("flavor", f, "section-brazilian-qty")}
                         className={`p-4 rounded-xl border-2 cursor-pointer transition-all text-center ${
                           orderData.flavor === f ? "border-primary bg-blush/30 text-primary" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
@@ -656,7 +750,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                     {DESSERTS_DATA.map(d => (
                       <div 
                         key={d.id}
-                        onClick={() => updateOrderMulti({ dessertType: d.name, flavor: null })}
+                        onClick={() => updateOrderMulti({ dessertType: d.name, flavor: null }, d.flavors ? "section-desserts-flavor" : "section-notes")}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
                           orderData.dessertType === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
@@ -866,16 +960,27 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 )}
               </div>
 
-              {/* Submit Button */}
-              <div className="mt-12 flex justify-center pb-20">
+              {/* Submit Buttons */}
+              <div className="mt-12 flex flex-col sm:flex-row justify-center gap-4 pb-20">
                 <button 
-                  onClick={submitOrder}
-                  className={`flex items-center space-x-3 text-white px-10 py-5 rounded-full font-bold tracking-wide uppercase transition-all shadow-lg hover:shadow-xl text-lg ${
-                    orderData.orderDate ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
+                  onClick={openWhatsApp}
+                  disabled={!orderData.orderDate}
+                  className={`flex items-center justify-center space-x-3 text-white px-8 py-4 rounded-full font-bold tracking-wide uppercase transition-all shadow-md hover:shadow-lg text-sm md:text-base ${
+                    orderData.orderDate ? "bg-[#25D366] hover:bg-[#20bd5a]" : "bg-gray-400 cursor-not-allowed"
                   }`}
                 >
-                  <Check size={24} />
-                  <span>{isEn ? "Continue in Messages" : "Finalizar pelo WhatsApp"}</span>
+                  <WhatsAppIcon />
+                  <span>{isEn ? "Send via WhatsApp" : "Enviar pedido pelo WhatsApp"}</span>
+                </button>
+                <button 
+                  onClick={openSMS}
+                  disabled={!orderData.orderDate}
+                  className={`flex items-center justify-center space-x-3 text-white px-8 py-4 rounded-full font-bold tracking-wide uppercase transition-all shadow-md hover:shadow-lg text-sm md:text-base ${
+                    orderData.orderDate ? "bg-primary hover:bg-deep-cherry" : "bg-gray-400 cursor-not-allowed"
+                  }`}
+                >
+                  <MessageSquare size={20} />
+                  <span>{isEn ? "Send via iMessage" : "Enviar pedido por SMS"}</span>
                 </button>
               </div>
               

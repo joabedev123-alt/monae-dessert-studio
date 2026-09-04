@@ -105,21 +105,33 @@ export const pt = {
       cta: "COMEÇAR MINHA ENCOMENDA",
     },
     testimonials: {
-      title: "What our clients are saying",
+      title: "O que nossos clientes dizem",
       subheadline: "Quem prova, volta.",
       reviews: [
         {
-          name: "Lika C.",
-          text: "I absolutely loved the cake! It was beautiful, elegant and so delicious. Thank you so much!",
+          name: "Lika Camargo",
+          text: "Absolutamente delicioso e lindamente feito! Tive o prazer de encomendar um bolo da Monae e não poderia estar mais feliz! O bolo estava absolutamente delicioso, úmido, saboroso, lindamente decorado... Recomendo muito o Monae Studio Cake.",
         },
         {
-          name: "Michele S.",
-          text: "Just wanted to say the cake was amazing! Thank you so much — it was absolutely delicious.",
+          name: "Stephanie Bamberger",
+          text: "A Monara fez o bolo personalizado mais perfeito para o aniversário da minha mãe e a fez se sentir TÃO especial! Superou muito o que eu havia imaginado em termos de design, e o bolo em si estava incrível... Eu não posso recomendá-la o suficiente, ela é incrível!",
         },
         {
-          name: "Steph B.",
-          text: "OMG!! It is PERFECT. You’re so talented, I love it. Thank you SO much.",
+          name: "Giulia Biondo",
+          text: "O bolo de ganache de chocolate com geleia de framboesa que encomendei de presente para o aniversário do meu namorado foi de longe o melhor! A decoração estava perfeita e todos adoraram! Com certeza recomendo a todos! 🧡",
         },
+        {
+          name: "Newtonville Neighbor",
+          text: "O bolo de chocolate e morango estava absolutamente incrível! O bolo em si era úmido, rico e cheio de sabor de chocolate... Definitivamente um dos melhores bolos que já comi, e eu com certeza pediria novamente!",
+        },
+        {
+          name: "Cliente Satisfeita",
+          text: "O bolo ficou lindo, td mundo elogiou antes de comer e quando cortamos, nossa... A geleia de frutas vermelhas tava muito muito delícia amei 🥰",
+        },
+        {
+          name: "Cliente satisfeito",
+          text: "Nossa!! Ficou PERFEITO! Você é muito talentosa, eu amei. Muito obrigada!",
+        }
       ],
     },
     finalCta: {

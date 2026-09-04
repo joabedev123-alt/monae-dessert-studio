@@ -109,17 +109,29 @@ export const en = {
       subheadline: "Quem prova, volta.",
       reviews: [
         {
-          name: "Lika C.",
-          text: "I absolutely loved the cake! It was beautiful, elegant and so delicious. Thank you so much!",
+          name: "Lika Camargo",
+          text: "Absolutely delicious and beautifully made! I had the pleasure of ordering a cake from Monae, and I couldn't be happier! The cake was absolutely delicious, moist, flavorful, beautifully decorated... I highly recommend Monae Studio Cake.",
         },
         {
-          name: "Michele S.",
-          text: "Just wanted to say the cake was amazing! Thank you so much — it was absolutely delicious.",
+          name: "Stephanie Bamberger",
+          text: "Monara made the most perfect customized cake for my mom's birthday and made her feel SO special! It was above and beyond what I had envisioned from a design standpoint, and then the cake itself tasted amazing... I can't recommend her enough, she is amazing!",
         },
         {
-          name: "Steph B.",
-          text: "OMG!! It is PERFECT. You’re so talented, I love it. Thank you SO much.",
+          name: "Giulia Biondo",
+          text: "The chocolate ganache cake with raspberry jam that I ordered as a gift for my boyfriend's birthday was by far the best! The decoration was perfect, and everyone loved it! I definitely recommend it to everyone! 🧡",
         },
+        {
+          name: "Newtonville Neighbor",
+          text: "The chocolate and strawberry cake was absolutely amazing! The cake itself was moist, rich, and full of chocolate flavor... Definitely one of the best cakes I've had, and I would absolutely order again!",
+        },
+        {
+          name: "Happy Client",
+          text: "The cake was beautiful, everyone praised it before eating and when we cut it, wow... The berry jam was very very delicious, I loved it 🥰",
+        },
+        {
+          name: "Satisfied Client",
+          text: "OMG!! It is PERFECT! You are so talented, I loved it. Thank you so much!",
+        }
       ],
     },
     finalCta: {

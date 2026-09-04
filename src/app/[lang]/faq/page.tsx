@@ -11,7 +11,7 @@ export default async function FaqPage({
   const title = "FAQ";
   
   const faqs = lang === "pt" ? [
-    { q: "Com quanta antecedência devo fazer meu pedido?", a: "Os pedidos geralmente devem ser feitos com pelo menos 3 dias de antecedência. A disponibilidade depende de nossa agenda de produção." },
+    { q: "Com quanta antecedência devo fazer meu pedido?", a: "Os pedidos devem ser feitos com pelo menos 5 dias de antecedência. Se for pedido com menos tempo, entre em contato para verificarmos a disponibilidade." },
     { q: "Vocês fazem decorações personalizadas?", a: "Sim. Nossos clientes podem compartilhar inspirações e discutir cores, estilo e detalhes decorativos." },
     { q: "Posso solicitar outro sabor?", a: "Sim. Se um sabor não estiver listado, entre em contato para discutirmos uma opção personalizada." },
     { q: "Como minha data é reservada?", a: "É necessário um sinal/pagamento de acordo com nossa política de reservas atual." },
@@ -19,7 +19,7 @@ export default async function FaqPage({
     { q: "Como os bolos devem ser transportados?", a: "Mantenha os bolos em superfície plana, refrigerados e protegidos da luz solar direta ou calor excessivo." },
     { q: "Vocês atendem Massachusetts?", a: "Atendemos cidades selecionadas. Entre em contato com sua localização para confirmar." }
   ] : [
-    { q: "How far in advance should I order?", a: "Orders should generally be placed at least 3 days in advance. Availability depends on the production schedule." },
+    { q: "How far in advance should I order?", a: "Orders should be placed at least 5 days in advance. If you need an order with less notice, please contact us to check for availability." },
     { q: "Do you make custom designs?", a: "Yes. Clients can share inspiration and discuss colors, style and decorative details." },
     { q: "Can I request another flavor?", a: "Yes. If a flavor is not listed, customers are encouraged to contact Monae to discuss a custom option." },
     { q: "How is my date reserved?", a: "A deposit/payment is required according to Monae's current booking policy." },

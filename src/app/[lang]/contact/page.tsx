@@ -45,11 +45,11 @@ export default async function ContactPage({
               <span className="text-lg md:text-xl font-serif tracking-wide">WhatsApp (+1 571 525 8279)</span>
             </a>
 
-            <a href="tel:+15715258279" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">
+            <a href="sms:+15715258279" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                 <Phone size={20} />
               </div>
-              <span className="text-lg md:text-xl font-serif tracking-wide">Call us</span>
+              <span className="text-lg md:text-xl font-serif tracking-wide">{lang === "pt" ? "SMS" : "iMessage"}</span>
             </a>
 
             <a href="mailto:monaedessertstudio@gmail.com" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">

@@ -33,7 +33,7 @@ export default async function Home({
       */}
       <CatalogFlow lang={lang} />
       
-      <TestimonialSection />
+      <TestimonialSection lang={lang} dict={dict} />
       
       <PoliciesSection />
       
