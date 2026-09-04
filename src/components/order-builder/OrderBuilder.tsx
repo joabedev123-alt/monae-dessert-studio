@@ -93,7 +93,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       }
     } else if (category === "mini_desserts") {
       if (orderData.flavor && orderData.qty) {
-        const dessertObj = MINI_DESSERTS.find(d => d.name === orderData.flavor);
+        const dessertObj = MINI_DESSERTS.find(d => (typeof d.name === 'string' ? d.name : d.name.pt) === orderData.flavor);
         if (dessertObj) total = dessertObj.price * orderData.qty;
       }
     } else if (category === "brazilian_sweets") {
@@ -253,7 +253,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                       key={s.id}
                       onClick={() => updateOrder("size", s.label.pt, "section-custom-flavor")}
                       className={`p-6 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
-                        orderData.size === s.label ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                        orderData.size === s.label.pt ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
                       <div className="text-3xl font-serif text-primary mb-2 text-center">{s.label[isEn ? "en" : "pt"]}</div>
@@ -339,10 +339,10 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         key={d.id}
                         onClick={() => updateOrder("design", d.label.pt, "section-custom-addons")}
                         className={`rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
-                          orderData.design === d.label ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                          orderData.design === d.label.pt ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
                       >
-                        <div className={`p-6 text-center font-serif text-xl ${orderData.design === d.label ? "text-primary font-bold" : "text-text-dark"}`}>
+                        <div className={`p-6 text-center font-serif text-xl ${orderData.design === d.label.pt ? "text-primary font-bold" : "text-text-dark"}`}>
                           {d.label[isEn ? "en" : "pt"]}
                         </div>
                       </div>
@@ -364,7 +364,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   
                   <div className="grid gap-4">
                     {CAKE_ADDONS.map(a => {
-                      const isSelected = (orderData.addons || []).includes(a.label);
+                      const isSelected = (orderData.addons || []).includes(a.label.pt);
                       return (
                         <div 
                           key={a.id}
@@ -578,7 +578,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           {category === "mini_desserts" && (
             <>
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Mini Sobremesas / Tacinhas</h2>
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Mini Desserts" : "Mini Sobremesas / Tacinhas"}</h2>
                 <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Delightful cups of joy" : "Deliciosas tacinhas de alegria"}</p>
 
                 <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto">
@@ -593,9 +593,9 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                     {MINI_DESSERTS.map(d => (
                       <div 
                         key={d.id}
-                        onClick={() => updateOrderMulti({ flavor: d.name, qty: orderData.qty || 25 }, "section-mini-qty")}
+                        onClick={() => updateOrderMulti({ flavor: typeof d.name === "string" ? d.name : d.name.pt, qty: orderData.qty || 25 }, "section-mini-qty")}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
-                          orderData.flavor === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                          (typeof d.name === "string" ? orderData.flavor === d.name : orderData.flavor === d.name.pt) ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
                       >
                         <div className="font-bold text-text-dark mb-2">{typeof d.name === "string" ? d.name : d.name[isEn ? "en" : "pt"]}</div>
@@ -646,7 +646,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           {category === "brazilian_sweets" && (
             <>
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Bem-casados</h2>
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Brazilian Celebration Sweets" : "Bem-casados"}</h2>
                 <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Classic party favors" : "Clássicos para festas"}</p>
 
                 <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto flex flex-col md:flex-row items-center justify-center gap-6">
@@ -655,7 +655,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   </div>
                   <div className="h-8 w-px bg-brand-border hidden md:block"></div>
                   <p className="font-bold text-text-dark uppercase tracking-wide text-sm">
-                    {isEn ? "Minimum order:" : "Pedido mínimo:"} {BRAZILIAN_SWEETS_DATA.minQty} unidades
+                    {isEn ? "Minimum order:" : "Pedido mínimo:"} {BRAZILIAN_SWEETS_DATA.minQty} {isEn ? "units" : "unidades"}
                   </p>
                 </div>
 
@@ -705,7 +705,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 <div className="animate-in fade-in slide-in-from-top-8 duration-700">
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "3. Set Quantity" : "3. Defina a Quantidade"}</h3>
                   <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
-                    <label className="block text-soft-text text-sm mb-4">Mínimo {BRAZILIAN_SWEETS_DATA.minQty} unidades</label>
+                    <label className="block text-soft-text text-sm mb-4">Mínimo {BRAZILIAN_SWEETS_DATA.minQty} {isEn ? "units" : "unidades"}</label>
                     <div className="flex items-center justify-center gap-4">
                       <button 
                         onClick={() => orderData.qty > BRAZILIAN_SWEETS_DATA.minQty && updateOrder("qty", orderData.qty - 1)}
@@ -739,7 +739,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           {category === "desserts" && (
             <>
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Sobremesas</h2>
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Desserts" : "Sobremesas"}</h2>
                 <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "To share with the family" : "Para compartilhar com a família"}</p>
 
                 {/* {isEn ? "1. Choose the Dessert" : "1. Escolha a Sobremesa"} */}
@@ -752,7 +752,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         key={d.id}
                         onClick={() => updateOrderMulti({ dessertType: typeof d.name === "string" ? d.name : d.name.pt, flavor: null }, d.flavors ? "section-desserts-flavor" : "section-notes")}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
-                          orderData.dessertType === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
+                          orderData.dessertType === (typeof d.name === "string" ? d.name : d.name.pt) ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
                       >
                         <div className="font-bold text-xl text-text-dark mb-2">{typeof d.name === "string" ? d.name : d.name[isEn ? "en" : "pt"]}</div>
@@ -795,7 +795,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           {category === "party_packages" && (
             <>
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Kits para Festa</h2>
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Party Packages" : "Kits para Festa"}</h2>
                 <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Curated sets for events" : "Kits selecionados para eventos"}</p>
 
                 {/* {isEn ? "1. Choose a Package" : "1. Escolha o Kit"} */}
@@ -808,7 +808,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         key={k.id}
                         onClick={() => updateOrderMulti({ kitType: typeof k.name === "string" ? k.name : k.name.pt, kitDetails: "" })}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
-                          orderData.kitType === k.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
+                          orderData.kitType === (typeof k.name === "string" ? k.name : k.name.pt) ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
                       >
                         <div className="font-bold text-lg text-text-dark mb-2">{typeof k.name === "string" ? k.name : k.name[isEn ? "en" : "pt"]}</div>
