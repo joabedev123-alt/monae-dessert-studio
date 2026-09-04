@@ -3,6 +3,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ContactButton } from "@/components/ui/ContactButton";
 
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "pt" }];
+}
+
 export default async function LangLayout({
   children,
   params,

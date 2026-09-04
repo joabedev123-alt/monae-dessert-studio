@@ -12,26 +12,26 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
   const isEn = lang === "en";
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-8" id="menu">
-      <div className="text-center mb-10">
-        <h2 className="text-5xl md:text-6xl font-script text-primary mb-2">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8" id="menu">
+      <div className="text-center mb-8 md:mb-10">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-script text-primary mb-2">
           Start Here
         </h2>
-        <p className="text-xl font-serif text-text-dark">
+        <p className="text-lg md:text-xl font-serif text-text-dark">
           {isEn ? "What would you like to order?" : "O que você gostaria de encomendar?"}
         </p>
       </div>
 
       {/* Main Categories (First 3) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {CATEGORIES.slice(0, 3).map((cat) => {
           return (
             <div
               key={cat.id}
-              className="bg-soft-blush rounded-[2rem] p-4 flex flex-col items-center text-center cursor-pointer group shadow-sm hover:shadow-xl transition-all duration-300"
+              className="bg-soft-blush rounded-[2rem] p-3 md:p-4 flex flex-col items-center text-center cursor-pointer group shadow-sm hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
               onClick={() => onSelectCategory(cat.id)}
             >
-              <div className="relative w-full aspect-square bg-cream rounded-[1.5rem] overflow-hidden mb-6">
+              <div className="relative w-full aspect-square bg-cream rounded-[1.5rem] overflow-hidden mb-4 md:mb-6">
                 {cat.image ? (
                   <>
                     <Image 
@@ -39,7 +39,7 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
                       alt={cat.name[lang as 'en' | 'pt']} 
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700" 
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                   </>
@@ -50,17 +50,17 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
                 )}
               </div>
               
-              <div className="px-2 flex flex-col items-center flex-grow w-full">
-                <h3 className="text-2xl font-serif text-text-dark mb-1 group-hover:text-primary transition-colors">
+              <div className="px-1 md:px-2 flex flex-col items-center flex-grow w-full">
+                <h3 className="text-xl md:text-2xl font-serif text-text-dark mb-1 group-hover:text-primary transition-colors">
                   {cat.name[lang as 'en' | 'pt']}
                 </h3>
-                <div className="w-1.5 h-1.5 bg-primary/40 rounded-full mb-4"></div>
-                <p className="text-soft-text text-sm mb-6 flex-grow max-w-[250px]">
+                <div className="w-1.5 h-1.5 bg-primary/40 rounded-full mb-3 md:mb-4"></div>
+                <p className="text-soft-text text-xs md:text-sm mb-4 md:mb-6 flex-grow max-w-[250px]">
                   {cat.description[lang as 'en' | 'pt']}
                 </p>
                 
                 <button
-                  className="px-8 py-2 rounded-full text-sm font-medium transition-colors bg-transparent text-text-dark border border-text-dark/30 group-hover:bg-primary group-hover:text-white group-hover:border-primary tracking-wide mb-4 w-full md:w-auto"
+                  className="px-6 md:px-8 py-2 rounded-full text-sm font-medium transition-colors bg-transparent text-text-dark border border-text-dark/30 group-hover:bg-primary group-hover:text-white group-hover:border-primary tracking-wide mb-3 md:mb-4 w-full md:w-auto"
                 >
                   {isEn ? "Select" : "Selecionar"}
                 </button>
@@ -71,15 +71,15 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
       </div>
 
       {/* Secondary Categories (Remaining 4) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-4 md:mt-8">
         {CATEGORIES.slice(3).map((cat) => {
           return (
             <div
               key={cat.id}
-              className="bg-soft-blush rounded-3xl p-3 flex flex-col items-center text-center cursor-pointer group shadow-sm hover:shadow-md transition-all duration-300"
+              className="bg-soft-blush rounded-3xl p-2 md:p-3 flex flex-col items-center text-center cursor-pointer group shadow-sm hover:shadow-md transition-all duration-300 active:scale-[0.98]"
               onClick={() => onSelectCategory(cat.id)}
             >
-              <div className="relative w-full aspect-[4/3] bg-cream rounded-2xl overflow-hidden mb-4">
+              <div className="relative w-full aspect-[4/3] bg-cream rounded-2xl overflow-hidden mb-3 md:mb-4">
                 {cat.image ? (
                   <>
                     <Image 
@@ -87,7 +87,7 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
                       alt={cat.name[lang as 'en' | 'pt']} 
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700" 
-                      sizes="(max-width: 768px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 50vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                   </>
@@ -99,15 +99,15 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
               </div>
               
               <div className="px-1 flex flex-col items-center flex-grow w-full">
-                <h3 className="text-lg font-serif text-text-dark mb-1 group-hover:text-primary transition-colors leading-tight">
+                <h3 className="text-sm md:text-lg font-serif text-text-dark mb-1 group-hover:text-primary transition-colors leading-tight">
                   {cat.name[lang as 'en' | 'pt']}
                 </h3>
-                <p className="text-soft-text text-xs mb-4 flex-grow line-clamp-2">
+                <p className="text-soft-text text-xs mb-2 md:mb-4 flex-grow line-clamp-2 hidden sm:block">
                   {cat.description[lang as 'en' | 'pt']}
                 </p>
                 
                 <button
-                  className="w-full py-2 rounded-full text-xs font-medium transition-colors bg-transparent text-text-dark border border-text-dark/20 group-hover:bg-primary group-hover:text-white group-hover:border-primary tracking-wide"
+                  className="w-full py-2 rounded-full text-xs font-medium transition-colors bg-transparent text-text-dark border border-text-dark/20 group-hover:bg-primary group-hover:text-white group-hover:border-primary tracking-wide mt-2"
                 >
                   {isEn ? "Select" : "Selecionar"}
                 </button>

@@ -35,7 +35,7 @@ export default async function Home({
       
       <TestimonialSection lang={lang} dict={dict} />
       
-      <PoliciesSection />
+      <PoliciesSection lang={lang} />
       
       <div id="contact">
         <FinalCTASection lang={lang} dict={dict} />

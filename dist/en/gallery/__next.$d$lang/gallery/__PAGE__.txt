@@ -1,0 +1,33 @@
+1:"$Sreact.fragment"
+:HL["/Imagens/bolo%2011.jpeg","image"]
+:HL["/Imagens/docinhos.jpeg","image"]
+:HL["/Imagens/bolo%20na%20caixa01.jpeg","image"]
+:HL["/Imagens/peda%C3%A7o%20de%20bolo.jpeg","image"]
+:HL["/Imagens/bolo26.jpeg","image"]
+:HL["/Imagens/bolo%20na%20caixa04.jpeg","image"]
+:HL["/Imagens/peda%C3%A7o%20de%20bolo04.jpeg","image"]
+:HL["/Imagens/bolo14.jpeg","image"]
+:HL["/Imagens/bolo%2001.jpeg","image"]
+5:X
+a:X
+a:C
+0:{"buildId":"3bIF6y7QHRdSE6rFIs6ai","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"flex flex-col w-full bg-off-white min-h-screen pt-24 pb-24","children":[["$","div",null,{"className":"max-w-4xl mx-auto px-6 text-center mb-16","children":["$","h1",null,{"className":"text-5xl font-serif text-text-dark mb-6","children":"Gallery"}]}],["$","div",null,{"className":"max-w-7xl mx-auto px-6 md:px-12 columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6","children":[["$","div","0",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/bolo%2011.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","1",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/docinhos.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","2",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/bolo%20na%20caixa01.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","3",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/peda%C3%A7o%20de%20bolo.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","4",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/bolo26.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","5",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/bolo%20na%20caixa04.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","6",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/peda%C3%A7o%20de%20bolo04.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","7",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/bolo14.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]]}],["$","div","8",{"className":"break-inside-avoid relative rounded-xl overflow-hidden group","children":[["$","img",null,{"src":"/Imagens/bolo%2001.jpeg","alt":"Gallery item","className":"w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"}],"$L2"]}]]}]]}],null,"$L3"]}],"isPartial":"$@4","staleTime":"$5","varyParams":null},{"rsc":"$L6","isPartial":"$@7","staleTime":"$5","varyParams":null},{"rsc":"$L8","isPartial":"$@9","staleTime":"$5","varyParams":"$a"}],"isUpgradeableISRFallback":false,"a":"$@b","rootVaryParams":null,"needsRuntimeRequest":"$@c"}
+d:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js"],"OutletBoundary"]
+e:"$Sreact.suspense"
+10:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js"],"ViewportBoundary"]
+11:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js"],"MetadataBoundary"]
+12:I[27201,["/_next/static/chunks/0h2qsuyze9ds1.js"],"IconMark"]
+13:I[39756,["/_next/static/chunks/0h2qsuyze9ds1.js"],"default"]
+14:I[37457,["/_next/static/chunks/0h2qsuyze9ds1.js"],"default"]
+2:["$","div",null,{"className":"absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"}]
+3:["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]
+6:["$","$1","h",{"children":[null,["$","$L10",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L11",null,{"children":["$","$e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Monae Dessert Studio"}],["$","meta","1",{"name":"description","content":"Handcrafted custom cakes, Brazilian sweets and desserts made for your celebrations."}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","link","3",{"rel":"icon","href":"/icon.png?icon.3fz85cbwvwpts.png","sizes":"1254x1254","type":"image/png"}],["$","$L12","4",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+8:["$","$1","c",{"children":[null,["$","$L13",null,{"parallelRouterKey":"children","template":["$","$L14",null,{}]}]]}]
+c:true
+f:null
+5:300
+5:C
+b:0
+7:"$undefined"
+9:"$undefined"
+4:"$undefined"

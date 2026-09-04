@@ -69,12 +69,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
   const calculateTotal = () => {
     let total = 0;
     if (category === "custom_cakes") {
-      const sizeObj = CAKE_SIZES.find(s => s.label === orderData.size);
+      const sizeObj = CAKE_SIZES.find(s => s.label.pt === orderData.size);
       if (sizeObj) total += sizeObj.price;
       
       if (orderData.addons) {
         orderData.addons.forEach((addonLabel: string) => {
-          const addonObj = CAKE_ADDONS.find(a => a.label === addonLabel);
+          const addonObj = CAKE_ADDONS.find(a => a.label.pt === addonLabel);
           if (addonObj) total += addonObj.price;
         });
       }
@@ -102,12 +102,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       }
     } else if (category === "desserts") {
       if (orderData.dessertType) {
-        const dessertObj = DESSERTS_DATA.find(d => d.name === orderData.dessertType);
+        const dessertObj = DESSERTS_DATA.find(d => (typeof d.name === "string" ? d.name : d.name.pt) === orderData.dessertType);
         if (dessertObj) total = dessertObj.price;
       }
     } else if (category === "party_packages") {
       if (orderData.kitType) {
-        const kitObj = PARTY_PACKAGES_DATA.find(k => k.name === orderData.kitType);
+        const kitObj = PARTY_PACKAGES_DATA.find(k => (typeof k.name === "string" ? k.name : k.name.pt) === orderData.kitType);
         if (kitObj) total = kitObj.price;
       }
     }
@@ -119,58 +119,58 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
     const total = calculateTotal();
     
     if (category === "custom_cakes") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: ${catInfo.name[isEn ? 'en' : 'pt']}\n`;
-      msg += `Tamanho: ${orderData.size || "-"}\n`;
-      msg += `Sabor: ${orderData.flavor || "-"}\n`;
-      msg += `Decoração: ${orderData.design || "-"}\n`;
-      msg += `Adicionais: ${orderData.addons && orderData.addons.length > 0 ? orderData.addons.join(", ") : "Nenhum"}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado Inicial:* $${total} (a confirmar)\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${catInfo.name[isEn ? 'en' : 'pt']}\n`;
+      msg += `${isEn ? "Size:" : "Tamanho:"} ${orderData.size || "-"}\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Design:" : "Decoração:"} ${orderData.design || "-"}\n`;
+      msg += `${isEn ? "Add-ons:" : "Adicionais:"} ${orderData.addons && orderData.addons.length > 0 ? orderData.addons.join(", ") : (isEn ? "None" : "Nenhum")}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Initial Estimated Total:*" : "*Valor Estimado Inicial:*"} $${total} ${isEn ? "(to be confirmed)" : "(a confirmar)"}\n`;
     } else if (category === "mini_cakes") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: Mini Cake\n`;
-      msg += `Sabor: ${orderData.flavor || "-"}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${total}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} Mini Cake\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total}\n`;
     } else if (category === "brigadeiros") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: Brigadeiros de Festa\n`;
-      msg += `Linha: ${orderData.brigType || "-"}\n`;
-      msg += `Sabor: ${orderData.flavor || "-"}\n`;
-      msg += `Quantidade: ${orderData.brigQty || "-"}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${orderData.brigType === "Docinhos" ? total.toFixed(2) : total}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${isEn ? "Party Brigadeiros" : "Brigadeiros de Festa"}\n`;
+      msg += `${isEn ? "Category:" : "Linha:"} ${orderData.brigType || "-"}\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.brigQty || "-"}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${orderData.brigType === "Docinhos" ? total.toFixed(2) : total}\n`;
     } else if (category === "mini_desserts") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: Mini Sobremesas (Tacinhas)\n`;
-      msg += `Sabor: ${orderData.flavor || "-"}\n`;
-      msg += `Quantidade: ${orderData.qty || "-"}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${total.toFixed(2)}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${isEn ? "Mini Desserts" : "Mini Sobremesas (Tacinhas)"}\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.qty || "-"}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
     } else if (category === "brazilian_sweets") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: ${orderData.sweetsType || "Bem-casado"}\n`;
-      msg += `Sabor: ${orderData.flavor || "-"}\n`;
-      msg += `Quantidade: ${orderData.qty || "-"}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${total.toFixed(2)}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${orderData.sweetsType || "Bem-casado"}\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.qty || "-"}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
     } else if (category === "desserts") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: ${orderData.dessertType || "-"}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${orderData.dessertType || "-"}\n`;
       if (orderData.flavor) msg += `Sabor: ${orderData.flavor}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${total.toFixed(2)}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
     } else if (category === "party_packages") {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `Produto: ${orderData.kitType || "-"}\n`;
-      msg += `Detalhes/Sabores: ${orderData.kitDetails || "-"}\n`;
-      msg += `Mensagem/Observações: ${orderData.notes || "-"}\n\n`;
-      msg += `*Valor Estimado:* $${total.toFixed(2)}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${orderData.kitType || "-"}\n`;
+      msg += `${isEn ? "Details/Flavors:" : "Detalhes/Sabores:"} ${orderData.kitDetails || "-"}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
     } else {
-      msg += `Data da encomenda: ${orderData.orderDate || "Não informada"}\n\n`;
-      msg += `${isEn ? "Product" : "Produto"}: ${catInfo.name[isEn ? 'en' : 'pt']}\n`;
-      msg += `${isEn ? "Details" : "Detalhes"}: ${orderData.details || "-"}\n`;
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} ${catInfo.name[isEn ? 'en' : 'pt']}\n`;
+      msg += `${isEn ? "Details:" : "Detalhes:"} ${orderData.details || "-"}\n`;
     }
 
     msg += `\n${isEn ? "Please confirm availability and final pricing." : "Por favor, confirme a disponibilidade e o valor final."}`;
@@ -223,19 +223,19 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
   return (
     <div className="fixed inset-0 z-50 bg-off-white flex flex-col">
       {/* Header */}
-      <div className="h-20 border-b border-brand-border flex items-center justify-between px-6 bg-white shrink-0 shadow-sm z-10">
-        <button onClick={onClose} className="p-2 text-text-dark hover:bg-cream rounded-full transition-colors">
-          <X size={24} />
+      <div className="h-16 md:h-20 border-b border-brand-border flex items-center justify-between px-4 md:px-6 bg-white shrink-0 shadow-sm z-10">
+        <button onClick={onClose} className="p-2 text-text-dark hover:bg-cream rounded-full transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
+          <X size={22} />
         </button>
-        <div className="text-lg font-serif text-text-dark">
+        <div className="text-base md:text-lg font-serif text-text-dark truncate px-2">
           {catInfo.name[isEn ? 'en' : 'pt']}
         </div>
-        <div className="w-10"></div> {/* Spacer for centering */}
+        <div className="w-11"></div> {/* Spacer for centering */}
       </div>
 
       {/* Content Area - Continuous Scroll */}
-      <div className="flex-grow overflow-y-auto p-6 md:p-12 pb-40">
-        <div className="max-w-4xl mx-auto space-y-16">
+      <div className="flex-grow overflow-y-auto p-4 md:p-8 lg:p-12 pb-40">
+        <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
           
           {/* =======================
               CUSTOM CAKES FLOW 
@@ -244,78 +244,78 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
             <>
               {/* 1. Tamanho */}
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-3xl font-serif mb-2 text-center uppercase tracking-widest text-primary">Escolha o Tamanho:</h2>
-                <p className="text-center text-text-dark font-medium mb-8 uppercase">Diâmetro e Peso</p>
+                <h2 className="text-2xl md:text-3xl font-serif mb-2 text-center uppercase tracking-widest text-primary">{isEn ? "Choose Size:" : "Escolha o Tamanho:"}</h2>
+                <p className="text-center text-text-dark font-medium mb-6 md:mb-8 uppercase text-sm md:text-base">{isEn ? "Diameter & Weight" : "Diâmetro e Peso"}</p>
                 
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3">
                   {CAKE_SIZES.map(s => (
                     <div 
                       key={s.id}
-                      onClick={() => updateOrder("size", s.label, "section-custom-flavor")}
+                      onClick={() => updateOrder("size", s.label.pt, "section-custom-flavor")}
                       className={`p-6 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
                         orderData.size === s.label ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
-                      <div className="text-3xl font-serif text-primary mb-2 text-center">{s.label}</div>
-                      <div className="text-center font-medium text-text-dark mb-4">{s.serves}</div>
+                      <div className="text-3xl font-serif text-primary mb-2 text-center">{s.label[isEn ? "en" : "pt"]}</div>
+                      <div className="text-center font-medium text-text-dark mb-4">{s.serves[isEn ? "en" : "pt"]}</div>
                       <div className="text-center text-soft-text text-sm mb-4">
-                        <p>4 camadas de massa</p>
-                        <p>3 camadas de recheio</p>
-                        <p>Altura: aprox. 15cm</p>
-                        <p>buttercream</p>
+                        <p>{isEn ? "4 cake layers" : "4 camadas de massa"}</p>
+                        <p>{isEn ? "3 filling layers" : "3 camadas de recheio"}</p>
+                        <p>{isEn ? "Height: approx. 15cm (6in)" : "Altura: aprox. 15cm"}</p>
+                        <p>{isEn ? "Buttercream" : "Buttercream"}</p>
                       </div>
                       <div className="text-center text-sm font-semibold uppercase text-text-dark mt-auto border-t border-brand-border pt-4">
-                        a partir de: <br/><span className="text-xl">${s.price}</span>
+                        {isEn ? "starting at:" : "a partir de:"} <br/><span className="text-xl">${s.price}</span>
                       </div>
                     </div>
                   ))}
                 </div>
                 <p className="text-center text-primary font-medium mt-8 text-sm uppercase tracking-wide">
-                  O valor final irá depender do estilo e complexidade de decoração.
+                  {isEn ? "The final price will depend on the style and complexity of the design." : "O valor final irá depender do estilo e complexidade de decoração."}
                 </p>
               </div>
 
               {/* 2. Sabor */}
               {orderData.size && (
                 <div id="section-custom-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h2 className="text-3xl font-serif mb-8 text-center text-primary uppercase">Escolha o Sabor</h2>
+                  <h2 className="text-3xl font-serif mb-8 text-center text-primary uppercase">{isEn ? "Choose Flavor" : "Escolha o Sabor"}</h2>
                   
-                  <h3 className="text-2xl font-serif text-text-dark mb-6 text-center border-b border-brand-border pb-4">Tradicionais</h3>
+                  <h3 className="text-2xl font-serif text-text-dark mb-6 text-center border-b border-brand-border pb-4">{isEn ? "Traditional" : "Tradicionais"}</h3>
                   {CAKE_FLAVORS_TRADICIONAIS.map((group, idx) => (
                     <div key={idx} className="mb-8">
-                      <h4 className="text-lg font-medium text-primary mb-4">{group.category}</h4>
+                      <h4 className="text-lg font-medium text-primary mb-4">{group.category[isEn ? "en" : "pt"]}</h4>
                       <div className="grid gap-3 md:grid-cols-2">
                         {group.items.map(f => (
                           <div 
-                            key={f.name}
-                            onClick={() => updateOrder("flavor", `${f.name} (Tradicional - ${group.category})`, "section-custom-design")}
+                            key={typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]}
+                            onClick={() => updateOrder("flavor", `${typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]} (Tradicional - ${group.category[isEn ? "en" : "pt"]})`, "section-custom-design")}
                             className={`p-5 rounded-xl border cursor-pointer transition-all ${
-                              orderData.flavor === `${f.name} (Tradicional - ${group.category})` ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                              orderData.flavor === `${typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]} (Tradicional - ${group.category[isEn ? "en" : "pt"]})` ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                             }`}
                           >
-                            <div className="font-bold text-text-dark mb-1">{f.name}</div>
-                            <div className="text-sm text-soft-text">{f.desc}</div>
+                            <div className="font-bold text-text-dark mb-1">{typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]}</div>
+                            <div className="text-sm text-soft-text">{f.desc[isEn ? "en" : "pt"]}</div>
                           </div>
                         ))}
                       </div>
                     </div>
                   ))}
 
-                  <h3 className="text-2xl font-serif text-text-dark mb-6 text-center border-b border-brand-border pb-4 mt-12">Especiais</h3>
+                  <h3 className="text-2xl font-serif text-text-dark mb-6 text-center border-b border-brand-border pb-4 mt-12">{isEn ? "Specialties" : "Especiais"}</h3>
                   {CAKE_FLAVORS_ESPECIAIS.map((group, idx) => (
                     <div key={idx} className="mb-8">
-                      <h4 className="text-lg font-medium text-primary mb-4">{group.category}</h4>
+                      <h4 className="text-lg font-medium text-primary mb-4">{group.category[isEn ? "en" : "pt"]}</h4>
                       <div className="grid gap-3 md:grid-cols-2">
                         {group.items.map(f => (
                           <div 
-                            key={f.name}
-                            onClick={() => updateOrder("flavor", `${f.name} (Especial - ${group.category})`, "section-custom-design")}
+                            key={typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]}
+                            onClick={() => updateOrder("flavor", `${typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]} (Especial - ${group.category[isEn ? "en" : "pt"]})`, "section-custom-design")}
                             className={`p-5 rounded-xl border cursor-pointer transition-all ${
-                              orderData.flavor === `${f.name} (Especial - ${group.category})` ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                              orderData.flavor === `${typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]} (Especial - ${group.category[isEn ? "en" : "pt"]})` ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                             }`}
                           >
-                            <div className="font-bold text-text-dark mb-1">{f.name}</div>
-                            <div className="text-sm text-soft-text">{f.desc}</div>
+                            <div className="font-bold text-text-dark mb-1">{typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]}</div>
+                            <div className="text-sm text-soft-text">{f.desc[isEn ? "en" : "pt"]}</div>
                           </div>
                         ))}
                       </div>
@@ -323,8 +323,8 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   ))}
 
                   <div className="mt-8 p-6 bg-cream rounded-xl text-center border border-brand-border">
-                    <p className="font-serif text-lg text-primary mb-2">Não encontrou o recheio que deseja?</p>
-                    <p className="text-soft-text text-sm">Nos mande uma mensagem e nos diga o que tem em mente, ficaremos felizes em fazer algo especial e personalizado pra você.</p>
+                    <p className="font-serif text-lg text-primary mb-2">{isEn ? "Didn't find the flavor you want?" : "Não encontrou o recheio que deseja?"}</p>
+                    <p className="text-soft-text text-sm">{isEn ? "Send us a message and tell us what you have in mind. We would be happy to create something special and personalized for you." : "Nos mande uma mensagem e nos diga o que tem em mente, ficaremos felizes em fazer algo especial e personalizado pra você."}</p>
                   </div>
                 </div>
               )}
@@ -332,26 +332,26 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               {/* 3. Decoração */}
               {orderData.size && orderData.flavor && (
                 <div id="section-custom-design" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h2 className="text-3xl font-serif mb-8 text-center text-primary uppercase">Escolha a Decoração</h2>
+                  <h2 className="text-3xl font-serif mb-8 text-center text-primary uppercase">{isEn ? "Choose Design" : "Escolha a Decoração"}</h2>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {CAKE_DESIGNS.map(d => (
                       <div 
                         key={d.id}
-                        onClick={() => updateOrder("design", d.label, "section-custom-addons")}
+                        onClick={() => updateOrder("design", d.label.pt, "section-custom-addons")}
                         className={`rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
                           orderData.design === d.label ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
                       >
                         <div className={`p-6 text-center font-serif text-xl ${orderData.design === d.label ? "text-primary font-bold" : "text-text-dark"}`}>
-                          {d.label}
+                          {d.label[isEn ? "en" : "pt"]}
                         </div>
                       </div>
                     ))}
                   </div>
 
                   <div className="mt-8 p-6 bg-cream rounded-xl text-center border border-brand-border">
-                    <p className="font-serif text-lg text-primary mb-2">Não se identificou com as inspirações?</p>
-                    <p className="text-soft-text text-sm">Nos mande uma mensagem e nos diga o que tem em mente.</p>
+                    <p className="font-serif text-lg text-primary mb-2">{isEn ? "Didn't find an inspiration that fits?" : "Não se identificou com as inspirações?"}</p>
+                    <p className="text-soft-text text-sm">{isEn ? "Send us a message and tell us what you have in mind." : "Nos mande uma mensagem e nos diga o que tem em mente."}</p>
                   </div>
                 </div>
               )}
@@ -359,8 +359,8 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               {/* 4. Adicionais */}
               {orderData.size && orderData.flavor && orderData.design && (
                 <div id="section-custom-addons" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Escolha os Adicionais</h2>
-                  <p className="text-center text-text-dark font-medium mb-8 uppercase">Decorativos (Opcional)</p>
+                  <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Choose Add-ons" : "Escolha os Adicionais"}</h2>
+                  <p className="text-center text-text-dark font-medium mb-8 uppercase">{isEn ? "Decorative (Optional)" : "Decorativos (Opcional)"}</p>
                   
                   <div className="grid gap-4">
                     {CAKE_ADDONS.map(a => {
@@ -368,7 +368,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                       return (
                         <div 
                           key={a.id}
-                          onClick={() => toggleAddon(a.label)}
+                          onClick={() => toggleAddon(a.label.pt)}
                           className={`p-6 rounded-xl border-2 cursor-pointer transition-all flex justify-between items-center ${
                             isSelected ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                           }`}
@@ -377,9 +377,9 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                             <div className={`w-6 h-6 rounded border flex items-center justify-center ${isSelected ? 'bg-primary border-primary text-white' : 'border-gray-300 bg-white'}`}>
                               {isSelected && <Check size={16} />}
                             </div>
-                            {a.label}
+                            {a.label[isEn ? "en" : "pt"]}
                           </div>
-                          <div className="text-primary font-medium text-sm uppercase">{a.priceText}</div>
+                          <div className="text-primary font-medium text-sm uppercase">{a.priceText[isEn ? "en" : "pt"]}</div>
                         </div>
                       );
                     })}
@@ -397,29 +397,29 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               {/* 1. Sabor */}
               <div className="animate-in fade-in duration-500">
                 <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Mini Cakes</h2>
-                <p className="text-center text-text-dark mb-8 font-serif">Perfeito para momentos íntimos</p>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Perfect for intimate moments" : "Perfeito para momentos íntimos"}</p>
 
                 <div className="bg-white border border-brand-border p-6 rounded-2xl shadow-sm mb-12 text-center max-w-2xl mx-auto">
                   <p className="text-soft-text text-lg">
-                    Mini cake é um bolo perfeito para experimentar a dois.<br/>
-                    Tamanho de aproximadamente 4"x3"
+                    {isEn ? "A mini cake is the perfect size to share for two.<br/>" : "Mini cake é um bolo perfeito para experimentar a dois.<br/>"}
+                    {isEn ? "Approximate size 4\"x3\"" : "Tamanho de aproximadamente 4\"x3\""}
                   </p>
-                  <div className="text-3xl font-serif text-primary mt-4 font-bold">Valor: $30</div>
+                  <div className="text-3xl font-serif text-primary mt-4 font-bold">{isEn ? "Price: $30" : "Valor: $30"}</div>
                 </div>
 
-                <h3 className="text-2xl font-serif mb-6 text-center text-text-dark">Escolha o Sabor</h3>
-                <p className="text-center text-soft-text mb-8">Escolha um dos nossos sabores tradicionais.</p>
+                <h3 className="text-2xl font-serif mb-6 text-center text-text-dark">{isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
+                <p className="text-center text-soft-text mb-8">{isEn ? "Choose one of our traditional flavors." : "Escolha um dos nossos sabores tradicionais."}</p>
 
                 <div className="grid gap-3 md:grid-cols-2 max-w-2xl mx-auto">
                   {CAKE_FLAVORS_TRADICIONAIS.flatMap(g => g.items).map(f => (
                     <div 
-                      key={f.name}
-                      onClick={() => updateOrder("flavor", f.name, "section-notes")}
+                      key={typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]}
+                      onClick={() => updateOrder("flavor", typeof f.name === "string" ? f.name : f.name.pt, "section-notes")}
                       className={`p-4 rounded-xl border-2 cursor-pointer transition-all text-center ${
                         orderData.flavor === f.name ? "border-primary bg-blush/30 text-primary" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                       }`}
                     >
-                      <div className="font-bold">{f.name}</div>
+                      <div className="font-bold">{typeof f.name === "string" ? f.name : f.name[isEn ? "en" : "pt"]}</div>
                     </div>
                   ))}
                 </div>
@@ -433,19 +433,19 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           {category === "brigadeiros" && (
             <>
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">BRIGADEIROS de festa</h2>
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Party Brigadeiros" : "BRIGADEIROS de festa"}</h2>
                 <p className="text-center text-text-dark mb-8 font-serif">Monae Dessert Studio</p>
                 
                 <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto">
                   <p className="text-soft-text text-sm leading-relaxed">
-                    Nossos brigadeiros de festa pesam entre 15g e 18g e são entregues em forminhas tradicionais na cor marrom ou branca. Caso deseje outra cor, consulte a disponibilidade.<br/>
-                    <span className="font-bold text-primary mt-2 block">Pedido mínimo: 25 unidades por sabor</span>
+                    {isEn ? "Our party brigadeiros weigh between 15g and 18g and are served in traditional brown or white cups. If you prefer another color, please check availability.<br/>" : "Nossos brigadeiros de festa pesam entre 15g e 18g e são entregues em forminhas tradicionais na cor marrom ou branca. Caso deseje outra cor, consulte a disponibilidade.<br/>"}
+                    <span className="font-bold text-primary mt-2 block">{isEn ? "Minimum order: 25 units per flavor" : "Pedido mínimo: 25 unidades por sabor"}</span>
                   </p>
                 </div>
 
-                {/* 1. Escolha a Linha */}
+                {/* {isEn ? "1. Choose the Category" : "1. Escolha a Linha"} */}
                 <div>
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">1. Escolha a Linha</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "1. Choose the Category" : "1. Escolha a Linha"}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div 
                       onClick={() => updateOrderMulti({ brigType: "Tradicional", brigQty: null, flavor: null }, "section-brig-qty")}
@@ -453,7 +453,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         orderData.brigType === "Tradicional" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
-                      <div className={`text-2xl font-serif ${orderData.brigType === "Tradicional" ? "text-primary" : "text-text-dark"}`}>Tradicionais</div>
+                      <div className={`text-2xl font-serif ${orderData.brigType === "Tradicional" ? "text-primary" : "text-text-dark"}`}>{isEn ? "Traditional" : "Tradicionais"}</div>
                     </div>
                     <div 
                       onClick={() => updateOrderMulti({ brigType: "Especial", brigQty: null, flavor: null }, "section-brig-qty")}
@@ -461,7 +461,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         orderData.brigType === "Especial" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
-                      <div className={`text-2xl font-serif ${orderData.brigType === "Especial" ? "text-primary" : "text-text-dark"}`}>Especiais</div>
+                      <div className={`text-2xl font-serif ${orderData.brigType === "Especial" ? "text-primary" : "text-text-dark"}`}>{isEn ? "Specialties" : "Especiais"}</div>
                     </div>
                     <div 
                       onClick={() => updateOrderMulti({ brigType: "Docinhos", brigQty: null, flavor: null }, "section-brig-flavor-doc")}
@@ -469,16 +469,16 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         orderData.brigType === "Docinhos" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
-                      <div className={`text-2xl font-serif ${orderData.brigType === "Docinhos" ? "text-primary" : "text-text-dark"}`}>Docinhos</div>
+                      <div className={`text-2xl font-serif ${orderData.brigType === "Docinhos" ? "text-primary" : "text-text-dark"}`}>{isEn ? "Sweets" : "Docinhos"}</div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* 2. Escolha a Quantidade (Tradicionais/Especiais) */}
+              {/* {isEn ? "2. Choose Quantity" : "2. Escolha a Quantidade"} (Tradicionais/Especiais) */}
               {orderData.brigType && orderData.brigType !== "Docinhos" && (
                 <div id="section-brig-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Escolha a Quantidade</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "2. Choose Quantity" : "2. Escolha a Quantidade"}</h3>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {(orderData.brigType === "Tradicional" ? BRIGADEIRO_TIERS.tradicionais : BRIGADEIRO_TIERS.especiais).map(tier => (
                       <div 
@@ -488,7 +488,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                           orderData.brigQty === tier.qty ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
                       >
-                        <div className="text-lg font-bold text-text-dark">{tier.qty} un</div>
+                        <div className="text-lg font-bold text-text-dark">{tier.qty} {isEn ? "units" : "un"}</div>
                         <div className="text-primary font-medium">$ {tier.price.toFixed(2)}</div>
                       </div>
                     ))}
@@ -496,10 +496,10 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               )}
 
-              {/* 3. Escolha o Sabor (Tradicionais/Especiais) */}
+              {/* 3. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Tradicionais/Especiais) */}
               {orderData.brigType && orderData.brigType !== "Docinhos" && orderData.brigQty && (
                 <div id="section-brig-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. Escolha o Sabor</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {(orderData.brigType === "Tradicional" ? BRIGADEIRO_FLAVORS.tradicionais : BRIGADEIRO_FLAVORS.especiais).map(f => (
                       <div 
@@ -519,10 +519,10 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           )}
 
           
-              {/* 2. Escolha o Sabor (Docinhos) */}
+              {/* 2. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Docinhos) */}
               {orderData.brigType === "Docinhos" && (
                 <div id="section-brig-flavor-doc" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Escolha o Sabor</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {BRIGADEIRO_DOCINHOS.map(d => (
                       <div 
@@ -532,8 +532,8 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                           orderData.flavor === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
                       >
-                        <div className="font-bold text-text-dark mb-2">{d.name}</div>
-                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc}</div>
+                        <div className="font-bold text-text-dark mb-2">{typeof d.name === "string" ? d.name : d.name[isEn ? "en" : "pt"]}</div>
+                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc[isEn ? "en" : "pt"]}</div>
                         <div className="text-primary font-bold mt-auto pt-2 border-t border-brand-border">$ {d.price.toFixed(2)} un</div>
                       </div>
                     ))}
@@ -541,12 +541,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               )}
 
-              {/* 3. Defina a Quantidade (Docinhos) */}
+              {/* {isEn ? "3. Set Quantity" : "3. Defina a Quantidade"} (Docinhos) */}
               {orderData.brigType === "Docinhos" && orderData.flavor && (
                 <div id="section-brig-qty-doc" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. Defina a Quantidade</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "3. Set Quantity" : "3. Defina a Quantidade"}</h3>
                   <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
-                    <label className="block text-soft-text text-sm mb-4">Mínimo 25 unidades</label>
+                    <label className="block text-soft-text text-sm mb-4">{isEn ? "Minimum 25 units" : "Mínimo 25 unidades"}</label>
                     <div className="flex items-center justify-center gap-4">
                       <button 
                         onClick={() => orderData.brigQty > 25 && updateOrder("brigQty", orderData.brigQty - 1)}
@@ -579,15 +579,15 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
             <>
               <div className="animate-in fade-in duration-500">
                 <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Mini Sobremesas / Tacinhas</h2>
-                <p className="text-center text-text-dark mb-8 font-serif">Deliciosas tacinhas de alegria</p>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Delightful cups of joy" : "Deliciosas tacinhas de alegria"}</p>
 
                 <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto">
-                  <p className="font-bold text-primary">Pedido mínimo: 25 unidades por sabor</p>
+                  <p className="font-bold text-primary">{isEn ? "Minimum order: 25 units per flavor" : "Pedido mínimo: 25 unidades por sabor"}</p>
                 </div>
 
-                {/* 1. Escolha o Sabor */}
+                {/* 1. {isEn ? "Choose Flavor" : "Escolha o Sabor"} */}
                 <div>
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. Escolha o Sabor</h3>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {MINI_DESSERTS.map(d => (
@@ -598,8 +598,8 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                           orderData.flavor === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                         }`}
                       >
-                        <div className="font-bold text-text-dark mb-2">{d.name}</div>
-                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc}</div>
+                        <div className="font-bold text-text-dark mb-2">{typeof d.name === "string" ? d.name : d.name[isEn ? "en" : "pt"]}</div>
+                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc[isEn ? "en" : "pt"]}</div>
                         <div className="text-primary font-bold mt-auto pt-2 border-t border-brand-border">$ {d.price.toFixed(2)} un</div>
                       </div>
                     ))}
@@ -607,12 +607,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               </div>
 
-              {/* 2. Escolha a Quantidade */}
+              {/* {isEn ? "2. Choose Quantity" : "2. Escolha a Quantidade"} */}
               {orderData.flavor && (
                 <div id="section-mini-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Defina a Quantidade</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "2. Set Quantity" : "2. Defina a Quantidade"}</h3>
                   <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
-                    <label className="block text-soft-text text-sm mb-4">Mínimo 25 unidades</label>
+                    <label className="block text-soft-text text-sm mb-4">{isEn ? "Minimum 25 units" : "Mínimo 25 unidades"}</label>
                     <div className="flex items-center justify-center gap-4">
                       <button 
                         onClick={() => orderData.qty > 25 && updateOrder("qty", orderData.qty - 1)}
@@ -647,7 +647,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
             <>
               <div className="animate-in fade-in duration-500">
                 <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Bem-casados</h2>
-                <p className="text-center text-text-dark mb-8 font-serif">Clássicos para festas</p>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Classic party favors" : "Clássicos para festas"}</p>
 
                 <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto flex flex-col md:flex-row items-center justify-center gap-6">
                   <div className="text-2xl font-serif text-primary font-bold">
@@ -655,13 +655,13 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   </div>
                   <div className="h-8 w-px bg-brand-border hidden md:block"></div>
                   <p className="font-bold text-text-dark uppercase tracking-wide text-sm">
-                    Pedido mínimo: {BRAZILIAN_SWEETS_DATA.minQty} unidades
+                    {isEn ? "Minimum order:" : "Pedido mínimo:"} {BRAZILIAN_SWEETS_DATA.minQty} unidades
                   </p>
                 </div>
 
                 {/* 1. Escolha a Ocasião */}
                 <div>
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. Qual a ocasião?</h3>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">{isEn ? "1. What is the occasion?" : "1. Qual a ocasião?"}</h3>
                   
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {BRAZILIAN_SWEETS_DATA.types.map(type => (
@@ -679,10 +679,10 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               </div>
 
-              {/* 2. Escolha o Sabor */}
+              {/* 2. {isEn ? "Choose Flavor" : "Escolha o Sabor"} */}
               {orderData.sweetsType && (
                 <div id="section-brazilian-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. Escolha o Sabor</h3>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   
                   <div className="grid gap-3 sm:grid-cols-3">
                     {BRAZILIAN_SWEETS_DATA.flavors.map(f => (
@@ -703,7 +703,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               {/* 3. Escolha a Quantidade */}
               {orderData.sweetsType && orderData.flavor && (
                 <div className="animate-in fade-in slide-in-from-top-8 duration-700">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. Defina a Quantidade</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "3. Set Quantity" : "3. Defina a Quantidade"}</h3>
                   <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
                     <label className="block text-soft-text text-sm mb-4">Mínimo {BRAZILIAN_SWEETS_DATA.minQty} unidades</label>
                     <div className="flex items-center justify-center gap-4">
@@ -740,25 +740,25 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
             <>
               <div className="animate-in fade-in duration-500">
                 <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Sobremesas</h2>
-                <p className="text-center text-text-dark mb-8 font-serif">Para compartilhar com a família</p>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "To share with the family" : "Para compartilhar com a família"}</p>
 
-                {/* 1. Escolha a Sobremesa */}
+                {/* {isEn ? "1. Choose the Dessert" : "1. Escolha a Sobremesa"} */}
                 <div>
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. Escolha a Sobremesa</h3>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">{isEn ? "1. Choose the Dessert" : "1. Escolha a Sobremesa"}</h3>
                   
                   <div className="grid gap-4 md:grid-cols-3">
                     {DESSERTS_DATA.map(d => (
                       <div 
                         key={d.id}
-                        onClick={() => updateOrderMulti({ dessertType: d.name, flavor: null }, d.flavors ? "section-desserts-flavor" : "section-notes")}
+                        onClick={() => updateOrderMulti({ dessertType: typeof d.name === "string" ? d.name : d.name.pt, flavor: null }, d.flavors ? "section-desserts-flavor" : "section-notes")}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
                           orderData.dessertType === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
                       >
-                        <div className="font-bold text-xl text-text-dark mb-2">{d.name}</div>
-                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc}</div>
-                        <div className="text-sm font-semibold text-primary mb-2">{d.serves}</div>
-                        <div className="text-xs text-soft-text italic mb-4">{d.validity}</div>
+                        <div className="font-bold text-xl text-text-dark mb-2">{typeof d.name === "string" ? d.name : d.name[isEn ? "en" : "pt"]}</div>
+                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc[isEn ? "en" : "pt"]}</div>
+                        <div className="text-sm font-semibold text-primary mb-2">{d.serves[isEn ? "en" : "pt"]}</div>
+                        <div className="text-xs text-soft-text italic mb-4">{d.validity[isEn ? "en" : "pt"]}</div>
                         <div className="text-primary font-bold mt-auto pt-2 border-t border-brand-border text-lg">$ {d.price.toFixed(2)}</div>
                       </div>
                     ))}
@@ -766,10 +766,10 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               </div>
 
-              {/* 2. Escolha o Sabor (Only for Bombom na travessa) */}
+              {/* 2. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Only for Bombom na travessa) */}
               {orderData.dessertType === "Bombom na travessa" && (
                 <div className="animate-in fade-in slide-in-from-top-8 duration-700">
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. Escolha o Sabor</h3>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   
                   <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
                     {DESSERTS_DATA.find(d => d.id === "bombom")?.flavors?.map(f => (
@@ -796,23 +796,23 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
             <>
               <div className="animate-in fade-in duration-500">
                 <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Kits para Festa</h2>
-                <p className="text-center text-text-dark mb-8 font-serif">Kits selecionados para eventos</p>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Curated sets for events" : "Kits selecionados para eventos"}</p>
 
-                {/* 1. Escolha o Kit */}
+                {/* {isEn ? "1. Choose a Package" : "1. Escolha o Kit"} */}
                 <div>
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. Escolha o Kit</h3>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">{isEn ? "1. Choose a Package" : "1. Escolha o Kit"}</h3>
                   
                   <div className="grid gap-4 md:grid-cols-3">
                     {PARTY_PACKAGES_DATA.map(k => (
                       <div 
                         key={k.id}
-                        onClick={() => updateOrderMulti({ kitType: k.name, kitDetails: "" })}
+                        onClick={() => updateOrderMulti({ kitType: typeof k.name === "string" ? k.name : k.name.pt, kitDetails: "" })}
                         className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
                           orderData.kitType === k.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
                       >
-                        <div className="font-bold text-lg text-text-dark mb-2">{k.name}</div>
-                        <div className="text-sm text-soft-text mb-4 flex-grow whitespace-pre-line">{k.desc}</div>
+                        <div className="font-bold text-lg text-text-dark mb-2">{typeof k.name === "string" ? k.name : k.name[isEn ? "en" : "pt"]}</div>
+                        <div className="text-sm text-soft-text mb-4 flex-grow whitespace-pre-line">{k.desc[isEn ? "en" : "pt"]}</div>
                         <div className="text-primary font-bold mt-auto pt-2 border-t border-brand-border text-lg">$ {k.price.toFixed(2)}</div>
                       </div>
                     ))}
@@ -820,19 +820,19 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               </div>
 
-              {/* 2. Personalize seu Kit */}
+              {/* {isEn ? "2. Customize your Package" : "2. Personalize seu Kit"} */}
               {orderData.kitType && (
                 <div className="animate-in fade-in slide-in-from-top-8 duration-700">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. Personalize seu Kit</h3>
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "2. Customize your Package" : "2. Personalize seu Kit"}</h3>
                   <div className="bg-white border-2 border-brand-border rounded-xl p-6 shadow-sm">
                     <label className="block text-text-dark font-medium mb-3">
                       {orderData.kitType.includes("Mini Cake") 
-                        ? "Escreva o sabor do mini cake e os 2 sabores de brigadeiros:" 
-                        : "Escreva o sabor do bolo, dos brigadeiros e o tema para os topos:"}
+                        ? (isEn ? "Write the mini cake flavor and the 2 brigadeiro flavors:" : "Escreva o sabor do mini cake e os 2 sabores de brigadeiros:")
+                        : (isEn ? "Write the cake flavor, brigadeiro flavors, and the topper theme:" : "Escreva o sabor do bolo, dos brigadeiros e o tema para os topos:")}
                     </label>
                     <textarea 
                       className="w-full bg-cream border border-brand-border rounded-xl p-4 text-text-dark focus:outline-none focus:ring-primary focus:border-primary min-h-[120px]"
-                      placeholder="Ex: Bolo de chocolate com morango, brigadeiros tradicionais e ninho..."
+                      placeholder={isEn ? "Ex: Chocolate cake with strawberries, traditional brigadeiros, and ninho..." : "Ex: Bolo de chocolate com morango, brigadeiros tradicionais e ninho..."}
                       value={orderData.kitDetails || ""}
                       onChange={(e) => updateOrder("kitDetails", e.target.value)}
                     />
@@ -862,11 +862,11 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
              ======================= */}
           {isFlowComplete() && (
             <div className="animate-in fade-in slide-in-from-top-12 duration-1000 mt-16 pt-8 border-t-2 border-primary/20">
-              <h2 className="text-3xl font-serif mb-8 text-center text-primary">FINALIZAR PEDIDO</h2>
+              <h2 className="text-3xl font-serif mb-8 text-center text-primary">{isEn ? "FINISH ORDER" : "FINALIZAR PEDIDO"}</h2>
               
               <div className="bg-white border-2 border-brand-border rounded-2xl p-8 shadow-md max-w-3xl mx-auto">
                 <div className="mb-8">
-                  <label className="block font-medium text-text-dark mb-2">Data da encomenda *</label>
+                  <label className="block font-medium text-text-dark mb-2">{isEn ? "Order Date *" : "Data da encomenda *"}</label>
                   <input 
                     type="date"
                     value={orderData.orderDate || ""}
@@ -876,71 +876,71 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
 
                 <div className="mb-6 pb-6 border-b border-cream">
-                  <div className="font-medium text-text-dark mb-4 text-lg">Resumo do Pedido</div>
+                  <div className="font-medium text-text-dark mb-4 text-lg">{isEn ? "Order Summary" : "Resumo do Pedido"}</div>
                   <div className="bg-cream/50 p-4 rounded-xl border border-brand-border space-y-2">
                     {category === "custom_cakes" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> Bolos Personalizados<br/>
-                        <span className="font-semibold text-text-dark">Tamanho:</span> {orderData.size}<br/>
-                        <span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}<br/>
-                        <span className="font-semibold text-text-dark">Decoração:</span> {orderData.design}<br/>
-                        <span className="font-semibold text-text-dark">Adicionais:</span> {orderData.addons && orderData.addons.length > 0 ? orderData.addons.join(", ") : "Nenhum"}
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {isEn ? "Custom Cakes" : "Bolos Personalizados"}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Size:" : "Tamanho:"}</span> {orderData.size}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Design:" : "Decoração:"}</span> {orderData.design}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Add-ons:" : "Adicionais:"}</span> {orderData.addons && orderData.addons.length > 0 ? orderData.addons.join(", ") : (isEn ? "None" : "Nenhum")}
                       </p>
                     )}
                     {category === "mini_cakes" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> Mini Cake (4"x3")<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> Mini Cake (4"x3")<br/>
                         <span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}
                       </p>
                     )}
                     {category === "brigadeiros" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> Brigadeiros de Festa<br/>
-                        <span className="font-semibold text-text-dark">Linha:</span> {orderData.brigType}<br/>
-                        <span className="font-semibold text-text-dark">Quantidade:</span> {orderData.brigQty} un<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {isEn ? "Party Brigadeiros" : "Brigadeiros de Festa"}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Category:" : "Linha:"}</span> {orderData.brigType}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.brigQty} {isEn ? "units" : "un"}<br/>
                         <span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}
                       </p>
                     )}
                     {category === "mini_desserts" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> Mini Sobremesas (Tacinhas)<br/>
-                        <span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}<br/>
-                        <span className="font-semibold text-text-dark">Quantidade:</span> {orderData.qty} unidades
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {isEn ? "Mini Desserts" : "Mini Sobremesas (Tacinhas)"}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty} {isEn ? "units" : "unidades"}
                       </p>
                     )}
                     {category === "brazilian_sweets" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> {orderData.sweetsType}<br/>
-                        <span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}<br/>
-                        <span className="font-semibold text-text-dark">Quantidade:</span> {orderData.qty} unidades
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {orderData.sweetsType}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty} {isEn ? "units" : "unidades"}
                       </p>
                     )}
                     {category === "desserts" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> {orderData.dessertType}<br/>
-                        {orderData.flavor && <><span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}<br/></>}
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {orderData.dessertType}<br/>
+                        {orderData.flavor && <><span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/></>}
                       </p>
                     )}
                     {category === "party_packages" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> {orderData.kitType}<br/>
-                        <span className="font-semibold text-text-dark">Detalhes:</span> {orderData.kitDetails}
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {orderData.kitType}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.kitDetails}
                       </p>
                     )}
                     {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && (
                       <p className="text-soft-text text-sm">
-                        <span className="font-semibold text-text-dark">Produto:</span> {catInfo.name[isEn ? 'en' : 'pt']}<br/>
-                        <span className="font-semibold text-text-dark">Detalhes:</span> {orderData.details}
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {catInfo.name[isEn ? 'en' : 'pt']}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.details}
                       </p>
                     )}
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <div className="font-medium text-text-dark mb-2">Observações</div>
+                  <div className="font-medium text-text-dark mb-2">{isEn ? "Notes" : "Observações"}</div>
                   <textarea 
                     className="w-full bg-white border-2 border-brand-border rounded-xl p-4 text-text-dark focus:outline-none focus:ring-primary focus:border-primary"
-                    placeholder="Ex: forminhas brancas, combinar a retirada, etc..."
+                    placeholder={isEn ? "Ex: white cups, arrange pickup, etc..." : "Ex: forminhas brancas, combinar a retirada, etc..."}
                     value={orderData.notes || ""}
                     onChange={(e) => updateOrder("notes", e.target.value)}
                     rows={3}
@@ -948,14 +948,14 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
 
                 <div className="mt-8 pt-6 border-t-2 border-brand-border flex justify-between items-center">
-                  <div className="text-lg font-serif text-text-dark uppercase tracking-wide">Valor:</div>
+                  <div className="text-lg font-serif text-text-dark uppercase tracking-wide">{isEn ? "Total:" : "Valor:"}</div>
                   <div className="text-4xl font-serif text-primary font-bold">
                     ${calculateTotal()}
                   </div>
                 </div>
                 {category === "custom_cakes" && (
                   <p className="text-right text-xs text-soft-text mt-2 uppercase tracking-wide">
-                    * O valor final varia de acordo com a complexidade da decoração.
+                    {isEn ? "* The final price varies according to the complexity of the design." : "* O valor final varia de acordo com a complexidade da decoração."}
                   </p>
                 )}
               </div>
@@ -986,7 +986,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               
               {!orderData.orderDate && (
                 <p className="text-center text-sm text-red-500 mt-4">
-                  * Informe a data da encomenda para finalizar
+                  {isEn ? "* Enter the order date to finish" : "* Informe a data da encomenda para finalizar"}
                 </p>
               )}
             </div>

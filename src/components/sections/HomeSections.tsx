@@ -6,34 +6,34 @@ import { TestimonialCarousel } from "./TestimonialCarousel";
 
 export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
   return (
-    <section className="relative w-full flex items-center pt-32 pb-24 bg-off-white text-text-dark overflow-hidden">
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12">
+    <section className="relative w-full flex items-center pt-24 pb-16 md:pt-32 md:pb-24 bg-off-white text-text-dark overflow-hidden">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         
-        <div className="w-full md:w-1/2 flex flex-col items-start pt-12 md:pt-0">
-          <p className="font-script text-4xl lg:text-5xl text-primary tracking-widest mb-4">
+        <div className="w-full md:w-1/2 flex flex-col items-start pt-8 md:pt-12 md:pt-0">
+          <p className="font-script text-3xl lg:text-5xl text-primary tracking-widest mb-3">
             Monae Dessert Studio
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif leading-tight mb-8 whitespace-pre-line text-text-dark">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif leading-tight mb-6 md:mb-8 whitespace-pre-line text-text-dark">
             {lang === "en" ? "Made For\nSweet Moments" : "Feito Para\nMomentos Doces"}
           </h1>
-          <p className="text-soft-text font-sans text-lg mb-10 max-w-lg leading-relaxed">
+          <p className="text-soft-text font-sans text-base md:text-lg mb-8 md:mb-10 max-w-lg leading-relaxed">
             {lang === "en" 
               ? "Our artisanal bakery combines flavor, design, and love in every single detail, bringing a premium experience to your celebration."
               : "Nossa confeitaria artesanal une sabor, design e amor em cada detalhe, trazendo uma experiência premium para a sua celebração."}
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-8 md:mb-12">
             <a 
               href="#menu"
-              className="px-8 py-3 bg-primary text-white text-center font-sans font-semibold rounded-full hover:bg-deep-cherry transition-colors duration-300"
+              className="px-8 py-3 bg-primary text-white text-center font-sans font-semibold rounded-full hover:bg-deep-cherry transition-colors duration-300 text-sm md:text-base"
             >
               {lang === "en" ? "Explore Cakes" : "Ver Cardápio"}
             </a>
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow-2xl">
-          <div className="aspect-[4/3] bg-soft-blush flex items-center justify-center relative">
+        <div className="w-full md:w-1/2 mt-4 md:mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="aspect-[4/3] sm:aspect-[4/3] bg-soft-blush flex items-center justify-center relative">
             <Image 
               src="/Imagens/pedaço de bolo04.jpeg" 
               alt="Custom Cake" 
@@ -162,9 +162,9 @@ export function HowItWorksSection({ lang, dict }: { lang: string; dict: any }) {
 
   return (
     <section className="w-full bg-off-white pt-2 pb-6 md:pt-4 md:pb-10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex justify-between items-end mb-8">
-          <h2 className="text-5xl font-script text-primary">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="flex justify-between items-end mb-6 md:mb-8">
+          <h2 className="text-4xl sm:text-5xl font-script text-primary">
             {dict.home.howItWorks.title}
           </h2>
           <div className="hidden md:flex gap-1 items-center">
@@ -174,16 +174,17 @@ export function HowItWorksSection({ lang, dict }: { lang: string; dict: any }) {
           </div>
         </div>
         
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-8 relative">
+        {/* Horizontal scroll on mobile, flex-row on desktop */}
+        <div className="flex flex-row overflow-x-auto pb-4 md:overflow-visible md:flex-row md:justify-between md:items-start gap-6 md:gap-4 mb-8 relative scrollbar-none">
           <div className="hidden md:block absolute top-8 left-0 w-full h-px bg-brand-border/50 z-0" />
           
           {dict.home.howItWorks.steps.map((step: any, idx: number) => (
-            <div key={idx} className="relative z-10 flex flex-col items-center text-center max-w-[160px] md:max-w-[200px]">
-              <div className="w-16 h-16 rounded-full bg-white border border-primary text-primary flex items-center justify-center font-sans text-sm mb-4">
+            <div key={idx} className="relative z-10 flex flex-col items-center text-center min-w-[130px] md:min-w-0 md:max-w-[200px] flex-shrink-0 md:flex-shrink">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border border-primary text-primary flex items-center justify-center font-sans text-sm mb-4">
                 {icons[idx]}
               </div>
               <div className="text-primary font-bold text-sm mb-2">{step.number}</div>
-              <h3 className="text-lg font-serif text-text-dark">{step.title}</h3>
+              <h3 className="text-base md:text-lg font-serif text-text-dark">{step.title}</h3>
             </div>
           ))}
         </div>
@@ -231,7 +232,8 @@ export function TestimonialSection({ lang, dict }: { lang?: string; dict?: any }
   return <TestimonialCarousel dict={dict} />;
 }
 
-export function PoliciesSection() {
+export function PoliciesSection({ lang }: { lang?: string }) {
+  const isEn = lang === 'en';
   return (
     <section className="w-full bg-off-white py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -241,20 +243,18 @@ export function PoliciesSection() {
           <div className="space-y-12">
             {/* Quantidade Recomendada */}
             <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-2 uppercase tracking-wide">QUANTIDADE</h3>
-              <p className="font-script text-3xl text-text-dark mb-6 -mt-2">recomendada doces</p>
+              <h3 className="text-2xl font-serif text-primary mb-2 uppercase tracking-wide">{isEn ? "RECOMMENDED" : "QUANTIDADE"}</h3>
+              <p className="font-script text-3xl text-text-dark mb-6 -mt-2">{isEn ? "quantity of sweets" : "recomendada doces"}</p>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
-                As quantidades podem variar conforme o horário da festa, o tipo de evento e a forma de servir (self-service ou com garçons). 
-                Para evitar imprevistos, recomendamos acrescentar cerca de 10% à quantidade total de doces e salgados.
+                {isEn ? "Quantities may vary depending on the time of the party, the type of event, and how they are served (self-service or with waiters). To avoid surprises, we recommend adding about 10% to the total amount of sweets and savories." : "As quantidades podem variar conforme o horário da festa, o tipo de evento e a forma de servir (self-service ou com garçons). Para evitar imprevistos, recomendamos acrescentar cerca de 10% à quantidade total de doces e salgados."}
               </p>
             </div>
 
             {/* Consumo e Conservação */}
             <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">CONSUMO E CONSERVAÇÃO</h3>
+              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "CONSUMPTION AND STORAGE" : "CONSUMO E CONSERVAÇÃO"}</h3>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
-                Para garantir a melhor qualidade, recomendamos consumir os doces em até 2 dias após a fabricação. 
-                Após a festa, todos os doces devem ser armazenados na geladeira. Com o passar dos dias, eles podem cristalizar e perder parte de sua textura e sabor originais.
+                {isEn ? "To ensure the best quality, we recommend consuming the sweets within 2 days of production. After the party, all sweets should be stored in the refrigerator. Over time, they may crystallize and lose some of their original texture and flavor." : "Para garantir a melhor qualidade, recomendamos consumir os doces em até 2 dias após a fabricação. Após a festa, todos os doces devem ser armazenados na geladeira. Com o passar dos dias, eles podem cristalizar e perder parte de sua textura e sabor originais."}
               </p>
             </div>
           </div>
@@ -263,32 +263,31 @@ export function PoliciesSection() {
           <div className="space-y-12">
             {/* Informações Importantes */}
             <div className="bg-soft-blush p-8 md:p-10 rounded-[2rem] shadow-sm border border-primary/10">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">Informações Importantes</h3>
+              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "Important Information" : "Informações Importantes"}</h3>
               <div className="space-y-4 text-text-dark font-sans text-sm md:text-base leading-relaxed">
-                <p>Nossa produção é artesanal e possui vagas limitadas. Recomendamos realizar sua encomenda com antecedência para garantir a disponibilidade da data.</p>
-                <p>Os valores estão sujeitos a reajustes sem aviso prévio. Consulte sempre o catálogo atualizado.</p>
-                <p>Todos os produtos são preparados próximos ao horário de entrega para garantir máximo frescor, sabor e qualidade.</p>
+                <p>{isEn ? "Our production is artisanal and we have limited spots. We recommend placing your order in advance to secure your date." : "Nossa produção é artesanal e possui vagas limitadas. Recomendamos realizar sua encomenda com antecedência para garantir a disponibilidade da data."}</p>
+                <p>{isEn ? "Prices are subject to change without prior notice. Always check the current catalog." : "Os valores estão sujeitos a reajustes sem aviso prévio. Consulte sempre o catálogo atualizado."}</p>
+                <p>{isEn ? "All products are prepared close to the delivery time to ensure maximum freshness, flavor, and quality." : "Todos os produtos são preparados próximos ao horário de entrega para garantir máximo frescor, sabor e qualidade."}</p>
               </div>
             </div>
 
             {/* Pagamento */}
             <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">PAGAMENTO</h3>
+              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "PAYMENT" : "PAGAMENTO"}</h3>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
-                O pedido é confirmado mediante o pagamento integral ou de um sinal de 50% no ato da encomenda.
-                Aceitamos PIX, transferência bancária e cartão de crédito (com taxa da operadora).
+                {isEn ? "The order is confirmed upon full payment or a 50% deposit at the time of ordering. We accept Zelle, bank transfer, and credit cards (subject to processing fees)." : "O pedido é confirmado mediante o pagamento integral ou de um sinal de 50% no ato da encomenda. Aceitamos PIX, transferência bancária e cartão de crédito (com taxa da operadora)."}
               </p>
             </div>
 
             {/* Cancelamento */}
             <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">CANCELAMENTO</h3>
+              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "CANCELLATION" : "CANCELAMENTO"}</h3>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
-                Como nossos produtos são artesanais e feitos sob encomenda, cancelamentos seguem a seguinte política:
+                {isEn ? "Since our products are artisanal and made-to-order, cancellations follow this policy:" : "Como nossos produtos são artesanais e feitos sob encomenda, cancelamentos seguem a seguinte política:"}
                 <br /><br />
-                • Até 5 dias antes da data agendada: reembolso integral.<br />
-                • Entre 5 e 3 dias: reembolso de 50%.<br />
-                • Com menos de 2 dias de antecedência: não haverá reembolso, pois a produção já estará em andamento.
+                {isEn ? "• Up to 5 days before the scheduled date: full refund." : "• Até 5 dias antes da data agendada: reembolso integral."}<br />
+                {isEn ? "• Between 5 and 3 days: 50% refund." : "• Entre 5 e 3 dias: reembolso de 50%."}<br />
+                {isEn ? "• Less than 2 days in advance: no refund, as production will already be underway." : "• Com menos de 2 dias de antecedência: não haverá reembolso, pois a produção já estará em andamento."}
               </p>
             </div>
           </div>

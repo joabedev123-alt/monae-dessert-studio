@@ -92,6 +92,12 @@ export function Header({ lang, dict }: HeaderProps) {
 
         {/* Right side controls */}
         <div className="hidden lg:flex items-center space-x-6">
+          <div className="flex items-center gap-2 font-sans font-bold text-sm tracking-widest text-text-dark">
+            <button onClick={() => switchLanguage('pt')} className={lang === 'pt' ? 'text-primary' : 'hover:text-primary transition-colors'}>PT</button>
+            <span className="text-brand-border">|</span>
+            <button onClick={() => switchLanguage('en')} className={lang === 'en' ? 'text-primary' : 'hover:text-primary transition-colors'}>EN</button>
+          </div>
+
           <Link
             href={`/${lang}#menu`}
             className="border-2 border-primary text-text-dark text-sm font-semibold px-6 py-2 rounded-full hover:bg-primary hover:text-white transition-colors duration-300 tracking-wider"
@@ -135,7 +141,28 @@ export function Header({ lang, dict }: HeaderProps) {
               </div>
             ))}
 
-            {/* Language switcher removed from mobile menu too */}
+            {/* Language switcher */}
+            <div className="flex items-center justify-center gap-4 mt-2 mb-8 font-sans font-bold text-xl text-text-dark">
+              <button 
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  switchLanguage('pt');
+                }} 
+                className={lang === 'pt' ? 'text-primary' : 'hover:text-primary transition-colors'}
+              >
+                PT
+              </button>
+              <span className="text-brand-border">|</span>
+              <button 
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  switchLanguage('en');
+                }} 
+                className={lang === 'en' ? 'text-primary' : 'hover:text-primary transition-colors'}
+              >
+                EN
+              </button>
+            </div>
 
             <Link
               href={`/${lang}#menu`}
