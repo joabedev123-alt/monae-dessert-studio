@@ -39,12 +39,12 @@ export function ContactButton({ lang }: ContactButtonProps) {
 
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 group">
+    <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 group">
       <a
         href={href}
         target={lang === "pt" ? "_blank" : undefined}
         rel="noopener noreferrer"
-        className="flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
+        className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform duration-300"
         aria-label={tooltipText}
       >
         <WhatsAppIcon />

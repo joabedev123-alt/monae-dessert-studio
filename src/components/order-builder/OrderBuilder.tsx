@@ -249,8 +249,8 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       </div>
 
       {/* Content Area - Continuous Scroll */}
-      <div className="flex-grow overflow-y-auto p-4 md:p-8 lg:p-12 pb-40">
-        <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
+      <div className="flex-grow overflow-y-auto p-3.5 sm:p-6 md:p-8 lg:p-12 pb-36 md:pb-40">
+        <div className="max-w-4xl mx-auto space-y-8 sm:space-y-12 md:space-y-16">
           
           {/* =======================
               CUSTOM CAKES FLOW 
@@ -259,28 +259,28 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
             <>
               {/* 1. Tamanho */}
               <div className="animate-in fade-in duration-500">
-                <h2 className="text-2xl md:text-3xl font-serif mb-2 text-center uppercase tracking-widest text-primary">{isEn ? "Choose Size:" : "Escolha o Tamanho:"}</h2>
-                <p className="text-center text-text-dark font-medium mb-6 md:mb-8 uppercase text-sm md:text-base">{isEn ? "Diameter & Weight" : "Diâmetro e Peso"}</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-serif mb-2 text-center uppercase tracking-widest text-primary">{isEn ? "Choose Size:" : "Escolha o Tamanho:"}</h2>
+                <p className="text-center text-text-dark font-medium mb-4 sm:mb-6 md:mb-8 uppercase text-xs sm:text-sm md:text-base">{isEn ? "Diameter & Weight" : "Diâmetro e Peso"}</p>
                 
-                <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3">
                   {CAKE_SIZES.map(s => (
                     <div 
                       key={s.id}
                       onClick={() => updateOrder("size", s.label.pt, "section-custom-flavor")}
-                      className={`p-6 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
+                      className={`p-3 sm:p-5 md:p-6 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
                         orderData.size === s.label.pt ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
                       }`}
                     >
-                      <div className="text-3xl font-serif text-primary mb-2 text-center">{s.label[isEn ? "en" : "pt"]}</div>
-                      <div className="text-center font-medium text-text-dark mb-4">{s.serves[isEn ? "en" : "pt"]}</div>
-                      <div className="text-center text-soft-text text-sm mb-4">
+                      <div className="text-2xl sm:text-3xl font-serif text-primary mb-1 sm:mb-2 text-center">{s.label[isEn ? "en" : "pt"]}</div>
+                      <div className="text-center font-medium text-text-dark text-xs sm:text-sm md:text-base mb-2 sm:mb-4">{s.serves[isEn ? "en" : "pt"]}</div>
+                      <div className="text-center text-soft-text text-[11px] sm:text-xs md:text-sm mb-3 sm:mb-4 leading-tight sm:leading-normal">
                         <p>{isEn ? "4 cake layers" : "4 camadas de massa"}</p>
                         <p>{isEn ? "3 filling layers" : "3 camadas de recheio"}</p>
-                        <p>{isEn ? "Height: approx. 15cm (6in)" : "Altura: aprox. 15cm"}</p>
+                        <p>{isEn ? "Height: approx. 15cm" : "Altura: aprox. 15cm"}</p>
                         <p>{isEn ? "Buttercream" : "Buttercream"}</p>
                       </div>
-                      <div className="text-center text-sm font-semibold uppercase text-text-dark mt-auto border-t border-brand-border pt-4">
-                        {isEn ? "starting at:" : "a partir de:"} <br/><span className="text-xl">${s.price}</span>
+                      <div className="text-center text-[11px] sm:text-sm font-semibold uppercase text-text-dark mt-auto border-t border-brand-border pt-2 sm:pt-4">
+                        {isEn ? "starting at:" : "a partir de:"} <br/><span className="text-base sm:text-lg md:text-xl font-bold text-primary">${s.price}</span>
                       </div>
                     </div>
                   ))}
@@ -966,25 +966,25 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               FINAL FORM (Always at the end if flow is complete)
              ======================= */}
           {isFlowComplete() && (
-            <div className="animate-in fade-in slide-in-from-top-12 duration-1000 mt-16 pt-8 border-t-2 border-primary/20">
-              <h2 className="text-3xl font-serif mb-8 text-center text-primary">{isEn ? "FINISH ORDER" : "FINALIZAR PEDIDO"}</h2>
+            <div className="animate-in fade-in slide-in-from-top-12 duration-1000 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t-2 border-primary/20">
+              <h2 className="text-2xl sm:text-3xl font-serif mb-6 sm:mb-8 text-center text-primary">{isEn ? "FINISH ORDER" : "FINALIZAR PEDIDO"}</h2>
               
-              <div className="bg-white border-2 border-brand-border rounded-2xl p-8 shadow-md max-w-3xl mx-auto">
-                <div className="mb-8">
-                  <label className="block font-medium text-text-dark mb-2">{isEn ? "Order Date *" : "Data da encomenda *"}</label>
+              <div className="bg-white border-2 border-brand-border rounded-2xl p-4 sm:p-6 md:p-8 shadow-md max-w-3xl mx-auto">
+                <div className="mb-6 sm:mb-8">
+                  <label className="block font-medium text-text-dark mb-2 text-sm sm:text-base">{isEn ? "Order Date *" : "Data da encomenda *"}</label>
                   <input 
                     type="date"
                     value={orderData.orderDate || ""}
                     onChange={e => updateOrder("orderDate", e.target.value)}
-                    className="w-full bg-white border-2 border-brand-border rounded-xl py-4 px-4 text-text-dark focus:outline-none focus:ring-primary focus:border-primary transition-all text-lg"
+                    className="w-full bg-white border-2 border-brand-border rounded-xl py-3.5 sm:py-4 px-3 sm:px-4 text-text-dark focus:outline-none focus:ring-primary focus:border-primary transition-all text-base sm:text-lg"
                   />
                 </div>
 
                 <div className="mb-6 pb-6 border-b border-cream">
-                  <div className="font-medium text-text-dark mb-4 text-lg">{isEn ? "Order Summary" : "Resumo do Pedido"}</div>
-                  <div className="bg-cream/50 p-4 rounded-xl border border-brand-border space-y-2">
+                  <div className="font-medium text-text-dark mb-3 sm:mb-4 text-base sm:text-lg">{isEn ? "Order Summary" : "Resumo do Pedido"}</div>
+                  <div className="bg-cream/50 p-3.5 sm:p-4 rounded-xl border border-brand-border space-y-2">
                     {category === "custom_cakes" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {isEn ? "Custom Cakes" : "Bolos Personalizados"}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Size:" : "Tamanho:"}</span> {orderData.size}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
@@ -993,13 +993,13 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                       </p>
                     )}
                     {category === "mini_cakes" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> Mini Cake (4"x3")<br/>
                         <span className="font-semibold text-text-dark">Sabor:</span> {orderData.flavor}
                       </p>
                     )}
                     {category === "brigadeiros" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {isEn ? "Party Brigadeiros" : "Brigadeiros de Festa"}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Category:" : "Linha:"}</span> {orderData.brigType}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.brigQty} {isEn ? "units" : "un"}<br/>
@@ -1007,33 +1007,33 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                       </p>
                     )}
                     {category === "mini_desserts" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {isEn ? "Mini Desserts" : "Mini Sobremesas (Tacinhas)"}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty} {isEn ? "units" : "unidades"}
                       </p>
                     )}
                     {category === "brazilian_sweets" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {orderData.sweetsType}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty} {isEn ? "units" : "unidades"}
                       </p>
                     )}
                     {category === "desserts" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {orderData.dessertType}<br/>
                         {orderData.flavor && <><span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/></>}
                       </p>
                     )}
                     {category === "party_packages" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {orderData.kitType}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.kitDetails}
                       </p>
                     )}
                     {category === "cupcakes" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> Cupcakes<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty} {isEn ? "units" : "unidades"}<br/>
@@ -1041,7 +1041,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                       </p>
                     )}
                     {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && (
-                      <p className="text-soft-text text-sm">
+                      <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {catInfo.name[isEn ? 'en' : 'pt']}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.details}
                       </p>
@@ -1050,9 +1050,9 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
 
                 <div className="mb-4">
-                  <div className="font-medium text-text-dark mb-2">{isEn ? "Notes" : "Observações"}</div>
+                  <div className="font-medium text-text-dark mb-2 text-sm sm:text-base">{isEn ? "Notes" : "Observações"}</div>
                   <textarea 
-                    className="w-full bg-white border-2 border-brand-border rounded-xl p-4 text-text-dark focus:outline-none focus:ring-primary focus:border-primary"
+                    className="w-full bg-white border-2 border-brand-border rounded-xl p-3.5 sm:p-4 text-text-dark text-sm sm:text-base focus:outline-none focus:ring-primary focus:border-primary"
                     placeholder={isEn ? "Ex: white cups, arrange pickup, etc..." : "Ex: forminhas brancas, combinar a retirada, etc..."}
                     value={orderData.notes || ""}
                     onChange={(e) => updateOrder("notes", e.target.value)}
@@ -1060,25 +1060,25 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                   />
                 </div>
 
-                <div className="mt-8 pt-6 border-t-2 border-brand-border flex justify-between items-center">
-                  <div className="text-lg font-serif text-text-dark uppercase tracking-wide">{isEn ? "Total:" : "Valor:"}</div>
-                  <div className="text-4xl font-serif text-primary font-bold">
+                <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-brand-border flex justify-between items-center">
+                  <div className="text-base sm:text-lg font-serif text-text-dark uppercase tracking-wide">{isEn ? "Total:" : "Valor:"}</div>
+                  <div className="text-3xl sm:text-4xl font-serif text-primary font-bold">
                     ${calculateTotal()}
                   </div>
                 </div>
                 {category === "custom_cakes" && (
-                  <p className="text-right text-xs text-soft-text mt-2 uppercase tracking-wide">
+                  <p className="text-right text-[11px] sm:text-xs text-soft-text mt-2 uppercase tracking-wide">
                     {isEn ? "* The final price varies according to the complexity of the design." : "* O valor final varia de acordo com a complexidade da decoração."}
                   </p>
                 )}
               </div>
 
               {/* Submit Buttons */}
-              <div className="mt-12 flex flex-col sm:flex-row justify-center gap-4 pb-20">
+              <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pb-20">
                 <button 
                   onClick={openWhatsApp}
                   disabled={!orderData.orderDate}
-                  className={`flex items-center justify-center space-x-3 text-white px-8 py-4 rounded-full font-bold tracking-wide uppercase transition-all shadow-md hover:shadow-lg text-sm md:text-base ${
+                  className={`w-full sm:w-auto flex items-center justify-center space-x-3 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold tracking-wide uppercase transition-all shadow-md hover:shadow-lg text-sm sm:text-base min-h-[48px] ${
                     orderData.orderDate ? "bg-[#25D366] hover:bg-[#20bd5a]" : "bg-gray-400 cursor-not-allowed"
                   }`}
                 >
@@ -1088,7 +1088,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 <button 
                   onClick={openSMS}
                   disabled={!orderData.orderDate}
-                  className={`flex items-center justify-center space-x-3 text-white px-8 py-4 rounded-full font-bold tracking-wide uppercase transition-all shadow-md hover:shadow-lg text-sm md:text-base ${
+                  className={`w-full sm:w-auto flex items-center justify-center space-x-3 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold tracking-wide uppercase transition-all shadow-md hover:shadow-lg text-sm sm:text-base min-h-[48px] ${
                     orderData.orderDate ? "bg-primary hover:bg-deep-cherry" : "bg-gray-400 cursor-not-allowed"
                   }`}
                 >
@@ -1098,7 +1098,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               </div>
               
               {!orderData.orderDate && (
-                <p className="text-center text-sm text-red-500 mt-4">
+                <p className="text-center text-xs sm:text-sm text-red-500 mt-3 sm:mt-4">
                   {isEn ? "* Enter the order date to finish" : "* Informe a data da encomenda para finalizar"}
                 </p>
               )}

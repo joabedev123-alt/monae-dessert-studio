@@ -11,17 +11,17 @@ export default async function PoliciesPage({
   const title = lang === "pt" ? "Políticas e Cuidados" : "Policies and Care";
   
   return (
-    <div className="flex flex-col w-full bg-off-white min-h-screen pt-24 pb-24">
-      <div className="max-w-4xl mx-auto px-6 w-full">
-        <h1 className="text-5xl font-serif text-text-dark mb-16 text-center">{title}</h1>
+    <div className="flex flex-col w-full bg-off-white min-h-screen pt-20 sm:pt-24 pb-16 sm:pb-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 w-full">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-text-dark mb-10 sm:mb-16 text-center">{title}</h1>
         
-        <div className="space-y-12">
+        <div className="space-y-6 sm:space-y-12">
           
-          <section className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
-            <h2 className="text-2xl font-serif text-primary mb-4" id="storage">
+          <section className="bg-white p-5 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
+            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-3 sm:mb-4" id="storage">
               {lang === "pt" ? "Armazenamento & Frescor" : "Storage & Freshness"}
             </h2>
-            <div className="text-soft-text font-sans space-y-4 leading-relaxed">
+            <div className="text-soft-text font-sans space-y-3 sm:space-y-4 leading-relaxed text-sm sm:text-base">
               <p>
                 {lang === "pt" 
                   ? "Para melhor qualidade, recomendamos consumir os doces em aproximadamente 2 dias após a produção."
@@ -40,11 +40,11 @@ export default async function PoliciesPage({
             </div>
           </section>
 
-          <section className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
-            <h2 className="text-2xl font-serif text-primary mb-4">
+          <section className="bg-white p-5 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
+            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-3 sm:mb-4">
               {lang === "pt" ? "Transporte" : "Transport & Care"}
             </h2>
-            <ul className="text-soft-text font-sans space-y-2 list-disc list-inside">
+            <ul className="text-soft-text font-sans space-y-2 list-disc list-inside text-sm sm:text-base">
               <li>{lang === "pt" ? "Transporte o bolo em uma superfície plana." : "Transport cake on a flat surface."}</li>
               <li>{lang === "pt" ? "Preferencialmente no chão do veículo." : "Preferably on the vehicle floor."}</li>
               <li>{lang === "pt" ? "Mantenha o ar condicionado ligado." : "Keep air conditioning on."}</li>
@@ -54,8 +54,8 @@ export default async function PoliciesPage({
             </ul>
           </section>
 
-          <section className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
-            <h2 className="text-2xl font-serif text-primary mb-4">
+          <section className="bg-white p-5 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
+            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-3 sm:mb-4">
               {lang === "pt" ? "Pagamento e Cancelamento" : "Payment and Cancellation"}
             </h2>
             <div className="text-soft-text font-sans space-y-4 leading-relaxed">

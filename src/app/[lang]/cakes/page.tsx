@@ -15,7 +15,8 @@ export default async function CakesPage({
     : "Designed around your celebration and handcrafted from the inside out.";
 
   const sizes = [
-    { size: '4"', servings: "6–8", price: "$58" },
+    { size: '4"', servings: "4–6", price: "$58" },
+    { size: '5"', servings: "7–10", price: "$70" },
     { size: '6"', servings: "10–15", price: "$80" },
     { size: '8"', servings: "20–25", price: "$120" },
     { size: '10"', servings: "33–38", price: "$180" },
@@ -23,17 +24,17 @@ export default async function CakesPage({
   ];
 
   return (
-    <div className="flex flex-col w-full bg-off-white min-h-screen pt-24 pb-24">
+    <div className="flex flex-col w-full bg-off-white min-h-screen pt-20 sm:pt-24 pb-16 sm:pb-24">
       {/* Hero */}
-      <div className="max-w-4xl mx-auto px-6 text-center mb-24">
-        <h1 className="text-5xl font-serif text-text-dark mb-6">{title}</h1>
-        <p className="text-soft-text font-sans text-xl">{desc}</p>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center mb-12 sm:mb-20">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-text-dark mb-4 sm:mb-6">{title}</h1>
+        <p className="text-soft-text font-sans text-base sm:text-lg md:text-xl">{desc}</p>
       </div>
 
       {/* Sizes Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-16 sm:mb-24 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
         <div>
-          <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
+          <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl max-w-md mx-auto lg:max-w-none">
             <img 
               src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop" 
               alt="Custom Cake" 
@@ -78,10 +79,10 @@ export default async function CakesPage({
         </div>
       </div>
 
-      <div className="text-center mt-12">
+      <div className="text-center mt-8 sm:mt-12 px-4">
         <Link 
           href={`/${lang}/how-to-order`}
-          className="inline-block px-10 py-5 bg-primary text-white text-center font-sans tracking-widest text-sm rounded hover:bg-deep-cherry transition-colors duration-300 shadow-lg"
+          className="inline-block w-full max-w-xs sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-primary text-white text-center font-sans tracking-widest text-sm rounded hover:bg-deep-cherry transition-colors duration-300 shadow-lg"
         >
           {lang === "pt" ? "COMEÇAR MINHA ENCOMENDA" : "START YOUR ORDER"}
         </Link>

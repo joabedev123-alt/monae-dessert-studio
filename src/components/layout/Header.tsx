@@ -50,11 +50,11 @@ export function Header({ lang, dict }: HeaderProps) {
         isScrolled ? "bg-cream/95 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <Link 
           href={`/${lang}`} 
-          className="relative flex items-center justify-center font-script text-4xl font-bold text-text-dark tracking-wider gap-3"
+          className="relative flex items-center justify-center font-script text-3xl sm:text-4xl font-bold text-text-dark tracking-wider gap-2 sm:gap-3"
           onClick={(e) => {
             if (window.location.pathname === `/${lang}`) {
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -64,9 +64,9 @@ export function Header({ lang, dict }: HeaderProps) {
           <Image 
             src="/icon.png" 
             alt="Monae Dessert Studio" 
-            width={65} 
-            height={65} 
-            className="w-[65px] h-auto object-contain" 
+            width={55} 
+            height={55} 
+            className="w-[44px] sm:w-[60px] h-auto object-contain" 
           />
           Monae
         </Link>
@@ -108,10 +108,11 @@ export function Header({ lang, dict }: HeaderProps) {
 
         {/* Mobile menu toggle */}
         <button
-          className="lg:hidden text-primary"
+          className="lg:hidden text-primary p-2 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Menu"
         >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
@@ -122,13 +123,13 @@ export function Header({ lang, dict }: HeaderProps) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden fixed top-[80px] left-0 w-full h-[calc(100vh-80px)] bg-off-white flex flex-col items-center pt-10 pb-20 overflow-y-auto z-40"
+            className="lg:hidden fixed top-[64px] sm:top-[76px] left-0 w-full h-[calc(100vh-64px)] sm:h-[calc(100vh-76px)] bg-off-white/98 backdrop-blur-md flex flex-col items-center pt-8 pb-20 overflow-y-auto z-40 border-t border-brand-border/20 shadow-xl"
           >
             {navLinks.map((link, idx) => (
-              <div key={idx} className="w-full text-center mb-6">
+              <div key={idx} className="w-full text-center mb-4 sm:mb-6">
                 <Link
                   href={link.href}
-                  className="inline-block py-3 px-6 text-2xl font-serif text-text-dark hover:text-primary transition-colors duration-200"
+                  className="inline-block py-2.5 px-6 text-xl sm:text-2xl font-serif text-text-dark hover:text-primary transition-colors duration-200"
                   onClick={(e) => {
                     setMobileMenuOpen(false);
                     if (link.href === `/${lang}` && window.location.pathname === `/${lang}`) {

@@ -237,22 +237,22 @@ export function PoliciesSection({ lang }: { lang?: string }) {
   return (
     <section className="w-full bg-off-white py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 lg:gap-16">
           
           {/* Left Column */}
-          <div className="space-y-12">
+          <div className="space-y-6 sm:space-y-12">
             {/* Quantidade Recomendada */}
-            <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-2 uppercase tracking-wide">{isEn ? "RECOMMENDED" : "QUANTIDADE"}</h3>
-              <p className="font-script text-3xl text-text-dark mb-6 -mt-2">{isEn ? "quantity of sweets" : "recomendada doces"}</p>
+            <div className="bg-white p-5 sm:p-8 md:p-10 rounded-2xl md:rounded-[2rem] shadow-sm border border-brand-border/20">
+              <h3 className="text-xl sm:text-2xl font-serif text-primary mb-2 uppercase tracking-wide">{isEn ? "RECOMMENDED" : "QUANTIDADE"}</h3>
+              <p className="font-script text-2xl sm:text-3xl text-text-dark mb-4 sm:mb-6 -mt-1 sm:-mt-2">{isEn ? "quantity of sweets" : "recomendada doces"}</p>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
                 {isEn ? "Quantities may vary depending on the time of the party, the type of event, and how they are served (self-service or with waiters). To avoid surprises, we recommend adding about 10% to the total amount of sweets and savories." : "As quantidades podem variar conforme o horário da festa, o tipo de evento e a forma de servir (self-service ou com garçons). Para evitar imprevistos, recomendamos acrescentar cerca de 10% à quantidade total de doces e salgados."}
               </p>
             </div>
 
             {/* Consumo e Conservação */}
-            <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "CONSUMPTION AND STORAGE" : "CONSUMO E CONSERVAÇÃO"}</h3>
+            <div className="bg-white p-5 sm:p-8 md:p-10 rounded-2xl md:rounded-[2rem] shadow-sm border border-brand-border/20">
+              <h3 className="text-xl sm:text-2xl font-serif text-primary mb-4 sm:mb-6 uppercase tracking-wide">{isEn ? "CONSUMPTION AND STORAGE" : "CONSUMO E CONSERVAÇÃO"}</h3>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
                 {isEn ? "To ensure the best quality, we recommend consuming the sweets within 2 days of production. After the party, all sweets should be stored in the refrigerator. Over time, they may crystallize and lose some of their original texture and flavor." : "Para garantir a melhor qualidade, recomendamos consumir os doces em até 2 dias após a fabricação. Após a festa, todos os doces devem ser armazenados na geladeira. Com o passar dos dias, eles podem cristalizar e perder parte de sua textura e sabor originais."}
               </p>
@@ -260,11 +260,11 @@ export function PoliciesSection({ lang }: { lang?: string }) {
           </div>
 
           {/* Right Column */}
-          <div className="space-y-12">
+          <div className="space-y-6 sm:space-y-12">
             {/* Informações Importantes */}
-            <div className="bg-soft-blush p-8 md:p-10 rounded-[2rem] shadow-sm border border-primary/10">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "Important Information" : "Informações Importantes"}</h3>
-              <div className="space-y-4 text-text-dark font-sans text-sm md:text-base leading-relaxed">
+            <div className="bg-soft-blush p-5 sm:p-8 md:p-10 rounded-2xl md:rounded-[2rem] shadow-sm border border-primary/10">
+              <h3 className="text-xl sm:text-2xl font-serif text-primary mb-4 sm:mb-6 uppercase tracking-wide">{isEn ? "Important Information" : "Informações Importantes"}</h3>
+              <div className="space-y-3 sm:space-y-4 text-text-dark font-sans text-sm md:text-base leading-relaxed">
                 <p>{isEn ? "Our production is artisanal and we have limited spots. We recommend placing your order in advance to secure your date." : "Nossa produção é artesanal e possui vagas limitadas. Recomendamos realizar sua encomenda com antecedência para garantir a disponibilidade da data."}</p>
                 <p>{isEn ? "Prices are subject to change without prior notice. Always check the current catalog." : "Os valores estão sujeitos a reajustes sem aviso prévio. Consulte sempre o catálogo atualizado."}</p>
                 <p>{isEn ? "All products are prepared close to the delivery time to ensure maximum freshness, flavor, and quality." : "Todos os produtos são preparados próximos ao horário de entrega para garantir máximo frescor, sabor e qualidade."}</p>
@@ -272,16 +272,16 @@ export function PoliciesSection({ lang }: { lang?: string }) {
             </div>
 
             {/* Pagamento */}
-            <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "PAYMENT" : "PAGAMENTO"}</h3>
+            <div className="bg-white p-5 sm:p-8 md:p-10 rounded-2xl md:rounded-[2rem] shadow-sm border border-brand-border/20">
+              <h3 className="text-xl sm:text-2xl font-serif text-primary mb-4 sm:mb-6 uppercase tracking-wide">{isEn ? "PAYMENT" : "PAGAMENTO"}</h3>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
                 {isEn ? "The order is confirmed upon full payment or a 50% deposit at the time of ordering. We accept Zelle, bank transfer, and credit cards (subject to processing fees)." : "O pedido é confirmado mediante o pagamento integral ou de um sinal de 50% no ato da encomenda. Aceitamos PIX, transferência bancária e cartão de crédito (com taxa da operadora)."}
               </p>
             </div>
 
             {/* Cancelamento */}
-            <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/20">
-              <h3 className="text-2xl font-serif text-primary mb-6 uppercase tracking-wide">{isEn ? "CANCELLATION" : "CANCELAMENTO"}</h3>
+            <div className="bg-white p-5 sm:p-8 md:p-10 rounded-2xl md:rounded-[2rem] shadow-sm border border-brand-border/20">
+              <h3 className="text-xl sm:text-2xl font-serif text-primary mb-4 sm:mb-6 uppercase tracking-wide">{isEn ? "CANCELLATION" : "CANCELAMENTO"}</h3>
               <p className="text-soft-text font-sans text-sm md:text-base leading-relaxed">
                 {isEn ? "Since our products are artisanal and made-to-order, cancellations follow this policy:" : "Como nossos produtos são artesanais e feitos sob encomenda, cancelamentos seguem a seguinte política:"}
                 <br /><br />

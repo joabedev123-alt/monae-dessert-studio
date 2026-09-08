@@ -26,44 +26,44 @@ export default async function ContactPage({
   );
 
   return (
-    <div className="flex flex-col w-full bg-cream min-h-screen pt-24 pb-24">
-      <div className="max-w-3xl mx-auto px-6 w-full">
-        <h1 className="text-6xl font-script text-primary mb-12 text-center">{title}</h1>
+    <div className="flex flex-col w-full bg-cream min-h-screen pt-20 sm:pt-24 pb-16 sm:pb-24">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 w-full">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-script text-primary mb-8 sm:mb-12 text-center">{title}</h1>
         
-        <div className="bg-soft-blush p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-brand-border/20 text-center flex flex-col items-center gap-8">
-          <p className="text-text-dark font-sans text-lg md:text-xl">
+        <div className="bg-soft-blush p-5 sm:p-8 md:p-12 rounded-3xl md:rounded-[2.5rem] shadow-sm border border-brand-border/20 text-center flex flex-col items-center gap-6 sm:gap-8">
+          <p className="text-text-dark font-sans text-base sm:text-lg md:text-xl">
             {lang === "pt" ? "Estamos ansiosos para criar doces inesquecíveis para o seu momento especial." : "We are looking forward to creating unforgettable sweets for your special moment."}
           </p>
           
           <div className="w-16 h-px bg-primary/20"></div>
 
-          <div className="flex flex-col items-center space-y-6 w-full">
-            <a href="https://wa.me/15715258279" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">
-              <div className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-sm">
+          <div className="flex flex-col items-center space-y-4 sm:space-y-6 w-full">
+            <a href="https://wa.me/15715258279" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:gap-4 text-text-dark hover:text-primary transition-colors group max-w-full">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#25D366] rounded-full flex-shrink-0 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-sm">
                 <WhatsAppIcon />
               </div>
-              <span className="text-lg md:text-xl font-serif tracking-wide">WhatsApp (+1 571 525 8279)</span>
+              <span className="text-sm sm:text-base md:text-xl font-serif tracking-wide truncate sm:whitespace-normal">WhatsApp (+1 571 525 8279)</span>
             </a>
 
-            <a href="sms:+15715258279" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
+            <a href="sms:+15715258279" className="flex items-center gap-3 sm:gap-4 text-text-dark hover:text-primary transition-colors group max-w-full">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex-shrink-0 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                 <Phone size={20} />
               </div>
-              <span className="text-lg md:text-xl font-serif tracking-wide">{lang === "pt" ? "SMS" : "iMessage"}</span>
+              <span className="text-sm sm:text-base md:text-xl font-serif tracking-wide">{lang === "pt" ? "SMS" : "iMessage"}</span>
             </a>
 
-            <a href="mailto:monaedessertstudio@gmail.com" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
+            <a href="mailto:monaedessertstudio@gmail.com" className="flex items-center gap-3 sm:gap-4 text-text-dark hover:text-primary transition-colors group max-w-full">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex-shrink-0 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                 <Mail size={20} />
               </div>
-              <span className="text-lg md:text-xl font-serif tracking-wide">monaedessertstudio@gmail.com</span>
+              <span className="text-xs sm:text-sm md:text-xl font-serif tracking-wide break-all">monaedessertstudio@gmail.com</span>
             </a>
 
-            <a href="https://www.instagram.com/monaedessertstudio" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-text-dark hover:text-primary transition-colors group">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
+            <a href="https://www.instagram.com/monaedessertstudio" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:gap-4 text-text-dark hover:text-primary transition-colors group max-w-full">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex-shrink-0 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                 <InstagramIcon />
               </div>
-              <span className="text-lg md:text-xl font-serif tracking-wide">@monaedessertstudio</span>
+              <span className="text-sm sm:text-base md:text-xl font-serif tracking-wide">@monaedessertstudio</span>
             </a>
           </div>
 

@@ -15,11 +15,11 @@ export default async function SweetsPage({
     : "A Brazilian classic, handcrafted for your celebration.";
 
   return (
-    <div className="flex flex-col w-full bg-cream min-h-screen pt-24 pb-24">
-      <div className="max-w-4xl mx-auto px-6 text-center mb-16">
-        <h1 className="text-5xl font-serif text-text-dark mb-6">{title}</h1>
-        <p className="text-soft-text font-sans text-xl mb-12">{desc}</p>
-        <div className="w-full aspect-[21/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-md">
+    <div className="flex flex-col w-full bg-cream min-h-screen pt-20 sm:pt-24 pb-16 sm:pb-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center mb-10 sm:mb-16">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-text-dark mb-4 sm:mb-6">{title}</h1>
+        <p className="text-soft-text font-sans text-base sm:text-lg md:text-xl mb-8 sm:mb-12">{desc}</p>
+        <div className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden shadow-md">
           <img 
             src="/Imagens/docinho.jpeg" 
             alt="Brigadeiros e Doces" 
@@ -28,8 +28,8 @@ export default async function SweetsPage({
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
+        <div className="bg-white p-5 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
           <h2 className="text-3xl font-serif text-primary mb-8">Classic Brigadeiros</h2>
           <ul className="text-soft-text space-y-4 font-sans text-sm md:text-base">
             <li>• Brigadeiro</li>
@@ -52,9 +52,9 @@ export default async function SweetsPage({
           </div>
         </div>
 
-        <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
-          <h2 className="text-3xl font-serif text-primary mb-8">Special Brigadeiros</h2>
-          <ul className="text-soft-text space-y-4 font-sans text-sm md:text-base">
+        <div className="bg-white p-5 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30">
+          <h2 className="text-2xl sm:text-3xl font-serif text-primary mb-6 sm:mb-8">Special Brigadeiros</h2>
+          <ul className="text-soft-text space-y-3 sm:space-y-4 font-sans text-sm md:text-base">
             <li>• Belgian Milk Chocolate</li>
             <li>• White Chocolate</li>
             <li>• Peanut</li>
@@ -66,7 +66,7 @@ export default async function SweetsPage({
             <li>• Lemon</li>
           </ul>
           
-          <div className="mt-10 pt-6 border-t border-brand-border/20">
+          <div className="mt-8 sm:mt-10 pt-6 border-t border-brand-border/20">
             <h3 className="font-serif text-text-dark text-lg mb-4">Pricing</h3>
             <div className="space-y-2 text-sm text-soft-text font-sans">
               <div className="flex justify-between"><span>25 pieces</span><span>$35</span></div>
@@ -78,10 +78,10 @@ export default async function SweetsPage({
         </div>
       </div>
       
-      <div className="text-center mt-16">
+      <div className="text-center mt-10 sm:mt-16 px-4">
         <Link 
           href={`/${lang}/how-to-order`}
-          className="inline-block px-10 py-5 bg-primary text-white text-center font-sans tracking-widest text-sm rounded hover:bg-deep-cherry transition-colors duration-300 shadow-lg"
+          className="inline-block w-full max-w-xs sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-primary text-white text-center font-sans tracking-widest text-sm rounded hover:bg-deep-cherry transition-colors duration-300 shadow-lg"
         >
           {lang === "pt" ? "COMEÇAR MINHA ENCOMENDA" : "START YOUR ORDER"}
         </Link>
