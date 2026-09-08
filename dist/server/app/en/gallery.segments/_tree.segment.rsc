@@ -11,4 +11,4 @@
 :HL["/Imagens/peda%C3%A7o%20de%20bolo04.jpeg","image"]
 :HL["/Imagens/bolo14.jpeg","image"]
 :HL["/Imagens/bolo%2001.jpeg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"lang","param":{"type":"d","key":"en","siblings":["admin"]},"prefetchHints":4128,"slots":{"children":{"name":"gallery","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"yiKaG1zKeMlFW_QKzKE8M"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"lang","param":{"type":"d","key":"en","siblings":["admin"]},"prefetchHints":4128,"slots":{"children":{"name":"gallery","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"i_q6lI2aRWFNxh6vGX3GW"}
