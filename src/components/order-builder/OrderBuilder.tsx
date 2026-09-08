@@ -16,7 +16,8 @@ import {
   MINI_DESSERTS,
   BRAZILIAN_SWEETS_DATA,
   DESSERTS_DATA,
-  PARTY_PACKAGES_DATA
+  PARTY_PACKAGES_DATA,
+  CUPCAKES_DATA
 } from "@/data/catalog";
 
 const WhatsAppIcon = () => (
@@ -110,6 +111,10 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
         const kitObj = PARTY_PACKAGES_DATA.find(k => (typeof k.name === "string" ? k.name : k.name.pt) === orderData.kitType);
         if (kitObj) total = kitObj.price;
       }
+    } else if (category === "cupcakes") {
+      const qty = orderData.qty || CUPCAKES_DATA.minQty;
+      total = qty * CUPCAKES_DATA.pricePerUnit;
+      if (orderData.withTopper) total += qty * CUPCAKES_DATA.topperPrice;
     }
     return total;
   };
@@ -167,6 +172,14 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       msg += `${isEn ? "Details/Flavors:" : "Detalhes/Sabores:"} ${orderData.kitDetails || "-"}\n`;
       msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
       msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
+    } else if (category === "cupcakes") {
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} Cupcakes\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.qty || CUPCAKES_DATA.minQty}\n`;
+      msg += `${isEn ? "Topper:" : "Topo personalizado:"} ${orderData.withTopper ? (isEn ? "Yes" : "Sim") : (isEn ? "No" : "Não")}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
     } else {
       msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
       msg += `${isEn ? "Product:" : "Produto:"} ${catInfo.name[isEn ? 'en' : 'pt']}\n`;
@@ -210,6 +223,8 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       return !!orderData.dessertType;
     } else if (category === "party_packages") {
       return !!orderData.kitType && orderData.kitDetails && orderData.kitDetails.length > 3;
+    } else if (category === "cupcakes") {
+      return !!orderData.flavor && (orderData.qty || 0) >= CUPCAKES_DATA.minQty;
     } else if (category === "brigadeiros") {
       if (orderData.brigType === "Docinhos") {
         return !!orderData.flavor && orderData.brigQty >= 25;
@@ -771,16 +786,17 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 <div className="animate-in fade-in slide-in-from-top-8 duration-700">
                   <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
-                    {DESSERTS_DATA.find(d => d.id === "bombom")?.flavors?.map(f => (
+                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                    {DESSERTS_DATA.find(d => d.id === "bombom")?.flavors?.map((f: any) => (
                       <div 
-                        key={f}
-                        onClick={() => updateOrder("flavor", f)}
-                        className={`p-4 rounded-xl border-2 cursor-pointer transition-all text-center ${
-                          orderData.flavor === f ? "border-primary bg-primary text-white" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
+                        key={f.name}
+                        onClick={() => updateOrder("flavor", f.name)}
+                        className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
+                          orderData.flavor === f.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
                         }`}
                       >
-                        <div className="font-bold text-sm">{f}</div>
+                        <div className="font-bold text-sm mb-1">{f.name}</div>
+                        {f.desc && <div className="text-xs text-soft-text">{f.desc[isEn ? "en" : "pt"]}</div>}
                       </div>
                     ))}
                   </div>
@@ -843,9 +859,98 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           )}
 
           {/* =======================
+              CUPCAKES FLOW
+             ======================= */}
+          {category === "cupcakes" && (
+            <>
+              <div className="animate-in fade-in duration-500">
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">{isEn ? "Cupcakes" : "Cupcakes"}</h2>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Handcrafted cupcakes, made to order" : "Cupcakes artesanais, feitos por encomenda"}</p>
+
+                <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto">
+                  <p className="font-bold text-primary">{isEn ? "Minimum order: 12 units · $3.50/unit" : "Pedido mínimo: 12 unidades · $3,50/unidade"}</p>
+                  <p className="text-soft-text text-sm mt-1">{isEn ? "Personalized topper: +$0.85/unit" : "Topo personalizado: +$0,85/unidade"}</p>
+                </div>
+
+                {/* 1. Sabor */}
+                <div>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    {CUPCAKES_DATA.flavors.map(f => (
+                      <div
+                        key={f.id}
+                        onClick={() => updateOrderMulti({ flavor: f.name.pt, qty: orderData.qty || CUPCAKES_DATA.minQty }, "section-cupcake-qty")}
+                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
+                          orderData.flavor === f.name.pt ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                        }`}
+                      >
+                        <div className="font-bold text-text-dark mb-2">{f.name[isEn ? "en" : "pt"]}</div>
+                        <div className="text-sm text-soft-text flex-grow">{f.desc[isEn ? "en" : "pt"]}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Quantidade */}
+              {orderData.flavor && (
+                <div id="section-cupcake-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. {isEn ? "Set Quantity" : "Defina a Quantidade"}</h3>
+                  <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
+                    <label className="block text-soft-text text-sm mb-4">{isEn ? "Minimum 12 units" : "Mínimo 12 unidades"}</label>
+                    <div className="flex items-center justify-center gap-4">
+                      <button
+                        onClick={() => orderData.qty > CUPCAKES_DATA.minQty && updateOrder("qty", orderData.qty - 1)}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center border ${orderData.qty > CUPCAKES_DATA.minQty ? 'border-primary text-primary hover:bg-blush' : 'border-gray-300 text-gray-300'}`}
+                      >
+                        −
+                      </button>
+                      <input
+                        type="number"
+                        min={CUPCAKES_DATA.minQty}
+                        value={orderData.qty || CUPCAKES_DATA.minQty}
+                        onChange={(e) => updateOrder("qty", Math.max(CUPCAKES_DATA.minQty, parseInt(e.target.value) || CUPCAKES_DATA.minQty))}
+                        className="w-20 text-center text-2xl font-bold text-text-dark focus:outline-none"
+                      />
+                      <button
+                        onClick={() => updateOrder("qty", (orderData.qty || CUPCAKES_DATA.minQty) + 1)}
+                        className="w-10 h-10 rounded-full flex items-center justify-center border border-primary text-primary hover:bg-blush"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Topo personalizado */}
+              {orderData.flavor && (orderData.qty || 0) >= CUPCAKES_DATA.minQty && (
+                <div className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. {isEn ? "Personalized Topper?" : "Topo Personalizado?"}</h3>
+                  <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                    <div
+                      onClick={() => updateOrder("withTopper", true)}
+                      className={`p-5 rounded-xl border-2 cursor-pointer transition-all text-center ${orderData.withTopper === true ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"}`}
+                    >
+                      <div className="font-bold text-text-dark mb-1">{isEn ? "Yes" : "Sim"}</div>
+                      <div className="text-xs text-soft-text">+$0.85/un</div>
+                    </div>
+                    <div
+                      onClick={() => updateOrder("withTopper", false)}
+                      className={`p-5 rounded-xl border-2 cursor-pointer transition-all text-center ${orderData.withTopper === false ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"}`}
+                    >
+                      <div className="font-bold text-text-dark">{isEn ? "No" : "Não"}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* =======================
               FALLBACK FOR OTHERS 
              ======================= */}
-          {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && (
+          {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && (
              <div className="animate-in fade-in duration-500 text-center">
                <h2 className="text-3xl font-serif mb-8">{isEn ? "Details" : "Detalhes"}</h2>
                <textarea 
@@ -927,7 +1032,15 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.kitDetails}
                       </p>
                     )}
-                    {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && (
+                    {category === "cupcakes" && (
+                      <p className="text-soft-text text-sm">
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> Cupcakes<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty} {isEn ? "units" : "unidades"}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Topper:" : "Topo personalizado:"}</span> {orderData.withTopper ? (isEn ? "Yes (+$0.85/un)" : "Sim (+$0.85/un)") : (isEn ? "No" : "Não")}
+                      </p>
+                    )}
+                    {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && (
                       <p className="text-soft-text text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {catInfo.name[isEn ? 'en' : 'pt']}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.details}

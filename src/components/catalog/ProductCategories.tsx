@@ -70,9 +70,9 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
         })}
       </div>
 
-      {/* Secondary Categories (Remaining 4) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-4 md:mt-8">
-        {CATEGORIES.slice(3).map((cat) => {
+      {/* Secondary Categories – Row 1 (first 3) */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mt-4 md:mt-8">
+        {CATEGORIES.slice(3, 6).map((cat) => {
           return (
             <div
               key={cat.id}
@@ -87,7 +87,54 @@ export function ProductCategories({ lang, onSelectCategory }: ProductCategoriesP
                       alt={cat.name[lang as 'en' | 'pt']} 
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700" 
-                      sizes="(max-width: 640px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-primary/30 text-xl md:text-2xl font-serif text-center p-2 leading-tight">
+                    {cat.name[lang as 'en' | 'pt']}
+                  </div>
+                )}
+              </div>
+              
+              <div className="px-1 flex flex-col items-center flex-grow w-full">
+                <h3 className="text-sm md:text-lg font-serif text-text-dark mb-1 group-hover:text-primary transition-colors leading-tight">
+                  {cat.name[lang as 'en' | 'pt']}
+                </h3>
+                <p className="text-soft-text text-xs mb-2 md:mb-4 flex-grow line-clamp-2 hidden sm:block">
+                  {cat.description[lang as 'en' | 'pt']}
+                </p>
+                
+                <button
+                  className="w-full py-2 rounded-full text-xs font-medium transition-colors bg-transparent text-text-dark border border-text-dark/20 group-hover:bg-primary group-hover:text-white group-hover:border-primary tracking-wide mt-2"
+                >
+                  {isEn ? "Select" : "Selecionar"}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Secondary Categories – Row 2 (last 2, centered) */}
+      <div className="flex justify-center gap-3 md:gap-4 mt-3 md:mt-4">
+        {CATEGORIES.slice(6).map((cat) => {
+          return (
+            <div
+              key={cat.id}
+              className="bg-soft-blush rounded-3xl p-2 md:p-3 flex flex-col items-center text-center cursor-pointer group shadow-sm hover:shadow-md transition-all duration-300 active:scale-[0.98] w-[calc(50%-6px)] lg:w-[calc(33.333%-11px)]"
+              onClick={() => onSelectCategory(cat.id)}
+            >
+              <div className="relative w-full aspect-[4/3] bg-cream rounded-2xl overflow-hidden mb-3 md:mb-4">
+                {cat.image ? (
+                  <>
+                    <Image 
+                      src={cat.image} 
+                      alt={cat.name[lang as 'en' | 'pt']} 
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                      sizes="(max-width: 640px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                   </>

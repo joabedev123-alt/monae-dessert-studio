@@ -6,17 +6,17 @@ import { TestimonialCarousel } from "./TestimonialCarousel";
 
 export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
   return (
-    <section className="relative w-full flex items-center pt-24 pb-16 md:pt-32 md:pb-24 bg-off-white text-text-dark overflow-hidden">
+    <section className="relative w-full flex items-center pt-20 pb-12 md:pt-32 md:pb-24 bg-off-white text-text-dark overflow-hidden">
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         
-        <div className="w-full md:w-1/2 flex flex-col items-start pt-8 md:pt-12 md:pt-0">
-          <p className="font-script text-3xl lg:text-5xl text-primary tracking-widest mb-3">
+        <div className="w-full md:w-1/2 flex flex-col items-start pt-4 md:pt-0">
+          <p className="font-script text-2xl sm:text-3xl lg:text-5xl text-primary tracking-widest mb-2 md:mb-3">
             Monae Dessert Studio
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif leading-tight mb-6 md:mb-8 whitespace-pre-line text-text-dark">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif leading-tight mb-5 md:mb-8 whitespace-pre-line text-text-dark">
             {lang === "en" ? "Made For\nSweet Moments" : "Feito Para\nMomentos Doces"}
           </h1>
-          <p className="text-soft-text font-sans text-base md:text-lg mb-8 md:mb-10 max-w-lg leading-relaxed">
+          <p className="text-soft-text font-sans text-sm md:text-base lg:text-lg mb-6 md:mb-10 max-w-lg leading-relaxed">
             {lang === "en" 
               ? "Our artisanal bakery combines flavor, design, and love in every single detail, bringing a premium experience to your celebration."
               : "Nossa confeitaria artesanal une sabor, design e amor em cada detalhe, trazendo uma experiência premium para a sua celebração."}
@@ -25,15 +25,15 @@ export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-8 md:mb-12">
             <a 
               href="#menu"
-              className="px-8 py-3 bg-primary text-white text-center font-sans font-semibold rounded-full hover:bg-deep-cherry transition-colors duration-300 text-sm md:text-base"
+              className="px-8 py-4 bg-primary text-white text-center font-sans font-semibold rounded-full hover:bg-deep-cherry transition-colors duration-300 text-sm md:text-base w-full sm:w-auto"
             >
               {lang === "en" ? "Explore Cakes" : "Ver Cardápio"}
             </a>
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 mt-4 md:mt-10 md:mt-0 relative rounded-2xl overflow-hidden shadow-2xl">
-          <div className="aspect-[4/3] sm:aspect-[4/3] bg-soft-blush flex items-center justify-center relative">
+        <div className="w-full md:w-1/2 relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="aspect-[3/2] sm:aspect-[4/3] bg-soft-blush flex items-center justify-center relative">
             <Image 
               src="/Imagens/pedaço de bolo04.jpeg" 
               alt="Custom Cake" 

@@ -5,7 +5,8 @@ export type ProductCategory =
   | "mini_desserts"
   | "brazilian_sweets"
   | "desserts"
-  | "party_packages";
+  | "party_packages"
+  | "cupcakes";
 
 export interface ProductInfo {
   id: ProductCategory;
@@ -63,11 +64,18 @@ export const CATEGORIES: ProductInfo[] = [
     description: { en: "Curated sets for events", pt: "Kits selecionados para eventos" },
     image: "/Imagens/KIT%20FESTA.jpeg",
   },
+  {
+    id: "cupcakes",
+    name: { en: "Cupcakes", pt: "Cupcakes" },
+    description: { en: "Handcrafted cupcakes, made to order", pt: "Cupcakes artesanais, feitos por encomenda" },
+    image: "/Imagens/cupcakes.jpeg",
+  },
 ];
 
 // --- CUSTOM CAKES DATA ---
 export const CAKE_SIZES = [
-  { id: "4in", label: { en: "4\"", pt: "4\"" }, serves: { en: "6 - 8 slices", pt: "6 - 8 fatias" }, price: 58 },
+  { id: "4in", label: { en: "4\"", pt: "4\"" }, serves: { en: "4 - 6 servings", pt: "4 - 6 porções" }, price: 58 },
+  { id: "5in", label: { en: "5\"", pt: "5\"" }, serves: { en: "7 - 10 servings", pt: "7 - 10 porções" }, price: 70 },
   { id: "6in", label: { en: "6\"", pt: "6\"" }, serves: { en: "10-15 slices", pt: "10-15 fatias" }, price: 80 },
   { id: "8in", label: { en: "8\"", pt: "8\"" }, serves: { en: "20 - 25 slices", pt: "20 - 25 fatias" }, price: 120 },
   { id: "10in", label: { en: "10\"", pt: "10\"" }, serves: { en: "33 - 38 slices", pt: "33 - 38 fatias" }, price: 180 },
@@ -195,7 +203,14 @@ export const DESSERTS_DATA = [
     serves: { pt: "Serve até 15 porções", en: "Serves up to 15 portions" }, 
     validity: { pt: "Validade: sem frutas, até 4 dias refrigerado. Com frutas, consumo imediato.", en: "Shelf life: 4 days refrigerated without fruits. With fruits, consume immediately." }, 
     price: 70,
-    flavors: ["Napolitano", "Bombom de uva", "Ouro branco", "Morango e merengue"]
+    flavors: [
+      { name: "Napolitano", desc: { pt: "Brigadeiro ao leite, creme de ninho e morangos frescos.", en: "Milk brigadeiro, Ninho cream and fresh strawberries." } },
+      { name: "Bombom de uva", desc: { pt: "Uvas frescas com brigadeiro cremoso.", en: "Fresh grapes with creamy brigadeiro." } },
+      { name: "Maracujá trufado", desc: { pt: "Brigadeiro de maracujá e ganache de chocolate.", en: "Passion fruit brigadeiro and chocolate ganache." } },
+      { name: "Merengue de morango", desc: { pt: "Merengue crocante com creme de morango fresco.", en: "Crunchy meringue with fresh strawberry cream." } },
+      { name: "Morango moreno", desc: { pt: "Pão de ló, doce de leite, creme de chantilly e morango.", en: "Sponge cake, dulce de leche, whipped cream and strawberry." } },
+      { name: "Travessa de limão", desc: { pt: "Mousse de limão siciliano com chantilly e raspas.", en: "Sicilian lemon mousse with whipped cream and zest." } },
+    ]
   },
   { 
     id: "banoffee", 
@@ -228,3 +243,15 @@ export const PARTY_PACKAGES_DATA = [
     price: 100
   }
 ];
+
+// --- CUPCAKES DATA ---
+export const CUPCAKES_DATA = {
+  flavors: [
+    { id: "ninho", name: { en: "Ninho", pt: "Ninho" }, desc: { en: "Soft and light milk powder cream", pt: "Creme de leite ninho, suave e leve" } },
+    { id: "vanilla", name: { en: "Vanilla", pt: "Vanilla" }, desc: { en: "Classic vanilla cream", pt: "Creme cl\u00e1ssico de baunilha" } },
+    { id: "brigadeiro", name: { en: "Brigadeiro", pt: "Brigadeiro" }, desc: { en: "Creamy Brazilian chocolate fudge", pt: "Brigadeiro gourmet cremoso" } },
+  ],
+  pricePerUnit: 3.50,
+  topperPrice: 0.85,
+  minQty: 12,
+};

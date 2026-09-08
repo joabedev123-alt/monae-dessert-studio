@@ -20,12 +20,12 @@ export function Footer({ lang, dict }: FooterProps) {
   };
 
   return (
-    <footer className="w-full bg-footer-bg text-text-dark pt-20 pb-8 mt-auto border-t border-brand-border/20 relative">
+    <footer className="w-full bg-footer-bg text-text-dark pt-16 pb-8 mt-auto border-t border-brand-border/20 relative">
       <TornEdge position="top" fill="text-off-white" />
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="md:col-span-1">
-            <h3 className="font-script text-4xl text-primary mb-6 tracking-wide">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
+          <div className="col-span-2 md:col-span-1">
+            <h3 className="font-script text-4xl text-primary mb-4 tracking-wide">
               Monae
             </h3>
             <p className="text-soft-text font-sans text-sm leading-relaxed max-w-xs">
@@ -35,8 +35,8 @@ export function Footer({ lang, dict }: FooterProps) {
 
           {/* Column 2 */}
           <div>
-            <h3 className="text-lg font-serif mb-6 text-text-dark">{dict.footer.explore}</h3>
-            <ul className="space-y-3 font-sans text-sm text-soft-text">
+            <h3 className="text-base md:text-lg font-serif mb-4 text-text-dark">{dict.footer.explore}</h3>
+            <ul className="space-y-2 md:space-y-3 font-sans text-xs md:text-sm text-soft-text">
               <li><Link href={`/${lang}`} className="hover:text-primary transition-colors">{dict.navigation.home}</Link></li>
               <li><Link href={`/${lang}/about`} className="hover:text-primary transition-colors">{dict.navigation.about}</Link></li>
               <li><Link href={`/${lang}/cakes`} className="hover:text-primary transition-colors">{dict.navigation.menuDropdown.celebrationCakes}</Link></li>
@@ -49,28 +49,28 @@ export function Footer({ lang, dict }: FooterProps) {
 
           {/* Column 3 */}
           <div>
-            <h3 className="text-lg font-serif mb-6 text-text-dark">{dict.footer.information}</h3>
-            <ul className="space-y-3 font-sans text-sm text-soft-text">
+            <h3 className="text-base md:text-lg font-serif mb-4 text-text-dark">{dict.footer.information}</h3>
+            <ul className="space-y-2 md:space-y-3 font-sans text-xs md:text-sm text-soft-text">
               <li><Link href={`/${lang}/how-to-order`} className="hover:text-primary transition-colors">{dict.navigation.howToOrder}</Link></li>
               <li><Link href={`/${lang}/faq`} className="hover:text-primary transition-colors">{dict.navigation.faq}</Link></li>
               <li><Link href={`/${lang}/policies`} className="hover:text-primary transition-colors">Policies</Link></li>
-              <li><Link href={`/${lang}/policies#storage`} className="hover:text-primary transition-colors">Storage & Care</Link></li>
+              <li><Link href={`/${lang}/policies#storage`} className="hover:text-primary transition-colors">Storage &amp; Care</Link></li>
               <li><Link href={`/${lang}/contact`} className="hover:text-primary transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           {/* Column 4 */}
           <div>
-            <h3 className="text-lg font-serif mb-6 text-text-dark">{dict.footer.contact}</h3>
-            <ul className="space-y-3 font-sans text-sm text-soft-text">
+            <h3 className="text-base md:text-lg font-serif mb-4 text-text-dark">{dict.footer.contact}</h3>
+            <ul className="space-y-2 md:space-y-3 font-sans text-xs md:text-sm text-soft-text">
               <li>+1 571 525 8279</li>
-              <li>monaedessertstudio@gmail.com</li>
-              <li className="mt-4">
+              <li className="break-all">monaedessertstudio@gmail.com</li>
+              <li className="mt-2 md:mt-4">
                 <a href="https://www.instagram.com/monaedessertstudio" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                  Instagram: @monaedessertstudio
+                  @monaedessertstudio
                 </a>
               </li>
-              <li className="mt-6 font-semibold text-text-dark">{dict.footer.serving}</li>
+              <li className="mt-3 md:mt-6 font-semibold text-text-dark">{dict.footer.serving}</li>
               {dict.footer.servingAreas.map((area: string, idx: number) => (
                 <li key={idx}>{area}</li>
               ))}
