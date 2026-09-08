@@ -200,7 +200,7 @@ export const DESSERTS_DATA = [
     id: "bombom", 
     name: { pt: "Bombom na travessa", en: "Chocolate Truffle Bowl" }, 
     desc: { pt: "Uma travessa inteira de pura alegria e cremosidade.", en: "A whole bowl of pure joy and creaminess." }, 
-    serves: { pt: "Serve até 15 porções", en: "Serves up to 15 portions" }, 
+    serves: { pt: "Serve até 15 porções (serve até 12 pessoas)", en: "Serves up to 15 portions (serves up to 12 people)" }, 
     validity: { pt: "Validade: sem frutas, até 4 dias refrigerado. Com frutas, consumo imediato.", en: "Shelf life: 4 days refrigerated without fruits. With fruits, consume immediately." }, 
     price: 70,
     flavors: [

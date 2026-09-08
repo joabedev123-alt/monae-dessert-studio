@@ -16,6 +16,11 @@
 # next.js
 /.next/
 /out/
+dist/**/cache/
+dist/cache/
+dist/dev/
+*.sst
+
 
 # production
 /build

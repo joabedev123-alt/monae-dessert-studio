@@ -1,0 +1,72 @@
+{
+  "app": {
+    "[project]/src/app/[lang]/about/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/cakes/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/contact/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/desserts/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/faq/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/gallery/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/how-to-order/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/party-packages/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/policies/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/[lang]/sweets/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/_not-found/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/src/app/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/f48d461c03e0a8ec-s.p.3rqg0w444aekk.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

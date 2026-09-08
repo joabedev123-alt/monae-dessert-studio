@@ -42,7 +42,9 @@ export default async function DessertsPage({
             <h2 className="text-2xl font-serif text-primary mb-2">Dessert Tray</h2>
             <div className="text-xl text-text-dark font-sans mb-4">$70</div>
             <p className="text-soft-text font-sans text-sm flex-grow">
-              Neapolitan, Grape Bonbon, Ouro Branco, or Strawberry Meringue. Serves up to 15.
+              {lang === "pt"
+                ? "Napolitano, Bombom de uva, Maracujá trufado, Merengue de morango, Morango moreno ou Travessa de limão. Serve até 15 porções (serve até 12 pessoas)."
+                : "Neapolitan, Grape Bonbon, Passion Fruit Truffle, Strawberry Meringue, Brown Strawberry or Lemon Bowl. Serves up to 15 portions (serves up to 12 people)."}
             </p>
           </div>
         </div>
