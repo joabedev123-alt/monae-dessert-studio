@@ -23,6 +23,8 @@ export function checkAvailability(date: Date): Record<ProductCategory, Availabil
     desserts: "available",
     party_packages: "available",
     cupcakes: "available",
+    mini_brownies: "available",
+    caseirinhos: "available",
   };
   
   // Simulate some random sold outs or limits based on day of week / month for demonstration

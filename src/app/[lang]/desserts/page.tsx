@@ -36,15 +36,15 @@ export default async function DessertsPage({
         {/* Dessert 2 */}
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-border/30 flex flex-col">
           <div className="aspect-square relative bg-soft-blush">
-             <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=1000&auto=format&fit=crop" alt="Brazilian Dessert Tray" className="w-full h-full object-cover" />
+             <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=1000&auto=format&fit=crop" alt="Brazilian Dessert Tray" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div className="p-5 sm:p-8 flex-grow flex flex-col">
-            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-2">Dessert Tray</h2>
-            <div className="text-lg sm:text-xl text-text-dark font-sans mb-3 sm:mb-4">$70</div>
+            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-2">{lang === "pt" ? "Sobremesa de travessa" : "Dessert Tray"}</h2>
+            <div className="text-lg sm:text-xl text-text-dark font-sans mb-3 sm:mb-4">$35</div>
             <p className="text-soft-text font-sans text-sm flex-grow">
               {lang === "pt"
-                ? "Napolitano, Bombom de uva, Maracujá trufado, Merengue de morango, Morango moreno ou Travessa de limão. Serve até 15 porções (serve até 12 pessoas)."
-                : "Neapolitan, Grape Bonbon, Passion Fruit Truffle, Strawberry Meringue, Brown Strawberry or Lemon Bowl. Serves up to 15 portions (serves up to 12 people)."}
+                ? "Napolitano, Bombom de uva, Maracujá trufado, Merengue de morango, Morango moreno ou Travessa de limão. Serve até 6 pessoas."
+                : "Neapolitan, Grape Bonbon, Passion Fruit Truffle, Strawberry Meringue, Brown Strawberry or Lemon Bowl. Serves up to 6 people."}
             </p>
           </div>
         </div>
@@ -52,13 +52,15 @@ export default async function DessertsPage({
         {/* Dessert 3 */}
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-border/30 flex flex-col">
           <div className="aspect-square relative bg-soft-blush">
-             <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=1000&auto=format&fit=crop" alt="Banoffee" className="w-full h-full object-cover" />
+             <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=1000&auto=format&fit=crop" alt="Tortas" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div className="p-5 sm:p-8 flex-grow flex flex-col">
-            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-2">Banoffee</h2>
+            <h2 className="text-xl sm:text-2xl font-serif text-primary mb-2">{lang === "pt" ? "Tortas" : "Pies"}</h2>
             <div className="text-lg sm:text-xl text-text-dark font-sans mb-3 sm:mb-4">$70</div>
             <p className="text-soft-text font-sans text-sm flex-grow">
-              Crunchy cookie crust, fresh bananas, dulce de leche and light whipped cream. Serves up to 12.
+              {lang === "pt"
+                ? "Banoffee, Limão, Creme e framboesa ou Prestígio. Rende 12 fatias."
+                : "Banoffee, Lemon, Cream & Raspberry or Prestige. Serves 12 slices."}
             </p>
           </div>
         </div>

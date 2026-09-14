@@ -46,7 +46,7 @@ export function Header({ lang, dict }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-[55] transition-all duration-300 ${
         isScrolled ? "bg-cream/95 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
       }`}
     >

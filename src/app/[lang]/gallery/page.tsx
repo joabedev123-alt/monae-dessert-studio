@@ -32,7 +32,12 @@ export default async function GalleryPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
         {images.map((src, i) => (
           <div key={i} className="break-inside-avoid relative rounded-xl overflow-hidden group shadow-sm">
-            <img src={src} alt="Gallery item" className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img
+              src={src}
+              alt="Gallery item"
+              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+              loading={i < 2 ? "eager" : "lazy"}
+            />
             <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
           </div>
         ))}

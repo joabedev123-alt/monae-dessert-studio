@@ -22,9 +22,9 @@ export function Footer({ lang, dict }: FooterProps) {
   return (
     <footer className="w-full bg-footer-bg text-text-dark pt-16 pb-8 mt-auto border-t border-brand-border/20 relative">
       <TornEdge position="top" fill="text-off-white" />
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
-          <div className="col-span-2 md:col-span-1">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
+          <div className="col-span-1 sm:col-span-2 md:col-span-1">
             <h3 className="font-script text-4xl text-primary mb-4 tracking-wide">
               Monae
             </h3>
@@ -79,9 +79,9 @@ export function Footer({ lang, dict }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-brand-border/20 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-soft-text">
+        <div className="border-t border-brand-border/20 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center text-xs sm:text-sm text-soft-text text-center md:text-left gap-4 md:gap-0">
           <p>{dict.footer.rights}</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-2 md:mt-0">
             <Link href={`/${lang}/privacy`} className="hover:text-primary transition-colors">
               {dict.footer.links.privacy}
             </Link>
@@ -93,18 +93,18 @@ export function Footer({ lang, dict }: FooterProps) {
           <div className="flex items-center space-x-2 mt-4 md:mt-0">
             <button
               onClick={() => switchLanguage("en")}
-              className={`hover:opacity-100 transition-opacity ${lang === "en" ? "opacity-100 grayscale-0" : "opacity-50 grayscale"}`}
+              className={`flex items-center justify-center hover:opacity-100 transition-opacity ${lang === "en" ? "opacity-100 grayscale-0" : "opacity-50 grayscale"}`}
               title="English"
             >
-              <img src="https://flagcdn.com/w40/us.png" alt="English" className="w-5 h-auto rounded-sm shadow-sm" />
+              <img src="https://flagcdn.com/w40/us.png" alt="English" className="w-5 h-auto rounded-sm shadow-sm" loading="lazy" />
             </button>
             <span className="mx-1 text-white/40">|</span>
             <button
               onClick={() => switchLanguage("pt")}
-              className={`hover:opacity-100 transition-opacity ${lang === "pt" ? "opacity-100 grayscale-0" : "opacity-50 grayscale"}`}
+              className={`flex items-center justify-center hover:opacity-100 transition-opacity ${lang === "pt" ? "opacity-100 grayscale-0" : "opacity-50 grayscale"}`}
               title="Português"
             >
-              <img src="https://flagcdn.com/w40/br.png" alt="Português" className="w-5 h-auto rounded-sm shadow-sm" />
+              <img src="https://flagcdn.com/w40/br.png" alt="Português" className="w-5 h-auto rounded-sm shadow-sm" loading="lazy" />
             </button>
           </div>
         </div>

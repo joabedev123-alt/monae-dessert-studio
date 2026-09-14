@@ -81,20 +81,20 @@ export function OrderBuilder({ lang }: OrderBuilderProps) {
   };
 
   return (
-    <div className="bg-white p-8 md:p-12 rounded-xl shadow-sm border border-brand-border/40 max-w-2xl mx-auto w-full font-sans">
-      <h3 className="text-2xl font-serif text-text-dark mb-8 text-center">
+    <div className="bg-white p-4 sm:p-6 md:p-12 rounded-2xl shadow-sm border border-brand-border/40 max-w-2xl mx-auto w-full font-sans">
+      <h3 className="text-xl sm:text-2xl font-serif text-text-dark mb-6 sm:mb-8 text-center">
         {lang === "pt" ? "Montar Pedido" : "Order Builder"}
       </h3>
       
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div className="flex flex-col">
-            <label className="text-sm text-soft-text mb-2">{labels.date}</label>
-            <input type="date" name="date" onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
+            <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.date}</label>
+            <input type="date" name="date" onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors" />
           </div>
           <div className="flex flex-col">
-            <label className="text-sm text-soft-text mb-2">{labels.guests}</label>
-            <input type="number" name="guests" placeholder="Ex: 20" onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
+            <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.guests}</label>
+            <input type="number" name="guests" placeholder="Ex: 20" onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors" />
           </div>
         </div>
 
@@ -110,37 +110,37 @@ export function OrderBuilder({ lang }: OrderBuilderProps) {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div className="flex flex-col">
-            <label className="text-sm text-soft-text mb-2">{labels.size}</label>
-            <input type="text" name="size" placeholder={lang === "pt" ? "Ex: 8 polegadas" : "Ex: 8 inch"} onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
+            <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.size}</label>
+            <input type="text" name="size" placeholder={lang === "pt" ? "Ex: 8 polegadas" : "Ex: 8 inch"} onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors" />
           </div>
           <div className="flex flex-col">
-            <label className="text-sm text-soft-text mb-2">{labels.flavor}</label>
-            <input type="text" name="flavor" placeholder="Ex: Ninho & Nutella" onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
+            <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.flavor}</label>
+            <input type="text" name="flavor" placeholder="Ex: Ninho & Nutella" onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors" />
           </div>
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm text-soft-text mb-2">{labels.design}</label>
-          <input type="text" name="design" placeholder={lang === "pt" ? "Ex: Delicate Piping" : "Ex: Delicate Piping"} onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
+          <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.design}</label>
+          <input type="text" name="design" placeholder={lang === "pt" ? "Ex: Delicate Piping" : "Ex: Delicate Piping"} onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors" />
         </div>
         
         <div className="flex flex-col">
-          <label className="text-sm text-soft-text mb-2">{labels.addons}</label>
-          <input type="text" name="addons" placeholder={lang === "pt" ? "Ex: Flores frescas" : "Ex: Fresh flowers"} onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
+          <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.addons}</label>
+          <input type="text" name="addons" placeholder={lang === "pt" ? "Ex: Flores frescas" : "Ex: Fresh flowers"} onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors" />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm text-soft-text mb-2">{labels.notes}</label>
-          <textarea name="notes" rows={3} onChange={handleChange} className="border border-brand-border rounded px-4 py-3 focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+          <label className="text-xs sm:text-sm text-soft-text mb-1.5">{labels.notes}</label>
+          <textarea name="notes" rows={3} onChange={handleChange} className="border border-brand-border rounded-lg px-3.5 py-3 text-base focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
         </div>
       </div>
 
       <button 
         onClick={handleGenerateMessage}
         disabled={!formData.date || !formData.product}
-        className="w-full mt-10 bg-[#25D366] text-white py-4 rounded font-sans tracking-wide hover:bg-[#20bd5a] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full mt-8 sm:mt-10 bg-[#25D366] text-white py-3.5 sm:py-4 rounded-full font-sans font-semibold tracking-wide hover:bg-[#20bd5a] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md text-sm sm:text-base min-h-[48px] flex items-center justify-center"
       >
         {labels.btn}
       </button>

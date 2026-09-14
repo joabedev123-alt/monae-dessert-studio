@@ -12,12 +12,14 @@ import {
   CAKE_ADDONS,
   BRIGADEIRO_FLAVORS,
   BRIGADEIRO_TIERS,
-  BRIGADEIRO_DOCINHOS,
   MINI_DESSERTS,
   BRAZILIAN_SWEETS_DATA,
   DESSERTS_DATA,
   PARTY_PACKAGES_DATA,
-  CUPCAKES_DATA
+  CUPCAKES_DATA,
+  MINI_BROWNIES_DATA,
+  CASEIRINHOS_SIZES,
+  CASEIRINHOS_FLAVORS
 } from "@/data/catalog";
 
 const WhatsAppIcon = () => (
@@ -82,12 +84,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
     } else if (category === "mini_cakes") {
       total = 30;
     } else if (category === "brigadeiros") {
-      if (orderData.brigType === "Docinhos") {
-        if (orderData.flavor && orderData.brigQty) {
-          const docinho = BRIGADEIRO_DOCINHOS.find(d => d.name === orderData.flavor);
-          if (docinho) total = docinho.price * orderData.brigQty;
-        }
-      } else if (orderData.brigType && orderData.brigQty) {
+      if (orderData.brigType && orderData.brigQty) {
         const tiers = orderData.brigType === "Tradicional" ? BRIGADEIRO_TIERS.tradicionais : BRIGADEIRO_TIERS.especiais;
         const selectedTier = tiers.find(t => t.qty === orderData.brigQty);
         if (selectedTier) total = selectedTier.price;
@@ -115,6 +112,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       const qty = orderData.qty || CUPCAKES_DATA.minQty;
       total = qty * CUPCAKES_DATA.pricePerUnit;
       if (orderData.withTopper) total += qty * CUPCAKES_DATA.topperPrice;
+    } else if (category === "mini_brownies") {
+      const qty = orderData.qty || MINI_BROWNIES_DATA.minQty;
+      total = (qty / 100) * MINI_BROWNIES_DATA.pricePerHundred;
+    } else if (category === "caseirinhos") {
+      const sizeObj = CASEIRINHOS_SIZES.find(s => s.label.pt === orderData.size);
+      if (sizeObj) total = sizeObj.price;
     }
     return total;
   };
@@ -145,7 +148,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
       msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.brigQty || "-"}\n`;
       msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
-      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${orderData.brigType === "Docinhos" ? total.toFixed(2) : total}\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total}\n`;
     } else if (category === "mini_desserts") {
       msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
       msg += `${isEn ? "Product:" : "Produto:"} ${isEn ? "Mini Desserts" : "Mini Sobremesas (Tacinhas)"}\n`;
@@ -178,6 +181,20 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
       msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
       msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.qty || CUPCAKES_DATA.minQty}\n`;
       msg += `${isEn ? "Topper:" : "Topo personalizado:"} ${orderData.withTopper ? (isEn ? "Yes" : "Sim") : (isEn ? "No" : "Não")}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
+    } else if (category === "mini_brownies") {
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} Mini Brownies\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
+      msg += `${isEn ? "Quantity:" : "Quantidade:"} ${orderData.qty || MINI_BROWNIES_DATA.minQty}\n`;
+      msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
+      msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
+    } else if (category === "caseirinhos") {
+      msg += `${isEn ? "Order Date:" : "Data da encomenda:"} ${orderData.orderDate || (isEn ? "Not provided" : "Não informada")}\n\n`;
+      msg += `${isEn ? "Product:" : "Produto:"} Caseirinhos\n`;
+      msg += `${isEn ? "Size:" : "Tamanho:"} ${orderData.size || "-"}\n`;
+      msg += `${isEn ? "Flavor:" : "Sabor:"} ${orderData.flavor || "-"}\n`;
       msg += `${isEn ? "Notes:" : "Mensagem/Observações:"} ${orderData.notes || "-"}\n\n`;
       msg += `${isEn ? "*Estimated Total:*" : "*Valor Estimado:*"} $${total.toFixed(2)}\n`;
     } else {
@@ -219,26 +236,28 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
     } else if (category === "brazilian_sweets") {
       return !!orderData.sweetsType && !!orderData.flavor && orderData.qty >= BRAZILIAN_SWEETS_DATA.minQty;
     } else if (category === "desserts") {
-      if (orderData.dessertType === "Bombom na travessa") return !!orderData.flavor;
+      const selectedDessert = DESSERTS_DATA.find(d => (typeof d.name === "string" ? d.name : d.name.pt) === orderData.dessertType);
+      if (selectedDessert?.flavors) return !!orderData.flavor;
       return !!orderData.dessertType;
     } else if (category === "party_packages") {
       return !!orderData.kitType && orderData.kitDetails && orderData.kitDetails.length > 3;
     } else if (category === "cupcakes") {
       return !!orderData.flavor && (orderData.qty || 0) >= CUPCAKES_DATA.minQty;
     } else if (category === "brigadeiros") {
-      if (orderData.brigType === "Docinhos") {
-        return !!orderData.flavor && orderData.brigQty >= 25;
-      }
       return !!orderData.flavor;
+    } else if (category === "mini_brownies") {
+      return !!orderData.flavor && (orderData.qty || 0) >= MINI_BROWNIES_DATA.minQty;
+    } else if (category === "caseirinhos") {
+      return !!orderData.size && !!orderData.flavor;
     } else {
       return !!orderData.details;
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-off-white flex flex-col">
+    <div className="fixed inset-0 z-[60] bg-off-white flex flex-col">
       {/* Header */}
-      <div className="h-16 md:h-20 border-b border-brand-border flex items-center justify-between px-4 md:px-6 bg-white shrink-0 shadow-sm z-10">
+      <div className="h-14 sm:h-16 md:h-20 border-b border-brand-border flex items-center justify-between px-3 sm:px-4 md:px-6 bg-white shrink-0 shadow-sm z-10">
         <button onClick={onClose} className="p-2 text-text-dark hover:bg-cream rounded-full transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
           <X size={22} />
         </button>
@@ -416,8 +435,9 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
                 <div className="bg-white border border-brand-border p-6 rounded-2xl shadow-sm mb-12 text-center max-w-2xl mx-auto">
                   <p className="text-soft-text text-lg">
-                    {isEn ? "A mini cake is the perfect size to share for two.<br/>" : "Mini cake é um bolo perfeito para experimentar a dois.<br/>"}
-                    {isEn ? "Approximate size 4\"x3\"" : "Tamanho de aproximadamente 4\"x3\""}
+                    {isEn ? "A mini cake is the perfect size to share for two." : "Mini cake é um bolo perfeito para experimentar a dois."}
+                    <br />
+                    <span>{isEn ? "Approximate size 4\"x3\"" : "Tamanho de aproximadamente 4\"x3\""}</span>
                   </p>
                   <div className="text-3xl font-serif text-primary mt-4 font-bold">{isEn ? "Price: $30" : "Valor: $30"}</div>
                 </div>
@@ -461,7 +481,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 {/* {isEn ? "1. Choose the Category" : "1. Escolha a Linha"} */}
                 <div>
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "1. Choose the Category" : "1. Escolha a Linha"}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div 
                       onClick={() => updateOrderMulti({ brigType: "Tradicional", brigQty: null, flavor: null }, "section-brig-qty")}
                       className={`p-6 rounded-xl border-2 cursor-pointer text-center transition-all ${
@@ -478,20 +498,12 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                     >
                       <div className={`text-2xl font-serif ${orderData.brigType === "Especial" ? "text-primary" : "text-text-dark"}`}>{isEn ? "Specialties" : "Especiais"}</div>
                     </div>
-                    <div 
-                      onClick={() => updateOrderMulti({ brigType: "Docinhos", brigQty: null, flavor: null }, "section-brig-flavor-doc")}
-                      className={`p-6 rounded-xl border-2 cursor-pointer text-center transition-all ${
-                        orderData.brigType === "Docinhos" ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
-                      }`}
-                    >
-                      <div className={`text-2xl font-serif ${orderData.brigType === "Docinhos" ? "text-primary" : "text-text-dark"}`}>{isEn ? "Sweets" : "Docinhos"}</div>
-                    </div>
                   </div>
                 </div>
               </div>
 
               {/* {isEn ? "2. Choose Quantity" : "2. Escolha a Quantidade"} (Tradicionais/Especiais) */}
-              {orderData.brigType && orderData.brigType !== "Docinhos" && (
+              {orderData.brigType && (
                 <div id="section-brig-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "2. Choose Quantity" : "2. Escolha a Quantidade"}</h3>
                   <div className="grid gap-3 sm:grid-cols-3">
@@ -512,7 +524,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               )}
 
               {/* 3. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Tradicionais/Especiais) */}
-              {orderData.brigType && orderData.brigType !== "Docinhos" && orderData.brigQty && (
+              {orderData.brigType && orderData.brigQty && (
                 <div id="section-brig-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
                   <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">3. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -532,60 +544,6 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               )}
             </>
           )}
-
-          
-              {/* 2. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Docinhos) */}
-              {orderData.brigType === "Docinhos" && (
-                <div id="section-brig-flavor-doc" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
-                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {BRIGADEIRO_DOCINHOS.map(d => (
-                      <div 
-                        key={d.id}
-                        onClick={() => updateOrderMulti({ flavor: d.name, brigQty: orderData.brigQty || 25 }, "section-brig-qty-doc")}
-                        className={`p-5 rounded-xl border-2 cursor-pointer transition-all flex flex-col h-full ${
-                          orderData.flavor === d.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
-                        }`}
-                      >
-                        <div className="font-bold text-text-dark mb-2">{typeof d.name === "string" ? d.name : d.name[isEn ? "en" : "pt"]}</div>
-                        <div className="text-sm text-soft-text mb-4 flex-grow">{d.desc[isEn ? "en" : "pt"]}</div>
-                        <div className="text-primary font-bold mt-auto pt-2 border-t border-brand-border">$ {d.price.toFixed(2)} un</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* {isEn ? "3. Set Quantity" : "3. Defina a Quantidade"} (Docinhos) */}
-              {orderData.brigType === "Docinhos" && orderData.flavor && (
-                <div id="section-brig-qty-doc" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
-                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">{isEn ? "3. Set Quantity" : "3. Defina a Quantidade"}</h3>
-                  <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
-                    <label className="block text-soft-text text-sm mb-4">{isEn ? "Minimum 25 units" : "Mínimo 25 unidades"}</label>
-                    <div className="flex items-center justify-center gap-4">
-                      <button 
-                        onClick={() => orderData.brigQty > 25 && updateOrder("brigQty", orderData.brigQty - 1)}
-                        className={`w-10 h-10 rounded-full flex items-center justify-center border ${orderData.brigQty > 25 ? 'border-primary text-primary hover:bg-blush' : 'border-gray-300 text-gray-300'}`}
-                      >
-                        -
-                      </button>
-                      <input 
-                        type="number" 
-                        min="25"
-                        value={orderData.brigQty}
-                        onChange={(e) => updateOrder("brigQty", Math.max(25, parseInt(e.target.value) || 25))}
-                        className="w-20 text-center text-2xl font-bold text-text-dark focus:outline-none"
-                      />
-                      <button 
-                        onClick={() => updateOrder("brigQty", (orderData.brigQty || 25) + 1)}
-                        className="w-10 h-10 rounded-full flex items-center justify-center border border-primary text-primary hover:bg-blush"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
 
           {/* =======================
               MINI DESSERTS FLOW
@@ -781,27 +739,31 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                 </div>
               </div>
 
-              {/* 2. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Only for Bombom na travessa) */}
-              {orderData.dessertType === "Bombom na travessa" && (
-                <div className="animate-in fade-in slide-in-from-top-8 duration-700">
-                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
-                  
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                    {DESSERTS_DATA.find(d => d.id === "bombom")?.flavors?.map((f: any) => (
-                      <div 
-                        key={f.name}
-                        onClick={() => updateOrder("flavor", f.name)}
-                        className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
-                          orderData.flavor === f.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
-                        }`}
-                      >
-                        <div className="font-bold text-sm mb-1">{f.name}</div>
-                        {f.desc && <div className="text-xs text-soft-text">{f.desc[isEn ? "en" : "pt"]}</div>}
-                      </div>
-                    ))}
+              {/* 2. {isEn ? "Choose Flavor" : "Escolha o Sabor"} (Only for desserts with a flavor list) */}
+              {(() => {
+                const selectedDessert = DESSERTS_DATA.find(d => (typeof d.name === "string" ? d.name : d.name.pt) === orderData.dessertType);
+                if (!selectedDessert?.flavors) return null;
+                return (
+                  <div className="animate-in fade-in slide-in-from-top-8 duration-700">
+                    <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
+
+                    <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                      {selectedDessert.flavors.map((f: any) => (
+                        <div
+                          key={f.name}
+                          onClick={() => updateOrder("flavor", f.name, "section-notes")}
+                          className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col ${
+                            orderData.flavor === f.name ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
+                          }`}
+                        >
+                          <div className="font-bold text-sm mb-1">{f.name}</div>
+                          {f.desc && <div className="text-xs text-soft-text">{f.desc[isEn ? "en" : "pt"]}</div>}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </>
           )}
 
@@ -948,9 +910,126 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
           )}
 
           {/* =======================
-              FALLBACK FOR OTHERS 
+              MINI BROWNIES FLOW
              ======================= */}
-          {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && (
+          {category === "mini_brownies" && (
+            <>
+              <div className="animate-in fade-in duration-500">
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Mini Brownies</h2>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "$150 per 100" : "$150 o cento"}</p>
+
+                <div className="bg-cream border border-brand-border p-6 rounded-2xl mb-12 text-center max-w-2xl mx-auto">
+                  <p className="font-bold text-primary">{isEn ? "$150 per 100 units" : "$150 o cento (100 unidades)"}</p>
+                </div>
+
+                {/* 1. Sabor */}
+                <div>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {MINI_BROWNIES_DATA.flavors.map(f => (
+                      <div
+                        key={f}
+                        onClick={() => updateOrderMulti({ flavor: f, qty: orderData.qty || MINI_BROWNIES_DATA.minQty }, "section-brownies-qty")}
+                        className={`p-4 rounded-xl border-2 cursor-pointer text-center transition-all ${
+                          orderData.flavor === f ? "border-primary bg-blush/30 text-primary" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
+                        }`}
+                      >
+                        <div className="font-medium text-sm">{f}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Quantidade */}
+              {orderData.flavor && (
+                <div id="section-brownies-qty" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
+                  <h3 className="text-xl font-serif text-primary mb-4 border-b border-brand-border pb-2">2. {isEn ? "Set Quantity" : "Defina a Quantidade"}</h3>
+                  <div className="max-w-xs mx-auto bg-white border-2 border-brand-border rounded-xl p-6 text-center shadow-sm">
+                    <label className="block text-soft-text text-sm mb-4">{isEn ? "Minimum 100 units, in steps of 100" : "Mínimo 100 unidades, em múltiplos de 100"}</label>
+                    <div className="flex items-center justify-center gap-4">
+                      <button
+                        onClick={() => orderData.qty > MINI_BROWNIES_DATA.minQty && updateOrder("qty", orderData.qty - 100)}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center border ${orderData.qty > MINI_BROWNIES_DATA.minQty ? 'border-primary text-primary hover:bg-blush' : 'border-gray-300 text-gray-300'}`}
+                      >
+                        −
+                      </button>
+                      <input
+                        type="number"
+                        min={MINI_BROWNIES_DATA.minQty}
+                        step={100}
+                        value={orderData.qty || MINI_BROWNIES_DATA.minQty}
+                        onChange={(e) => updateOrder("qty", Math.max(MINI_BROWNIES_DATA.minQty, Math.round((parseInt(e.target.value) || MINI_BROWNIES_DATA.minQty) / 100) * 100))}
+                        className="w-20 text-center text-2xl font-bold text-text-dark focus:outline-none"
+                      />
+                      <button
+                        onClick={() => updateOrder("qty", (orderData.qty || MINI_BROWNIES_DATA.minQty) + 100)}
+                        className="w-10 h-10 rounded-full flex items-center justify-center border border-primary text-primary hover:bg-blush"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* =======================
+              CASEIRINHOS FLOW
+             ======================= */}
+          {category === "caseirinhos" && (
+            <>
+              <div className="animate-in fade-in duration-500">
+                <h2 className="text-3xl font-serif mb-2 text-center text-primary uppercase">Caseirinhos</h2>
+                <p className="text-center text-text-dark mb-8 font-serif">{isEn ? "Homemade-style cakes, mini or large" : "Bolos caseiros, no tamanho mini ou grande"}</p>
+
+                {/* 1. Tamanho */}
+                <div>
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">1. {isEn ? "Choose Size" : "Escolha o Tamanho"}</h3>
+                  <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                    {CASEIRINHOS_SIZES.map(s => (
+                      <div
+                        key={s.id}
+                        onClick={() => updateOrderMulti({ size: s.label.pt, flavor: null }, "section-caseirinhos-flavor")}
+                        className={`p-5 rounded-xl border-2 cursor-pointer text-center transition-all ${
+                          orderData.size === s.label.pt ? "border-primary bg-blush/30" : "border-brand-border bg-white hover:border-primary/50"
+                        }`}
+                      >
+                        <div className={`text-xl font-serif ${orderData.size === s.label.pt ? "text-primary" : "text-text-dark"}`}>{s.label[isEn ? "en" : "pt"]}</div>
+                        <div className="text-primary font-bold mt-2">$ {s.price.toFixed(2)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Sabor */}
+              {orderData.size && (
+                <div id="section-caseirinhos-flavor" className="animate-in fade-in slide-in-from-top-8 duration-700 pt-8">
+                  <h3 className="text-xl font-serif text-primary mb-6 border-b border-brand-border pb-2">2. {isEn ? "Choose Flavor" : "Escolha o Sabor"}</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {CASEIRINHOS_FLAVORS.map(f => (
+                      <div
+                        key={f}
+                        onClick={() => updateOrder("flavor", f, "section-notes")}
+                        className={`p-4 rounded-xl border-2 cursor-pointer text-center transition-all ${
+                          orderData.flavor === f ? "border-primary bg-blush/30 text-primary" : "border-brand-border bg-white hover:border-primary/50 text-text-dark"
+                        }`}
+                      >
+                        <div className="font-medium text-sm">{f}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* =======================
+              FALLBACK FOR OTHERS
+             ======================= */}
+          {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && category !== "mini_brownies" && category !== "caseirinhos" && (
              <div className="animate-in fade-in duration-500 text-center">
                <h2 className="text-3xl font-serif mb-8">{isEn ? "Details" : "Detalhes"}</h2>
                <textarea 
@@ -966,7 +1045,7 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
               FINAL FORM (Always at the end if flow is complete)
              ======================= */}
           {isFlowComplete() && (
-            <div className="animate-in fade-in slide-in-from-top-12 duration-1000 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t-2 border-primary/20">
+            <div id="order-final-section" className="animate-in fade-in slide-in-from-top-12 duration-1000 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t-2 border-primary/20">
               <h2 className="text-2xl sm:text-3xl font-serif mb-6 sm:mb-8 text-center text-primary">{isEn ? "FINISH ORDER" : "FINALIZAR PEDIDO"}</h2>
               
               <div className="bg-white border-2 border-brand-border rounded-2xl p-4 sm:p-6 md:p-8 shadow-md max-w-3xl mx-auto">
@@ -1040,7 +1119,21 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
                         <span className="font-semibold text-text-dark">{isEn ? "Topper:" : "Topo personalizado:"}</span> {orderData.withTopper ? (isEn ? "Yes (+$0.85/un)" : "Sim (+$0.85/un)") : (isEn ? "No" : "Não")}
                       </p>
                     )}
-                    {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && (
+                    {category === "mini_brownies" && (
+                      <p className="text-soft-text text-xs sm:text-sm">
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> Mini Brownies<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Quantity:" : "Quantidade:"}</span> {orderData.qty || MINI_BROWNIES_DATA.minQty} {isEn ? "units" : "unidades"}
+                      </p>
+                    )}
+                    {category === "caseirinhos" && (
+                      <p className="text-soft-text text-xs sm:text-sm">
+                        <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> Caseirinhos<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Size:" : "Tamanho:"}</span> {orderData.size}<br/>
+                        <span className="font-semibold text-text-dark">{isEn ? "Flavor:" : "Sabor:"}</span> {orderData.flavor}
+                      </p>
+                    )}
+                    {category !== "custom_cakes" && category !== "mini_cakes" && category !== "brigadeiros" && category !== "mini_desserts" && category !== "brazilian_sweets" && category !== "desserts" && category !== "party_packages" && category !== "cupcakes" && category !== "mini_brownies" && category !== "caseirinhos" && (
                       <p className="text-soft-text text-xs sm:text-sm">
                         <span className="font-semibold text-text-dark">{isEn ? "Product:" : "Produto:"}</span> {catInfo.name[isEn ? 'en' : 'pt']}<br/>
                         <span className="font-semibold text-text-dark">{isEn ? "Details:" : "Detalhes:"}</span> {orderData.details}
@@ -1107,6 +1200,28 @@ export function OrderBuilder({ lang, category, onClose }: OrderBuilderProps) {
 
         </div>
       </div>
+
+      {/* Sticky mobile total/summary bar */}
+      {calculateTotal() > 0 && (
+        <div className="md:hidden shrink-0 flex items-center justify-between gap-3 px-4 py-3 bg-white border-t border-brand-border shadow-[0_-4px_12px_rgba(0,0,0,0.06)] z-20">
+          <div>
+            <div className="text-[10px] uppercase tracking-wide text-soft-text">{isEn ? "Estimated Total" : "Valor Estimado"}</div>
+            <div className="text-xl font-serif text-primary font-bold">${calculateTotal()}</div>
+          </div>
+          {isFlowComplete() ? (
+            <button
+              onClick={() => document.getElementById("order-final-section")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold tracking-wide min-h-[44px]"
+            >
+              {isEn ? "Review & Send" : "Revisar e Enviar"}
+            </button>
+          ) : (
+            <span className="text-xs text-soft-text max-w-[45%] text-right">
+              {isEn ? "Keep selecting options below" : "Continue escolhendo abaixo"}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }

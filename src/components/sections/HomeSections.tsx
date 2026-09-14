@@ -6,7 +6,7 @@ import { TestimonialCarousel } from "./TestimonialCarousel";
 
 export function HeroSection({ lang, dict }: { lang: string; dict: any }) {
   return (
-    <section className="relative w-full flex items-center pt-20 pb-12 md:pt-32 md:pb-24 bg-off-white text-text-dark overflow-hidden">
+    <section className="relative w-full flex items-center pt-24 sm:pt-28 md:pt-32 pb-12 md:pb-24 bg-off-white text-text-dark overflow-hidden">
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         
         <div className="w-full md:w-1/2 flex flex-col items-start pt-4 md:pt-0">
@@ -103,8 +103,9 @@ export function CategoriesSection({ lang, dict }: { lang: string; dict: any }) {
                     cat.key === "brazilianDesserts" ? "/Imagens/BEM%20CASADO.jpeg" :
                     "/Imagens/KIT%20FESTA.jpeg"
                   } 
-                  alt={dict.home.categories[cat.key].title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                  alt={dict.home.categories[cat.key].title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
               </div>

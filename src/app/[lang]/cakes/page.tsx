@@ -35,10 +35,11 @@ export default async function CakesPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-16 sm:mb-24 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
         <div>
           <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl max-w-md mx-auto lg:max-w-none">
-            <img 
-              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop" 
-              alt="Custom Cake" 
+            <img
+              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop"
+              alt="Custom Cake"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         </div>

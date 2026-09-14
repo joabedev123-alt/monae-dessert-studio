@@ -20,10 +20,11 @@ export default async function SweetsPage({
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-text-dark mb-4 sm:mb-6">{title}</h1>
         <p className="text-soft-text font-sans text-base sm:text-lg md:text-xl mb-8 sm:mb-12">{desc}</p>
         <div className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden shadow-md">
-          <img 
-            src="/Imagens/docinho.jpeg" 
-            alt="Brigadeiros e Doces" 
+          <img
+            src="/Imagens/docinho.jpeg"
+            alt="Brigadeiros e Doces"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
       </div>
@@ -64,6 +65,9 @@ export default async function SweetsPage({
             <li>• Dark Chocolate</li>
             <li>• Passion Fruit</li>
             <li>• Lemon</li>
+            <li>• Toasted Coconut</li>
+            <li>• Oreo</li>
+            <li>• Romeo & Juliet</li>
           </ul>
           
           <div className="mt-8 sm:mt-10 pt-6 border-t border-brand-border/20">

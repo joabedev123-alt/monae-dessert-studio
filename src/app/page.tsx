@@ -29,7 +29,7 @@ export default function LanguageSelectionPage() {
             className="w-[120px] h-auto object-contain mb-4"
             priority
           />
-          <h1 className="font-script text-6xl text-primary tracking-wider">
+          <h1 className="font-script text-5xl sm:text-6xl text-primary tracking-wider">
             Monae
           </h1>
         </div>

@@ -6,7 +6,9 @@ export type ProductCategory =
   | "brazilian_sweets"
   | "desserts"
   | "party_packages"
-  | "cupcakes";
+  | "cupcakes"
+  | "mini_brownies"
+  | "caseirinhos";
 
 export interface ProductInfo {
   id: ProductCategory;
@@ -69,6 +71,18 @@ export const CATEGORIES: ProductInfo[] = [
     name: { en: "Cupcakes", pt: "Cupcakes" },
     description: { en: "Handcrafted cupcakes, made to order", pt: "Cupcakes artesanais, feitos por encomenda" },
     image: "/Imagens/cupcakes.jpeg",
+  },
+  {
+    id: "mini_brownies",
+    name: { en: "Mini Brownies", pt: "Mini Brownies" },
+    description: { en: "$150 per 100, six indulgent flavors", pt: "$150 o cento, seis sabores irresistíveis" },
+    image: "/Imagens/Mini%20brownie.jpeg",
+  },
+  {
+    id: "caseirinhos",
+    name: { en: "Caseirinhos", pt: "Caseirinhos" },
+    description: { en: "Homemade-style cakes, mini or large", pt: "Bolos caseiros, no tamanho mini ou grande" },
+    image: "/Imagens/bolos%20morango/caseirinho.jpeg",
   },
 ];
 
@@ -137,7 +151,7 @@ export const CAKE_ADDONS = [
 // --- BRIGADEIROS DATA ---
 export const BRIGADEIRO_FLAVORS = {
   tradicionais: ["Brigadeiro", "Branquinho", "Casadinho", "Ninho", "Beijinho", "Bicho de pé", "Casadinho de morango"],
-  especiais: ["Ao leite Belga", "Branco", "Morangutella", "Amendoim", "Confete", "Churros", "M. amargo", "Maracujá", "Limão"]
+  especiais: ["Ao leite Belga", "Branco", "Morangutella", "Amendoim", "Confete", "Churros", "M. amargo", "Maracujá", "Limão", "Coco queimado", "Oreo", "Romeu e Julieta"]
 };
 
 export const BRIGADEIRO_TIERS = {
@@ -198,11 +212,11 @@ export const DESSERTS_DATA = [
   },
   { 
     id: "bombom", 
-    name: { pt: "Bombom na travessa", en: "Chocolate Truffle Bowl" }, 
-    desc: { pt: "Uma travessa inteira de pura alegria e cremosidade.", en: "A whole bowl of pure joy and creaminess." }, 
-    serves: { pt: "Serve até 15 porções (serve até 12 pessoas)", en: "Serves up to 15 portions (serves up to 12 people)" }, 
-    validity: { pt: "Validade: sem frutas, até 4 dias refrigerado. Com frutas, consumo imediato.", en: "Shelf life: 4 days refrigerated without fruits. With fruits, consume immediately." }, 
-    price: 70,
+    name: { pt: "Sobremesa de travessa", en: "Dessert Tray" },
+    desc: { pt: "Uma travessa inteira de pura alegria e cremosidade.", en: "A whole bowl of pure joy and creaminess." },
+    serves: { pt: "Serve até 6 pessoas", en: "Serves up to 6 people" },
+    validity: { pt: "Validade: sem frutas, até 4 dias refrigerado. Com frutas, consumo imediato.", en: "Shelf life: 4 days refrigerated without fruits. With fruits, consume immediately." },
+    price: 35,
     flavors: [
       { name: "Napolitano", desc: { pt: "Brigadeiro ao leite, creme de ninho e morangos frescos.", en: "Milk brigadeiro, Ninho cream and fresh strawberries." } },
       { name: "Bombom de uva", desc: { pt: "Uvas frescas com brigadeiro cremoso.", en: "Fresh grapes with creamy brigadeiro." } },
@@ -212,13 +226,19 @@ export const DESSERTS_DATA = [
       { name: "Travessa de limão", desc: { pt: "Mousse de limão siciliano com chantilly e raspas.", en: "Sicilian lemon mousse with whipped cream and zest." } },
     ]
   },
-  { 
-    id: "banoffee", 
-    name: { pt: "Banoffee", en: "Banoffee" }, 
-    desc: { pt: "Biscoito crocante, bananas frescas, doce de leite e chantilly leve.", en: "Crunchy cookie base, fresh bananas, dulce de leche and light whipped cream." }, 
-    serves: { pt: "Rende 12 fatias", en: "Serves 12 slices" }, 
-    validity: { pt: "Validade: 3 dias na geladeira", en: "Shelf life: 3 days in fridge" }, 
-    price: 70 
+  {
+    id: "tortas",
+    name: { pt: "Tortas", en: "Pies" },
+    desc: { pt: "Torta artesanal gelada, cremosa e cheia de sabor.", en: "Chilled handcrafted pie, creamy and full of flavor." },
+    serves: { pt: "Rende 12 fatias", en: "Serves 12 slices" },
+    validity: { pt: "Validade: 3 dias na geladeira", en: "Shelf life: 3 days in fridge" },
+    price: 70,
+    flavors: [
+      { name: "Banoffee", desc: { pt: "Biscoito crocante, banana fresca, doce de leite e chantilly leve.", en: "Crunchy cookie base, fresh banana, dulce de leche and light whipped cream." } },
+      { name: "Limão", desc: { pt: "Base crocante, creme de limão siciliano e chantilly.", en: "Crunchy base, Sicilian lemon cream and whipped cream." } },
+      { name: "Creme e framboesa", desc: { pt: "Creme de confeiteiro com framboesas frescas.", en: "Pastry cream with fresh raspberries." } },
+      { name: "Prestígio", desc: { pt: "Cocada cremosa e ganache de chocolate meio amargo.", en: "Creamy coconut and dark chocolate ganache." } },
+    ]
   }
 ];
 
@@ -255,3 +275,18 @@ export const CUPCAKES_DATA = {
   topperPrice: 0.85,
   minQty: 12,
 };
+
+// --- MINI BROWNIES DATA ---
+export const MINI_BROWNIES_DATA = {
+  flavors: ["Ninho c/ Nutella", "Morango c/ Nutella", "Brigadeiro", "Chocolate", "Oreo", "Doce de leite"],
+  pricePerHundred: 150,
+  minQty: 100,
+};
+
+// --- CASEIRINHOS DATA ---
+export const CASEIRINHOS_SIZES = [
+  { id: "mini", label: { en: "Mini", pt: "Mini" }, price: 18 },
+  { id: "large", label: { en: "Large", pt: "Grande" }, price: 40 },
+];
+
+export const CASEIRINHOS_FLAVORS = ["Laranja", "Chocolate", "Cenoura", "Banana", "Limão", "Fubá com goiabada"];

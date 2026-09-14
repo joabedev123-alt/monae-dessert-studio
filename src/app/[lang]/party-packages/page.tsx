@@ -39,7 +39,7 @@ export default async function PartyPackagesPage({
 
         <div className="bg-white p-5 sm:p-8 md:p-12 rounded-2xl shadow-sm border border-brand-border/30 md:col-span-2 flex flex-col md:flex-row gap-6 sm:gap-8 items-center">
           <div className="w-full md:w-1/2 aspect-video relative rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1550983577-9069d30da644?q=80&w=1000&auto=format&fit=crop" alt="Celebration Package" className="w-full h-full object-cover" />
+            <img src="https://images.unsplash.com/photo-1550983577-9069d30da644?q=80&w=1000&auto=format&fit=crop" alt="Celebration Package" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div className="w-full md:w-1/2">
             <h2 className="text-xl sm:text-2xl font-serif text-primary mb-2">Celebration / Monthly Baby</h2>

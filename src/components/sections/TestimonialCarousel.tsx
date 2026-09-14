@@ -30,20 +30,20 @@ export function TestimonialCarousel({ dict }: { dict: any }) {
 
   return (
     <section className="w-full bg-cream py-16 md:py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl md:text-5xl font-serif text-text-dark mb-4">{dict.home.testimonials.title}</h2>
           <p className="text-primary font-script text-2xl md:text-3xl tracking-widest">{dict.home.testimonials.subheadline}</p>
         </div>
 
         <div 
           ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar scroll-smooth"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 sm:pb-8 hide-scrollbar scroll-smooth"
         >
           {dict.home.testimonials.reviews.map((review: any, i: number) => (
-            <div key={i} className="snap-center shrink-0 w-full md:w-[calc(33.333%-16px)] bg-white p-8 rounded-[2rem] shadow-sm border border-brand-border/20 flex flex-col justify-between">
+            <div key={i} className="snap-center shrink-0 w-full md:w-[calc(33.333%-16px)] bg-white p-5 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-sm border border-brand-border/20 flex flex-col justify-between">
               <div>
-                <div className="text-6xl text-primary font-serif mb-2 opacity-20">"</div>
+                <div className="text-5xl sm:text-6xl text-primary font-serif mb-2 opacity-20">"</div>
                 <p className="text-lg font-serif text-text-dark leading-relaxed italic mb-6">
                   {review.text}
                 </p>
